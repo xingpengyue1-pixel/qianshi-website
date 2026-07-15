@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000" role="img" aria-label="抖音直播矩阵示意">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F4F2EC"></stop>
+      <stop offset="1" stop-color="#EAE7DE"></stop>
+    </linearGradient>
+    <linearGradient id="grn" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3E8470"></stop>
+      <stop offset="1" stop-color="#225A4B"></stop>
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1F4A40"></stop>
+      <stop offset="1" stop-color="#0F2D27"></stop>
+    </linearGradient>
+    <filter id="sh" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="26" flood-color="#16150F" flood-opacity="0.18"></feDropShadow>
+    </filter>
+  </defs>
+
+  <rect width="800" height="1000" fill="url(#bg)"></rect>
+
+  <g fill="none" stroke="#1F3A5F" stroke-opacity="0.18" stroke-width="2">
+    <path d="M400 120 m-150 0 a150 150 0 0 1 300 0"></path>
+    <path d="M400 120 m-220 0 a220 220 0 0 1 440 0"></path>
+    <path d="M400 120 m-290 0 a290 290 0 0 1 580 0"></path>
+  </g>
+
+  <g opacity="0.5">
+    <rect x="70" y="230" width="118" height="210" rx="20" fill="none" stroke="#1F3A5F" stroke-opacity="0.35" stroke-width="2"></rect>
+    <rect x="612" y="230" width="118" height="210" rx="20" fill="none" stroke="#1F3A5F" stroke-opacity="0.35" stroke-width="2"></rect>
+    <rect x="60" y="500" width="118" height="210" rx="20" fill="none" stroke="#1F3A5F" stroke-opacity="0.28" stroke-width="2"></rect>
+    <rect x="622" y="500" width="118" height="210" rx="20" fill="none" stroke="#1F3A5F" stroke-opacity="0.28" stroke-width="2"></rect>
+    <rect x="96" y="760" width="118" height="160" rx="20" fill="none" stroke="#1F3A5F" stroke-opacity="0.2" stroke-width="2"></rect>
+    <rect x="586" y="760" width="118" height="160" rx="20" fill="none" stroke="#1F3A5F" stroke-opacity="0.2" stroke-width="2"></rect>
+  </g>
+  <g fill="#1F3A5F" opacity="0.16">
+    <circle cx="129" cy="270" r="5"></circle><circle cx="671" cy="270" r="5"></circle>
+    <circle cx="119" cy="540" r="5"></circle><circle cx="681" cy="540" r="5"></circle>
+  </g>
+
+  <g filter="url(#sh)">
+    <rect x="262" y="232" width="276" height="540" rx="42" fill="#16150F"></rect>
+    <rect x="276" y="246" width="248" height="512" rx="32" fill="url(#screen)"></rect>
+  </g>
+
+  <g>
+    <rect x="298" y="276" width="104" height="34" rx="17" fill="#E25A4A"></rect>
+    <circle cx="318" cy="293" r="6" fill="#fff"></circle>
+    <text x="332" y="298" font-family="'Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#fff">直播中</text>
+    <rect x="416" y="276" width="92" height="34" rx="17" fill="#16150F" fill-opacity="0.45"></rect>
+    <text x="430" y="298" font-family="'Noto Sans SC',sans-serif" font-size="15" fill="#EDEBE4">1.2万在看</text>
+  </g>
+
+  <g>
+    <circle cx="400" cy="470" r="52" fill="#3E8470"></circle>
+    <circle cx="400" cy="452" r="26" fill="#EAF3EF"></circle>
+    <path d="M360 512 a40 40 0 0 1 80 0 z" fill="#EAF3EF"></path>
+  </g>
+
+  <g fill="#E25A4A" opacity="0.9">
+    <path d="M486 430 c-6-10-22-8-22 4 c0 9 22 22 22 22 c0 0 22-13 22-22 c0-12-16-14-22-4z" opacity="0.85"></path>
+    <path d="M470 372 c-4-7-15-6-15 3 c0 6 15 15 15 15 c0 0 15-9 15-15 c0-9-11-10-15-3z" opacity="0.6"></path>
+    <path d="M498 392 c-3-5-11-4-11 2 c0 5 11 11 11 11 c0 0 11-6 11-11 c0-6-8-7-11-2z" opacity="0.45"></path>
+  </g>
+
+  <g>
+    <rect x="298" y="612" width="204" height="112" rx="18" fill="#FBFAF6"></rect>
+    <rect x="314" y="628" width="58" height="58" rx="12" fill="url(#grn)"></rect>
+    <path d="M329 657 h28 M343 643 v28" stroke="#fff" stroke-width="4" stroke-linecap="round"></path>
+    <text x="386" y="650" font-family="'Noto Sans SC',sans-serif" font-size="17" font-weight="600" fill="#16150F">5G 畅享套餐</text>
+    <text x="386" y="676" font-family="'Noto Sans SC',sans-serif" font-size="15" fill="#1F3A5F" font-weight="700">¥99 / 月 · 限时</text>
+    <rect x="386" y="688" width="96" height="22" rx="11" fill="#E25A4A"></rect>
+    <text x="402" y="704" font-family="'Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#fff">立即办理</text>
+  </g>
+</svg>
