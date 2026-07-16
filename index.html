@@ -17,7 +17,6 @@
   h1,h2{text-wrap:balance}
   h3,p,li{text-wrap:pretty}
   ::selection{background:#1F3A5F;color:#fff}
-  .wrap{max-width:1280px;margin:0 auto;padding-left:48px;padding-right:48px}
 
   @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
   @keyframes lineGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
@@ -25,7 +24,6 @@
   @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
   @keyframes liveBlink{0%,100%{opacity:1}50%{opacity:.35}}
 
-  /* ---------- header ---------- */
   .site-header{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:saturate(140%) blur(14px);-webkit-backdrop-filter:saturate(140%) blur(14px);background:rgba(245,244,241,0.78);border-bottom:1px solid rgba(28,27,24,0.08)}
   .site-nav{max-width:1280px;margin:0 auto;padding:0 48px;height:72px;display:flex;align-items:center;justify-content:space-between}
   .brand{display:flex;align-items:center;gap:11px}
@@ -35,6 +33,7 @@
   .nav-links{display:flex;align-items:center;gap:38px}
   .nav-link{font-size:15px;color:#3A3935;transition:color .2s}
   .nav-link:hover{color:#1F3A5F}
+  .nav-link.active{color:#1F3A5F;font-weight:500}
   .nav-cta{font-size:15px;font-weight:500;color:#fff;background:#1C1B18;padding:10px 22px;border-radius:999px;transition:background .25s}
   .nav-cta:hover{background:#1F3A5F}
   .menu-btn{display:none;background:none;border:none;cursor:pointer;padding:8px}
@@ -44,500 +43,354 @@
   .mobile-menu a{font-size:17px;padding:12px 0;border-bottom:1px solid rgba(28,27,24,0.06)}
   .mobile-menu a:last-child{border-bottom:none;padding:14px 0;color:#1F3A5F;font-weight:500}
 
-  /* ---------- shared ---------- */
-  .kicker{display:flex;align-items:center;gap:14px;margin-bottom:24px}
-  .kicker .line{width:28px;height:1px;background:#1F3A5F}
-  .kicker .txt{font-size:13px;letter-spacing:0.14em;color:#1F3A5F;font-weight:500}
   [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1)}
   [data-reveal].revealed{opacity:1;transform:none}
-  .arrow-link{display:inline-flex;align-items:center;gap:7px;font-size:15px;color:#1F3A5F;font-weight:500}
-
-  /* ---------- hero ---------- */
-  .hero{padding-top:184px;padding-bottom:100px;display:grid;grid-template-columns:1.36fr 0.64fr;gap:72px;align-items:center}
-  .hero .kicker{margin-bottom:34px;animation:fadeUp .8s .05s both}
-  .hero .kicker .line{width:34px;transform-origin:left;animation:lineGrow .9s .2s both}
-  .hero h1{font-family:'Noto Serif SC',serif;font-weight:600;font-size:clamp(34px,4vw,54px);line-height:1.26;color:#16150F;animation:fadeUp .9s .12s both}
-  .hero h1 span{display:block}
-  .hero .lede{margin-top:32px;font-size:18px;line-height:1.9;color:#57564F;max-width:560px;font-weight:300;animation:fadeUp .9s .22s both}
-  .hero .motto{margin-top:36px;display:inline-flex;align-items:center;gap:12px;padding:13px 20px;background:#FBFAF8;border:1px solid rgba(28,27,24,0.1);border-radius:10px;animation:fadeUp .9s .28s both}
-  .hero .motto .dot{width:7px;height:7px;border-radius:50%;background:#1F3A5F;flex:none}
-  .hero .motto span:last-child{font-size:14.5px;color:#46453E}
-  .hero .btns{margin-top:36px;display:flex;gap:16px;flex-wrap:wrap;animation:fadeUp .9s .34s both}
-  .btn-dark{font-size:16px;font-weight:500;color:#fff;background:#1C1B18;padding:15px 32px;border-radius:999px;transition:transform .25s,box-shadow .25s}
+  .btn-dark{font-size:16px;font-weight:500;color:#fff;background:#1C1B18;padding:15px 32px;border-radius:999px;transition:transform .25s,box-shadow .25s;display:inline-block}
   .btn-dark:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(28,27,24,0.18)}
-  .btn-ghost{font-size:16px;font-weight:500;color:#1C1B18;background:transparent;padding:15px 30px;border-radius:999px;border:1px solid rgba(28,27,24,0.22);transition:border-color .25s,color .25s}
-  .btn-ghost:hover{border-color:#1F3A5F;color:#1F3A5F}
-  .hero-visual{position:relative;animation:fadeUp 1s .4s both}
-  .hero-rings{position:absolute;top:-7%;left:50%;width:128%;aspect-ratio:1;transform:translateX(-50%);z-index:0;pointer-events:none;display:grid;place-items:center}
-  .hero-rings span{position:absolute;width:62%;aspect-ratio:1;border-radius:50%;border:1px solid rgba(31,58,95,0.32);animation:sigPulse 4.4s ease-out infinite}
-  .hero-rings span:nth-child(2){border-color:rgba(31,58,95,0.28);animation-delay:1.46s}
-  .hero-rings span:nth-child(3){border-color:rgba(31,58,95,0.24);animation-delay:2.93s}
-  .hero-img{position:relative;z-index:1;aspect-ratio:4/5;border-radius:16px;overflow:hidden;border:1px solid rgba(28,27,24,0.1);box-shadow:0 34px 70px -28px rgba(22,21,15,0.42),0 8px 24px -16px rgba(22,21,15,0.3)}
-  .hero-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .65s cubic-bezier(.2,.6,.2,1)}
-  .hero-img:hover img{transform:scale(1.045)}
-  .chip-live{position:absolute;z-index:2;left:-34px;bottom:46px;display:flex;align-items:center;gap:13px;padding:14px 20px 14px 16px;background:rgba(251,250,248,0.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(28,27,24,0.08);border-radius:14px;box-shadow:0 18px 40px -18px rgba(22,21,15,0.34);animation:floaty 6s ease-in-out infinite}
-  .chip-live .red{width:11px;height:11px;border-radius:50%;background:#E25A4A;flex:none;animation:liveBlink 1.8s ease-in-out infinite}
-  .chip-live .l1{font-size:13px;color:#8A887F;line-height:1.2}
-  .chip-live .l2{margin-top:3px;font-size:19px;font-weight:600;color:#16150F;line-height:1.1}
-  .chip-live .l2 .plus{color:#1F3A5F}
-  .chip-live .l2 small{font-size:13px;font-weight:400;color:#6E6C64}
-  .chip-leads{position:absolute;z-index:2;right:-26px;top:38px;display:flex;align-items:center;gap:10px;padding:12px 18px;background:#16150F;border-radius:13px;box-shadow:0 18px 40px -18px rgba(22,21,15,0.5);animation:floaty 6s ease-in-out 1.2s infinite}
-  .chip-leads .num{font-size:24px;font-weight:600;color:#FBFAF6;font-family:'Noto Serif SC',serif;line-height:1}
-  .chip-leads .num small{font-size:14px;color:#F97316}
-  .chip-leads .cap{font-size:12.5px;color:#A9BAD1;line-height:1.35}
+  .btn-outline{font-size:16px;font-weight:500;color:#1C1B18;background:transparent;padding:15px 30px;border-radius:999px;border:1px solid rgba(28,27,24,0.22);transition:border-color .25s,color .25s;display:inline-block}
+  .btn-outline:hover{border-color:#1F3A5F;color:#1F3A5F}
+  .arrow-link{display:inline-flex;align-items:center;gap:7px;font-size:15px;color:#1F3A5F;font-weight:500}
+  .flink{font-size:15px;color:#C9C7BD;transition:color .2s}
+  .flink:hover{color:#7C9CC4}
 
-  /* ---------- stats band ---------- */
-  .stats-band{border-top:1px solid rgba(28,27,24,0.08);border-bottom:1px solid rgba(28,27,24,0.08);background:#FBFAF8}
-  .stats-grid{max-width:1280px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:repeat(4,1fr)}
-  .stat-cell{padding:56px 36px;border-right:1px solid rgba(28,27,24,0.08)}
-  .stat-cell:first-child{padding-left:0}
-  .stat-cell:last-child{padding-right:0;border-right:none}
-  .stat-num{font-size:48px;font-weight:300;letter-spacing:-0.01em;color:#16150F}
-  .stat-num .plus{color:#1F3A5F}
-  .stat-num .unit{font-size:30px;color:#6E6C64}
-  .stat-num .hot{font-size:30px;color:#F97316}
-  .stat-cap{margin-top:10px;font-size:15px;color:#6E6C64}
-
-  /* ---------- value chain ---------- */
-  .chain{padding-top:140px;padding-bottom:140px}
-  .chain-head{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:72px}
-  .chain-head h2{font-family:'Noto Serif SC',serif;font-weight:600;font-size:42px;line-height:1.34;color:#16150F}
-  .chain-head p{font-size:17px;line-height:1.95;color:#57564F;font-weight:300;padding-bottom:6px}
-  .chain-grid{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid rgba(28,27,24,0.12)}
-  .chain-grid>div{padding:42px 28px;border-right:1px solid rgba(28,27,24,0.1);transition:background .35s ease}
-  .chain-grid>div:first-child{padding-left:0}
-  .chain-grid>div:last-child{padding-right:0;border-right:none}
-  .chain-grid>div:hover{background:rgba(31,58,95,0.05)}
-  .chain-grid .num{font-size:13px;color:#F97316;font-weight:600;letter-spacing:0.1em}
-  .chain-grid h3{margin-top:18px;font-size:19px;font-weight:500;color:#16150F}
-  .chain-grid p{margin-top:13px;font-size:14.5px;line-height:1.85;color:#57564F;font-weight:300}
-  .chain .arrow-link{margin-top:44px}
-
-  /* ---------- moat ---------- */
-  .moat{background:radial-gradient(125% 120% at 100% 0%,rgba(31,58,95,0.22),rgba(22,21,15,0) 56%),#16150F;color:#EDEBE4}
-  .moat-inner{max-width:1280px;margin:0 auto;padding:140px 48px}
-  .moat .kicker .txt{color:#7C9CC4}
-  .moat-head{max-width:760px;margin-bottom:80px}
-  .moat-head h2{font-family:'Noto Serif SC',serif;font-weight:600;font-size:42px;line-height:1.34;color:#FBFAF6}
-  .moat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.1)}
-  .moat-grid>div{background:#16150F;padding:48px 44px;transition:background .35s ease}
-  .moat-grid>div:hover{background:#221F15}
-  .moat-grid .idx{font-size:13px;color:#7C9CC4;font-weight:500;letter-spacing:0.1em}
-  .moat-grid h3{margin-top:20px;font-size:22px;font-weight:500;color:#FBFAF6}
-  .moat-grid p{margin-top:14px;font-size:15px;line-height:1.85;color:#9A988E;font-weight:300}
-
-  /* ---------- cases ---------- */
-  .cases{padding-top:140px;padding-bottom:140px}
-  .cases h2{font-family:'Noto Serif SC',serif;font-weight:600;font-size:42px;line-height:1.34;color:#16150F;max-width:760px;margin-bottom:64px}
-  .case-feature{display:grid;grid-template-columns:0.92fr 1.08fr;border:1px solid rgba(28,27,24,0.12);border-radius:8px;overflow:hidden;background:#FBFAF8}
-  .case-img{position:relative;min-height:380px;background:#EFEDE5;border-right:1px solid rgba(28,27,24,0.1);overflow:hidden}
-  .case-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .65s cubic-bezier(.2,.6,.2,1)}
-  .case-img:hover img{transform:scale(1.045)}
-  .case-body{padding:56px;display:flex;flex-direction:column;justify-content:center}
-  .case-tag{font-size:13px;color:#1F3A5F;font-weight:500;letter-spacing:0.12em;margin-bottom:20px}
-  .case-nums{display:flex;align-items:baseline;gap:14px;margin-bottom:26px}
-  .case-nums .big{font-size:56px;font-weight:300;color:#1F3A5F;line-height:1}
-  .case-nums .big small{font-size:28px;color:#F97316}
-  .case-nums .cap{font-size:15px;color:#6E6C64}
-  .case-body blockquote{font-family:'Noto Serif SC',serif;font-size:22px;line-height:1.7;color:#2A281F;font-weight:400}
-  .case-note{margin-top:28px;font-size:14.5px;color:#8A887F}
-  .case-grid{margin-top:48px;display:grid;grid-template-columns:repeat(3,1fr);border:1px solid rgba(28,27,24,0.12);border-radius:8px;overflow:hidden}
-  .case-grid>div{background:#fff;padding:38px;border-right:1px solid rgba(28,27,24,0.1);transition:background .35s ease}
-  .case-grid>div:last-child{border-right:none}
-  .case-grid>div:hover{background:#FBFAF8}
-  .case-grid .tag{font-size:13px;color:#A4A299;font-weight:500;letter-spacing:0.1em}
-  .case-grid h3{margin-top:16px;font-size:20px;font-weight:500;color:#16150F}
-  .case-grid p{margin-top:14px;font-size:14.5px;line-height:1.85;color:#57564F;font-weight:300}
-
-  /* ---------- team ---------- */
-  .team-band{border-top:1px solid rgba(28,27,24,0.08);background:#FBFAF8}
-  .team{max-width:1280px;margin:0 auto;padding:140px 48px;display:grid;grid-template-columns:0.85fr 1.15fr;gap:72px}
-  .team h2{font-family:'Noto Serif SC',serif;font-weight:600;font-size:38px;line-height:1.38;color:#16150F}
-  .team .body{margin-top:26px;font-size:16.5px;line-height:1.95;color:#57564F;font-weight:300}
-  .team .arrow-link{margin-top:30px}
-  .founder-card{display:grid;grid-template-columns:120px 1fr;gap:28px;align-items:center;background:#fff;border:1px solid rgba(28,27,24,0.1);border-radius:14px;padding:34px 36px}
-  .founder-card img{width:100%;aspect-ratio:1;border-radius:50%;display:block}
-  .founder-card .name{font-size:20px;font-weight:600;color:#16150F}
-  .founder-card .role{margin-top:5px;font-size:14px;color:#1F3A5F;font-weight:500}
-  .founder-card .bio{margin-top:12px;font-size:14.5px;line-height:1.8;color:#57564F;font-weight:300}
-  .team-facts{margin-top:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(28,27,24,0.1);border:1px solid rgba(28,27,24,0.1);border-radius:12px;overflow:hidden}
-  .team-facts>div{background:#fff;padding:22px 18px}
-  .team-facts .k{font-size:13px;color:#8A887F}
-  .team-facts .v{margin-top:6px;font-size:17px;font-weight:500;color:#16150F}
-  .team-side{align-self:center}
-
-  /* ---------- values ---------- */
-  .values{padding-top:150px;padding-bottom:150px}
-  .values-head{text-align:center}
-  .values-head .kicker{display:inline-flex;margin-bottom:30px}
-  .values-head .motto{font-family:'Noto Serif SC',serif;font-weight:500;font-size:34px;line-height:1.6;color:#16150F}
-  .values-head .sub{margin-top:18px;font-size:16.5px;line-height:1.9;color:#57564F;font-weight:300;max-width:640px;margin-left:auto;margin-right:auto}
-  .values-grid{margin-top:64px;display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(28,27,24,0.1);border:1px solid rgba(28,27,24,0.1);border-radius:12px;overflow:hidden}
-  .values-grid>div{background:#FBFAF8;padding:30px 26px}
-  .values-grid .zi{font-size:19px;font-weight:600;color:#1F3A5F}
-  .values-grid p{margin-top:12px;font-size:14px;line-height:1.8;color:#57564F;font-weight:300}
-  .values .more{margin-top:42px;text-align:center}
-
-  /* ---------- CTA ---------- */
-  .cta-band{border-top:1px solid rgba(28,27,24,0.08);background:#FBFAF8}
-  .cta{max-width:1280px;margin:0 auto;padding:130px 48px;text-align:center}
-  .cta h2{font-family:'Noto Serif SC',serif;font-weight:600;font-size:46px;line-height:1.34;color:#16150F}
-  .cta p{margin-top:26px;font-size:18px;color:#57564F;font-weight:300}
-  .cta .btns{margin-top:40px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
-
-  /* ---------- footer ---------- */
-  .site-footer{background:radial-gradient(110% 130% at 0% 0%,rgba(31,58,95,0.18),rgba(22,21,15,0) 52%),#16150F;color:#C9C7BD}
-  .footer-inner{max-width:1280px;margin:0 auto;padding:80px 48px 0}
-  .footer-cols{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:48px;padding-bottom:64px}
-  .footer-brand{display:flex;align-items:center;gap:11px;margin-bottom:22px}
-  .footer-brand img{width:24px;height:24px;display:block}
-  .footer-brand span{font-size:19px;font-weight:700;color:#FBFAF6;letter-spacing:0.04em}
-  .footer-about{font-size:15px;line-height:1.85;color:#8E8C82;font-weight:300;max-width:320px}
-  .footer-col .h{font-size:13px;letter-spacing:0.14em;color:#6C6A60;margin-bottom:22px}
-  .footer-col .links{display:flex;flex-direction:column;gap:14px}
-  .footer-col .links a{font-size:15px;color:#C9C7BD;transition:color .2s}
-  .footer-col .links a:hover{color:#7C9CC4}
-  .footer-col .links .muted{font-size:15px;color:#8E8C82}
-  .footer-col .links .hl{color:#7C9CC4;font-weight:500}
-  .footer-bar{border-top:1px solid rgba(255,255,255,0.1);padding:28px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-  .footer-bar span{font-size:13.5px;color:#6C6A60}
-
+  [data-moat-grid]>div{transition:background .35s ease}
+  [data-moat-grid]>div:hover{background:#221F15 !important}
+  [data-prod-grid]>div{transition:background .35s ease}
+  [data-prod-grid]>div:hover{background:rgba(31,58,95,0.05)}
+  [data-case-grid]>div{transition:background .35s ease}
+  [data-case-grid]>div:hover{background:#FBFAF8 !important}
+  [data-zoom]{overflow:hidden}
+  [data-zoom] img{transition:transform .65s cubic-bezier(.2,.6,.2,1)}
+  [data-zoom]:hover img{transform:scale(1.045)}
   @media(max-width:900px){
     .nav-links{display:none}
     .menu-btn{display:block}
-    section,.moat-inner,.team,.cta,.stats-grid,.footer-inner{padding-left:24px !important;padding-right:24px !important}
-    .hero{grid-template-columns:1fr;gap:48px}
-    .hero h1{font-size:34px !important}
-    .hero-visual,.hero-rings,.chip-live,.chip-leads{display:none}
-    .stats-grid{grid-template-columns:1fr 1fr}
-    .stat-cell{padding:32px 20px !important;border-right:none !important;border-bottom:1px solid rgba(28,27,24,0.08)}
-    .chain-head{grid-template-columns:1fr}
-    .chain-grid{grid-template-columns:1fr}
-    .chain-grid>div{border-right:none;padding:34px 0;border-bottom:1px solid rgba(28,27,24,0.08)}
-    .moat-grid{grid-template-columns:1fr}
-    .case-feature{grid-template-columns:1fr}
-    .case-img{border-right:none;border-bottom:1px solid rgba(28,27,24,0.1)}
-    .case-body{padding:36px 28px}
-    .case-grid{grid-template-columns:1fr}
-    .case-grid>div{border-right:none;border-bottom:1px solid rgba(28,27,24,0.1)}
-    .case-grid>div:last-child{border-bottom:none}
-    .team{grid-template-columns:1fr;gap:48px}
-    .values-grid{grid-template-columns:1fr 1fr}
-    .footer-cols{grid-template-columns:1fr;gap:36px}
+    .mobile-menu{padding-left:24px;padding-right:24px}
+    section{padding-left:24px !important;padding-right:24px !important}
+    section[id]{grid-template-columns:1fr !important}
+    #top h1{font-size:34px !important}
+    [data-hero-chip]{display:none !important}
+    [data-hero-rings]{display:none !important}
+    [data-prod-grid]{grid-template-columns:1fr !important}
+    [data-prod-grid]>div{border-right:none !important;padding:34px 0 !important;border-bottom:1px solid rgba(28,27,24,0.08)}
+    [data-stats-band]{grid-template-columns:1fr 1fr !important}
+    [data-stats-band]>div{padding:32px 16px !important;border-right:none !important}
+    [data-case-grid]{grid-template-columns:1fr !important}
+    [data-case-grid]>div{border-right:none !important;border-bottom:1px solid rgba(28,27,24,0.1)}
+    [data-case-hero]{grid-template-columns:1fr !important}
+    [data-team-grid]{grid-template-columns:1fr !important}
+    [data-footer-grid]{grid-template-columns:1fr !important}
   }
 </style>
 </head>
 <body>
 
+<header class="site-header">
+  <nav class="site-nav">
+    <a href="index.html" class="brand">
+      <img src="images/logo-mark.svg" alt="潜势标志">
+      <span class="brand-name">潜势<em>科技</em></span>
+    </a>
+    <div class="nav-links">
+      <a href="products.html" class="nav-link">业务与服务</a>
+      <a href="#moat" class="nav-link">核心优势</a>
+      <a href="#cases" class="nav-link">客户案例</a>
+      <a href="about.html" class="nav-link">关于我们</a>
+      <a href="contact.html" class="nav-cta">联系我们</a>
+    </div>
+    <button class="menu-btn" aria-label="菜单" aria-expanded="false" id="menuBtn"><span></span><span></span></button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="products.html">业务与服务</a>
+    <a href="#moat">核心优势</a>
+    <a href="#cases">客户案例</a>
+    <a href="about.html">关于我们</a>
+    <a href="contact.html">联系我们 →</a>
+  </div>
+</header>
+
 <div style="min-height:100vh">
 
-  <header class="site-header">
-    <nav class="site-nav">
-      <a href="index.html" class="brand">
-        <img src="images/logo-mark.svg" alt="潜势标志">
-        <span class="brand-name">潜势<em>科技</em></span>
-      </a>
-      <div class="nav-links">
-        <a href="products.html" class="nav-link">业务与服务</a>
-        <a href="#moat" class="nav-link">核心优势</a>
-        <a href="#cases" class="nav-link">客户案例</a>
-        <a href="about.html" class="nav-link">关于我们</a>
-        <a href="contact.html" class="nav-cta">联系我们</a>
-      </div>
-      <button id="menuBtn" class="menu-btn" aria-label="菜单" aria-expanded="false">
-        <span></span><span></span>
-      </button>
-    </nav>
-    <div id="mobileMenu" class="mobile-menu">
-      <a href="products.html">业务与服务</a>
-      <a href="#moat">核心优势</a>
-      <a href="#cases">客户案例</a>
-      <a href="about.html">关于我们</a>
-      <a href="contact.html">联系我们 →</a>
-    </div>
-  </header>
-
-  <!-- 1 · Hero -->
-  <section id="top" class="wrap hero">
+  <section id="top" style="max-width:1280px;margin:0 auto;padding:184px 48px 100px;display:grid;grid-template-columns:1.36fr 0.64fr;gap:72px;align-items:center;position:relative">
     <div>
-      <div class="kicker">
-        <span class="line"></span>
-        <span class="txt">一个解决专业问题的一体化组织</span>
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:34px;animation:fadeUp .8s .05s both">
+        <span style="width:34px;height:1px;background:#1F3A5F;transform-origin:left;animation:lineGrow .9s .2s both"></span>
+        <span style="font-size:13px;letter-spacing:0.14em;color:#1F3A5F;font-weight:500">一个解决专业问题的一体化组织</span>
       </div>
-      <h1><span>把专业问题接住,</span><span>把组织能力留下。</span></h1>
-      <p class="lede">潜势面向央国企、公共机构与专业服务组织,提供新媒体运营、内容传播、经营转化、人才培养和组织咨询的一体化服务。从运营商新媒体矩阵运营起步,用六年时间把一次次交付,沉淀为可复用的系统、可持续的人才供给和可复制的组织能力。</p>
-      <div class="motto">
-        <span class="dot"></span>
-        <span>「潜心是本金,造势是复利」—— 六年运营商新媒体实战 · 1210+ 运营账号矩阵 · 六年零客诉</span>
+      <h1 style="font-family:'Noto Serif SC',serif;font-weight:600;font-size:clamp(34px,4vw,54px);line-height:1.26;color:#16150F;animation:fadeUp .9s .12s both"><span style="display:block">把专业问题接住,</span><span style="display:block">把组织能力留下。</span></h1>
+      <p style="margin-top:32px;font-size:18px;line-height:1.9;color:#57564F;max-width:560px;font-weight:300;animation:fadeUp .9s .22s both">潜势面向央国企、公共机构与专业服务组织,提供新媒体运营、内容传播、经营转化、人才培养和组织咨询的一体化服务。从运营商新媒体矩阵运营起步,用六年时间把一次次交付,沉淀为可复用的系统、可持续的人才供给和可复制的组织能力。</p>
+      <div style="margin-top:36px;display:inline-flex;align-items:center;gap:12px;padding:13px 20px;background:#FBFAF8;border:1px solid rgba(28,27,24,0.1);border-radius:10px;animation:fadeUp .9s .28s both">
+        <span style="width:7px;height:7px;border-radius:50%;background:#1F3A5F;flex:none"></span>
+        <span style="font-size:14.5px;color:#46453E">「潜心是本金,造势是复利」—— 六年运营商新媒体实战 · 1210+ 运营账号矩阵 · 六年零客诉</span>
       </div>
-      <div class="btns">
+      <div style="margin-top:36px;display:flex;gap:16px;flex-wrap:wrap;animation:fadeUp .9s .34s both">
         <a href="about.html" class="btn-dark">了解潜势</a>
-        <a href="contact.html" class="btn-ghost">洽谈合作</a>
+        <a href="contact.html" class="btn-outline">洽谈合作</a>
       </div>
     </div>
-    <div class="hero-visual">
-      <div class="hero-rings" aria-hidden="true"><span></span><span></span><span></span></div>
-      <div class="hero-img">
-        <img src="images/hero-matrix.svg" alt="新媒体官方账号矩阵示意">
+    <div style="position:relative;animation:fadeUp 1s .4s both">
+      <div aria-hidden="true" data-hero-rings style="position:absolute;top:-7%;left:50%;width:128%;aspect-ratio:1;transform:translateX(-50%);z-index:0;pointer-events:none;display:grid;place-items:center">
+        <span style="position:absolute;width:62%;aspect-ratio:1;border-radius:50%;border:1px solid rgba(31,58,95,0.32);animation:sigPulse 4.4s ease-out infinite"></span>
+        <span style="position:absolute;width:62%;aspect-ratio:1;border-radius:50%;border:1px solid rgba(31,58,95,0.28);animation:sigPulse 4.4s ease-out 1.46s infinite"></span>
+        <span style="position:absolute;width:62%;aspect-ratio:1;border-radius:50%;border:1px solid rgba(31,58,95,0.24);animation:sigPulse 4.4s ease-out 2.93s infinite"></span>
       </div>
-      <div class="chip-live">
-        <span class="red"></span>
+      <div style="position:relative;z-index:1;aspect-ratio:4/5;border-radius:16px;overflow:hidden;border:1px solid rgba(28,27,24,0.1);box-shadow:0 34px 70px -28px rgba(22,21,15,0.42),0 8px 24px -16px rgba(22,21,15,0.3)" data-zoom>
+        <img src="images/hero-matrix.svg" alt="新媒体官方账号矩阵示意" style="width:100%;height:100%;object-fit:cover;display:block">
+      </div>
+      <div style="position:absolute;z-index:2;left:-34px;bottom:46px;display:flex;align-items:center;gap:13px;padding:14px 20px 14px 16px;background:rgba(251,250,248,0.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(28,27,24,0.08);border-radius:14px;box-shadow:0 18px 40px -18px rgba(22,21,15,0.34);animation:floaty 6s ease-in-out infinite" data-hero-chip>
+        <span style="width:11px;height:11px;border-radius:50%;background:#E25A4A;flex:none;animation:liveBlink 1.8s ease-in-out infinite"></span>
         <div>
-          <div class="l1">直播中 · 全平台矩阵</div>
-          <div class="l2">1210<span class="plus">+</span> <small>账号同步在播</small></div>
+          <div style="font-size:13px;color:#8A887F;line-height:1.2">直播中 · 全平台矩阵</div>
+          <div style="margin-top:3px;font-size:19px;font-weight:600;color:#16150F;line-height:1.1">1210<span style="color:#1F3A5F">+</span> <span style="font-size:13px;font-weight:400;color:#6E6C64">账号同步在播</span></div>
         </div>
       </div>
-      <div class="chip-leads">
-        <div class="num">2<small>万+</small></div>
-        <div class="cap">有效客资<br>持续入库</div>
+      <div style="position:absolute;z-index:2;right:-26px;top:38px;display:flex;align-items:center;gap:10px;padding:12px 18px;background:#16150F;border-radius:13px;box-shadow:0 18px 40px -18px rgba(22,21,15,0.5);animation:floaty 6s ease-in-out 1.2s infinite" data-hero-chip>
+        <div style="font-size:24px;font-weight:600;color:#FBFAF6;font-family:'Noto Serif SC',serif;line-height:1">2<span style="font-size:14px;color:#F97316">万+</span></div>
+        <div style="font-size:12.5px;color:#A9BAD1;line-height:1.35">有效客资<br>持续入库</div>
       </div>
     </div>
   </section>
 
-  <!-- 2 · 数据带 -->
-  <section class="stats-band">
-    <div class="stats-grid">
-      <div class="stat-cell" data-reveal>
-        <div class="stat-num"><span data-count="1210">1210</span><span class="plus">+</span></div>
-        <div class="stat-cap">新媒体官方账号矩阵 · 抖音/视频号/小红书</div>
+  <section style="border-top:1px solid rgba(28,27,24,0.08);border-bottom:1px solid rgba(28,27,24,0.08);background:#FBFAF8">
+    <div style="max-width:1280px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:repeat(4,1fr)" data-stats-band>
+      <div data-reveal style="padding:56px 36px 56px 0;border-right:1px solid rgba(28,27,24,0.08)">
+        <div style="font-size:48px;font-weight:300;letter-spacing:-0.01em;color:#16150F"><span data-count="1210">1210</span><span style="color:#1F3A5F">+</span></div>
+        <div style="margin-top:10px;font-size:15px;color:#6E6C64">新媒体官方账号矩阵 · 抖音/视频号/小红书</div>
       </div>
-      <div class="stat-cell" data-reveal>
-        <div class="stat-num"><span data-count="2">2</span><span class="plus">万+</span></div>
-        <div class="stat-cap">有效客资 · 持续清洗入库</div>
+      <div data-reveal style="padding:56px 36px;border-right:1px solid rgba(28,27,24,0.08);transition-delay:.08s">
+        <div style="font-size:48px;font-weight:300;letter-spacing:-0.01em;color:#16150F"><span data-count="2">2</span><span style="color:#1F3A5F">万+</span></div>
+        <div style="margin-top:10px;font-size:15px;color:#6E6C64">有效客资 · 持续清洗入库</div>
       </div>
-      <div class="stat-cell" data-reveal>
-        <div class="stat-num"><span data-count="6">6</span><span class="unit"> 年</span></div>
-        <div class="stat-cap">深耕国央企新媒体运营(自 2020)</div>
+      <div data-reveal style="padding:56px 36px;border-right:1px solid rgba(28,27,24,0.08);transition-delay:.16s">
+        <div style="font-size:48px;font-weight:300;letter-spacing:-0.01em;color:#16150F"><span data-count="6">6</span><span style="font-size:30px;color:#6E6C64"> 年</span></div>
+        <div style="margin-top:10px;font-size:15px;color:#6E6C64">深耕国央企新媒体运营(自 2020)</div>
       </div>
-      <div class="stat-cell" data-reveal>
-        <div class="stat-num">0<span class="hot"> 客诉</span></div>
-        <div class="stat-cap">六年零客诉 · 规则透明 / 过程留痕 / 问题闭环</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 3 · 五段价值链 -->
-  <section id="products" class="wrap chain">
-    <div class="chain-head">
-      <div data-reveal>
-        <div class="kicker">
-          <span class="line"></span>
-          <span class="txt">一体化价值链</span>
-        </div>
-        <h2>从媒介到组织能力,<br>五段价值链相互喂养</h2>
-      </div>
-      <p data-reveal>媒介带来连接,传播建立信任,经营验证价值,人才保障交付,咨询沉淀方法。别人做其中一段,潜势建设整条链。</p>
-    </div>
-    <div class="chain-grid">
-      <div data-reveal>
-        <div class="num">① 媒介运营</div>
-        <h3>官方账号矩阵运营</h3>
-        <p>抖音、视频号、小红书等平台的账号矩阵运营,沉淀内容能力与流量底座。</p>
-      </div>
-      <div data-reveal>
-        <div class="num">② 媒介传播</div>
-        <h3>权威与专业内容传播</h3>
-        <p>权威内容、公共传播与专业垂直内容运营,建立品牌信任与传播网络。</p>
-      </div>
-      <div data-reveal>
-        <div class="num">③ 经营转化</div>
-        <h3>合规边界内的经营服务</h3>
-        <p>在甲方授权和合规边界内开展产品营销、线索与成交服务,验证真实价值。</p>
-      </div>
-      <div data-reveal>
-        <div class="num">④ 人才培养输送</div>
-        <h3>训赛营与院校微专业</h3>
-        <p>训赛营、院校微专业与实战型人才培养,形成持续的人才供给与交付能力。</p>
-      </div>
-      <div data-reveal>
-        <div class="num">⑤ 咨询与协同</div>
-        <h3>管理咨询与产业协同</h3>
-        <p>组织治理、方法论产品化及新业务孵化,把方法变成长期复利。</p>
-      </div>
-    </div>
-    <a href="products.html" class="arrow-link" data-reveal>查看完整业务版图<span>→</span></a>
-  </section>
-
-  <!-- 4 · 核心优势 -->
-  <section id="moat" class="moat">
-    <div class="moat-inner">
-      <div class="moat-head" data-reveal>
-        <div class="kicker">
-          <span class="line"></span>
-          <span class="txt">核心优势</span>
-        </div>
-        <h2>同时凑齐运营商关系、账号资质、<br>实战团队与人才供应链的服务商极少</h2>
-      </div>
-      <div class="moat-grid">
-        <div data-reveal>
-          <div class="idx">/ 01 &nbsp;资质牌照</div>
-          <h3>合规门槛,新进入者数月办不下来</h3>
-          <p>巨量引擎认证、中国移动 B2B 供应商门户、基础 / 增值电信业务许可 —— 三类资质叠加,构成实打实的准入壁垒。</p>
-        </div>
-        <div data-reveal>
-          <div class="idx">/ 02 &nbsp;运营商信任</div>
-          <h3>六年「零客诉」口碑</h3>
-          <p>to G 客户最看重的是「不出事」。不加包、不二次营销、政策透明,六年零客诉是我们持续拿单的根基。</p>
-        </div>
-        <div data-reveal>
-          <div class="idx">/ 03 &nbsp;可复制操作系统</div>
-          <h3>10 大流程 SOP + 客资 ETL + 全流程 AI 化</h3>
-          <p>同一套操作系统一次建成,可低成本复制到新地市、新运营商、新院校,复制边际成本极低。</p>
-        </div>
-        <div data-reveal>
-          <div class="idx">/ 04 &nbsp;人才供应链</div>
-          <h3>训赛营把「招人难」变成「持续供给」</h3>
-          <p>与艺术院校共建的训赛营源源不断培养并输送主播,形成对手没有的人才供应链。</p>
-        </div>
+      <div data-reveal style="padding:56px 0 56px 36px;transition-delay:.24s">
+        <div style="font-size:48px;font-weight:300;letter-spacing:-0.01em;color:#16150F">0<span style="font-size:30px;color:#F97316"> 客诉</span></div>
+        <div style="margin-top:10px;font-size:15px;color:#6E6C64">六年零客诉 · 规则透明 / 过程留痕 / 问题闭环</div>
       </div>
     </div>
   </section>
 
-  <!-- 5 · 客户案例 -->
-  <section id="cases" class="wrap cases">
-    <div class="kicker" data-reveal>
-      <span class="line"></span>
-      <span class="txt">客户案例</span>
-    </div>
-    <h2 data-reveal>与运营商和院校一起,<br>把直播间跑成可持续的生意</h2>
-
-    <div class="case-feature" data-reveal>
-      <div class="case-img">
-        <img src="images/case-dashboard.svg" alt="标杆订单运营看板">
-      </div>
-      <div class="case-body">
-        <div class="case-tag">标杆项目 · 运营商新媒体矩阵</div>
-        <div class="case-nums">
-          <span class="big"><span data-count="1210">1210</span><small>+</small></span>
-          <span class="cap">运营账号矩阵 · 沉淀客资 2 万+</span>
+  <section id="products" style="max-width:1280px;margin:0 auto;padding:140px 48px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:72px" data-team-grid>
+      <div data-reveal>
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px">
+          <span style="width:28px;height:1px;background:#1F3A5F"></span>
+          <span style="font-size:13px;letter-spacing:0.14em;color:#1F3A5F;font-weight:500">一体化价值链</span>
         </div>
-        <blockquote>服务中国移动呼市、全区、乌兰察布及内蒙古联通等项目 —— 对手若要复制潜势,需要复制的不是一个账号或一场活动,而是整条组织能力链。</blockquote>
-        <div class="case-note">数据口径 · 按最新公司台账定期复核</div>
+        <h2 style="font-family:'Noto Serif SC',serif;font-weight:600;font-size:42px;line-height:1.34;color:#16150F">从媒介到组织能力,<br>五段价值链相互喂养</h2>
+      </div>
+      <p data-reveal style="font-size:17px;line-height:1.95;color:#57564F;font-weight:300;padding-bottom:6px;transition-delay:.1s">媒介带来连接,传播建立信任,经营验证价值,人才保障交付,咨询沉淀方法。别人做其中一段,潜势建设整条链。</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-top:1px solid rgba(28,27,24,0.12)" data-prod-grid>
+      <div data-reveal style="padding:42px 28px 42px 0;border-right:1px solid rgba(28,27,24,0.1)">
+        <div style="font-size:13px;color:#F97316;font-weight:600;letter-spacing:0.1em">① 媒介运营</div>
+        <h3 style="margin-top:18px;font-size:19px;font-weight:500;color:#16150F">官方账号矩阵运营</h3>
+        <p style="margin-top:13px;font-size:14.5px;line-height:1.85;color:#57564F;font-weight:300">抖音、视频号、小红书等平台的账号矩阵运营,沉淀内容能力与流量底座。</p>
+      </div>
+      <div data-reveal style="padding:42px 28px;border-right:1px solid rgba(28,27,24,0.1);transition-delay:.06s">
+        <div style="font-size:13px;color:#F97316;font-weight:600;letter-spacing:0.1em">② 媒介传播</div>
+        <h3 style="margin-top:18px;font-size:19px;font-weight:500;color:#16150F">权威与专业内容传播</h3>
+        <p style="margin-top:13px;font-size:14.5px;line-height:1.85;color:#57564F;font-weight:300">权威内容、公共传播与专业垂直内容运营,建立品牌信任与传播网络。</p>
+      </div>
+      <div data-reveal style="padding:42px 28px;border-right:1px solid rgba(28,27,24,0.1);transition-delay:.12s">
+        <div style="font-size:13px;color:#F97316;font-weight:600;letter-spacing:0.1em">③ 经营转化</div>
+        <h3 style="margin-top:18px;font-size:19px;font-weight:500;color:#16150F">合规边界内的经营服务</h3>
+        <p style="margin-top:13px;font-size:14.5px;line-height:1.85;color:#57564F;font-weight:300">在甲方授权和合规边界内开展产品营销、线索与成交服务,验证真实价值。</p>
+      </div>
+      <div data-reveal style="padding:42px 28px;border-right:1px solid rgba(28,27,24,0.1);transition-delay:.18s">
+        <div style="font-size:13px;color:#F97316;font-weight:600;letter-spacing:0.1em">④ 人才培养输送</div>
+        <h3 style="margin-top:18px;font-size:19px;font-weight:500;color:#16150F">训赛营与院校微专业</h3>
+        <p style="margin-top:13px;font-size:14.5px;line-height:1.85;color:#57564F;font-weight:300">训赛营、院校微专业与实战型人才培养,形成持续的人才供给与交付能力。</p>
+      </div>
+      <div data-reveal style="padding:42px 0 42px 28px;transition-delay:.24s">
+        <div style="font-size:13px;color:#F97316;font-weight:600;letter-spacing:0.1em">⑤ 咨询与协同</div>
+        <h3 style="margin-top:18px;font-size:19px;font-weight:500;color:#16150F">管理咨询与产业协同</h3>
+        <p style="margin-top:13px;font-size:14.5px;line-height:1.85;color:#57564F;font-weight:300">组织治理、方法论产品化及新业务孵化,把方法变成长期复利。</p>
+      </div>
+    </div>
+    <a href="products.html" class="arrow-link" data-reveal style="margin-top:44px;transition-delay:.2s">查看完整业务版图<span>→</span></a>
+  </section>
+
+  <section id="moat" style="background:radial-gradient(125% 120% at 100% 0%,rgba(31,58,95,0.22),rgba(22,21,15,0) 56%),#16150F;color:#EDEBE4">
+    <div style="max-width:1280px;margin:0 auto;padding:140px 48px">
+      <div data-reveal style="max-width:760px;margin-bottom:80px">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px">
+          <span style="width:28px;height:1px;background:#1F3A5F"></span>
+          <span style="font-size:13px;letter-spacing:0.14em;color:#7C9CC4;font-weight:500">核心优势</span>
+        </div>
+        <h2 style="font-family:'Noto Serif SC',serif;font-weight:600;font-size:42px;line-height:1.34;color:#FBFAF6">同时凑齐运营商关系、账号资质、<br>实战团队与人才供应链的服务商极少</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.1)" data-moat-grid data-team-grid>
+        <div data-reveal style="background:#16150F;padding:48px 44px">
+          <div style="font-size:13px;color:#7C9CC4;font-weight:500;letter-spacing:0.1em">/ 01 &nbsp;资质牌照</div>
+          <h3 style="margin-top:20px;font-size:22px;font-weight:500;color:#FBFAF6">合规门槛,新进入者数月办不下来</h3>
+          <p style="margin-top:14px;font-size:15px;line-height:1.85;color:#9A988E;font-weight:300">巨量引擎认证、中国移动 B2B 供应商门户、基础 / 增值电信业务许可 —— 三类资质叠加,构成实打实的准入壁垒。</p>
+        </div>
+        <div data-reveal style="background:#16150F;padding:48px 44px;transition-delay:.08s">
+          <div style="font-size:13px;color:#7C9CC4;font-weight:500;letter-spacing:0.1em">/ 02 &nbsp;运营商信任</div>
+          <h3 style="margin-top:20px;font-size:22px;font-weight:500;color:#FBFAF6">六年「零客诉」口碑</h3>
+          <p style="margin-top:14px;font-size:15px;line-height:1.85;color:#9A988E;font-weight:300">to G 客户最看重的是「不出事」。不加包、不二次营销、政策透明,六年零客诉是我们持续拿单的根基。</p>
+        </div>
+        <div data-reveal style="background:#16150F;padding:48px 44px">
+          <div style="font-size:13px;color:#7C9CC4;font-weight:500;letter-spacing:0.1em">/ 03 &nbsp;可复制操作系统</div>
+          <h3 style="margin-top:20px;font-size:22px;font-weight:500;color:#FBFAF6">10 大流程 SOP + 客资 ETL + 全流程 AI 化</h3>
+          <p style="margin-top:14px;font-size:15px;line-height:1.85;color:#9A988E;font-weight:300">同一套操作系统一次建成,可低成本复制到新地市、新运营商、新院校,复制边际成本极低。</p>
+        </div>
+        <div data-reveal style="background:#16150F;padding:48px 44px;transition-delay:.08s">
+          <div style="font-size:13px;color:#7C9CC4;font-weight:500;letter-spacing:0.1em">/ 04 &nbsp;人才供应链</div>
+          <h3 style="margin-top:20px;font-size:22px;font-weight:500;color:#FBFAF6">训赛营把「招人难」变成「持续供给」</h3>
+          <p style="margin-top:14px;font-size:15px;line-height:1.85;color:#9A988E;font-weight:300">与艺术院校共建的训赛营源源不断培养并输送主播,形成对手没有的人才供应链。</p>
+        </div>
+      </div>
+      <p data-reveal style="margin-top:26px;font-size:13.5px;line-height:1.8;color:#77756A;font-weight:300;transition-delay:.16s">注 · 基于 2026 年 6 月公开信息检索,未发现同时占住「运营商服务 × 抖音直播 × 区域账号矩阵 × 院校人才供应链」四要素的同维服务商;检索存在盲区,此为基于公开信息的推断而非绝对表述。</p>
+    </div>
+  </section>
+
+  <section id="cases" style="max-width:1280px;margin:0 auto;padding:140px 48px">
+    <div data-reveal style="display:flex;align-items:center;gap:14px;margin-bottom:24px">
+      <span style="width:28px;height:1px;background:#1F3A5F"></span>
+      <span style="font-size:13px;letter-spacing:0.14em;color:#1F3A5F;font-weight:500">客户案例</span>
+    </div>
+    <h2 data-reveal style="font-family:'Noto Serif SC',serif;font-weight:600;font-size:42px;line-height:1.34;color:#16150F;max-width:760px;margin-bottom:64px;transition-delay:.06s">与运营商和院校一起,<br>把直播间跑成可持续的生意</h2>
+
+    <div data-reveal style="display:grid;grid-template-columns:0.92fr 1.08fr;gap:0;border:1px solid rgba(28,27,24,0.12);border-radius:8px;overflow:hidden;background:#FBFAF8" data-case-hero>
+      <div style="position:relative;min-height:380px;background:#EFEDE5;border-right:1px solid rgba(28,27,24,0.1);overflow:hidden" data-zoom>
+        <img src="images/case-dashboard.svg" alt="标杆订单运营看板" style="width:100%;height:100%;object-fit:cover;display:block">
+      </div>
+      <div style="padding:56px 56px;display:flex;flex-direction:column;justify-content:center">
+        <div style="font-size:13px;color:#1F3A5F;font-weight:500;letter-spacing:0.12em;margin-bottom:20px">标杆项目 · 运营商新媒体矩阵</div>
+        <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:26px">
+          <span style="font-size:56px;font-weight:300;color:#1F3A5F;line-height:1"><span data-count="1210">1210</span><span style="font-size:28px;color:#F97316">+</span></span>
+          <span style="font-size:15px;color:#6E6C64">运营账号矩阵 · 沉淀客资 2 万+</span>
+        </div>
+        <p style="font-family:'Noto Serif SC',serif;font-size:22px;line-height:1.7;color:#2A281F;font-weight:400">服务中国移动呼市、全区、乌兰察布及内蒙古联通等项目 —— 对手若要复制潜势,需要复制的不是一个账号或一场活动,而是整条组织能力链。</p>
+        <div style="margin-top:28px;font-size:14.5px;color:#8A887F">数据口径 · 按最新公司台账定期复核</div>
       </div>
     </div>
 
-    <div class="case-grid">
-      <div data-reveal>
-        <div class="tag">核心客户 · 在运营</div>
-        <h3>中国移动 · 中国联通内蒙古</h3>
-        <p>服务覆盖呼和浩特、全区及乌兰察布等地市的中国移动,以及中国联通内蒙古分公司的官方新媒体账号矩阵化运营。</p>
+    <div style="margin-top:48px;display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid rgba(28,27,24,0.12);border-radius:8px;overflow:hidden" data-case-grid>
+      <div data-reveal style="background:#fff;padding:38px 38px;border-right:1px solid rgba(28,27,24,0.1)">
+        <div style="font-size:13px;color:#A4A299;font-weight:500;letter-spacing:0.1em">核心客户 · 在运营</div>
+        <h3 style="margin-top:16px;font-size:20px;font-weight:500;color:#16150F">中国移动 · 中国联通内蒙古</h3>
+        <p style="margin-top:14px;font-size:14.5px;line-height:1.85;color:#57564F;font-weight:300">服务覆盖呼和浩特、全区及乌兰察布等地市的中国移动,以及中国联通内蒙古分公司的官方新媒体账号矩阵化运营。</p>
       </div>
-      <div data-reveal>
-        <div class="tag">行业影响 · 持续承办</div>
-        <h3>连续承办三届运营商直播大赛</h3>
-        <p>以承办方身份连续举办三届运营商直播大赛,沉淀行业影响力与主播选拔机制,也是佣金争夺战训赛营的前身。</p>
+      <div data-reveal style="background:#fff;padding:38px 38px;border-right:1px solid rgba(28,27,24,0.1);transition-delay:.1s">
+        <div style="font-size:13px;color:#A4A299;font-weight:500;letter-spacing:0.1em">行业影响 · 持续承办</div>
+        <h3 style="margin-top:16px;font-size:20px;font-weight:500;color:#16150F">连续承办三届运营商直播大赛</h3>
+        <p style="margin-top:14px;font-size:14.5px;line-height:1.85;color:#57564F;font-weight:300">以承办方身份连续举办三届运营商直播大赛,沉淀行业影响力与主播选拔机制,也是佣金争夺战训赛营的前身。</p>
       </div>
-      <div data-reveal>
-        <div class="tag">标杆产品 · 已交付</div>
-        <h3>训赛营首期落地内蒙古艺术学院</h3>
-        <p>佣金争夺战训赛营与内蒙古艺术学院共建,首期已落地交付,既验证人才供应链,也跑通校企合作模式。</p>
+      <div data-reveal style="background:#fff;padding:38px 38px;transition-delay:.2s">
+        <div style="font-size:13px;color:#A4A299;font-weight:500;letter-spacing:0.1em">标杆产品 · 已交付</div>
+        <h3 style="margin-top:16px;font-size:20px;font-weight:500;color:#16150F">训赛营首期落地内蒙古艺术学院</h3>
+        <p style="margin-top:14px;font-size:14.5px;line-height:1.85;color:#57564F;font-weight:300">佣金争夺战训赛营与内蒙古艺术学院共建,首期已落地交付,既验证人才供应链,也跑通校企合作模式。</p>
       </div>
     </div>
   </section>
 
-  <!-- 6 · 团队 -->
-  <section class="team-band">
-    <div class="team">
+  <section style="border-top:1px solid rgba(28,27,24,0.08);background:#FBFAF8">
+    <div style="max-width:1280px;margin:0 auto;padding:140px 48px;display:grid;grid-template-columns:0.85fr 1.15fr;gap:72px" data-team-grid>
       <div data-reveal>
-        <div class="kicker">
-          <span class="line"></span>
-          <span class="txt">团队</span>
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px">
+          <span style="width:28px;height:1px;background:#1F3A5F"></span>
+          <span style="font-size:13px;letter-spacing:0.14em;color:#1F3A5F;font-weight:500">团队</span>
         </div>
-        <h2>一支跑通国央企新媒体<br>全流程的实战团队</h2>
-        <p class="body">创始人邢鹏越拥有六年运营商新媒体实战经验,操盘 1210+ 账号矩阵。核心团队覆盖市场、直播、策划、运营、摄制、客资全流程;潜势由内蒙古潜势科技与深圳潜势咨询双主体协同构成 —— 前者承载交付,后者承载治理、方法论与长期产业协同。</p>
-        <a href="about.html" class="arrow-link">了解我们的故事<span>→</span></a>
+        <h2 style="font-family:'Noto Serif SC',serif;font-weight:600;font-size:38px;line-height:1.38;color:#16150F">一支跑通国央企新媒体<br>全链路的实战团队</h2>
+        <p style="margin-top:26px;font-size:16.5px;line-height:1.95;color:#57564F;font-weight:300">创始人邢鹏越拥有六年运营商新媒体实战经验,操盘 1210+ 账号矩阵。核心团队覆盖市场、直播、策划、运营、摄制、客资全链路;潜势由内蒙古潜势科技与深圳潜势咨询双主体协同构成 —— 前者承载交付,后者承载治理、方法论与长期产业协同。</p>
+        <a href="about.html" class="arrow-link" style="margin-top:30px">了解我们的故事<span>→</span></a>
       </div>
-      <div class="team-side" data-reveal>
-        <div class="founder-card">
-          <img src="images/founder.svg" alt="邢鹏越">
+      <div data-reveal style="align-self:center;transition-delay:.12s">
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:28px;align-items:center;background:#fff;border:1px solid rgba(28,27,24,0.1);border-radius:14px;padding:34px 36px">
+          <img src="images/founder.svg" alt="邢鹏越" style="width:100%;aspect-ratio:1;border-radius:50%;display:block">
           <div>
-            <div class="name">邢鹏越</div>
-            <div class="role">创始人 / 总经理</div>
-            <div class="bio">六年国央企新媒体实战,操盘 1210+ 账号矩阵,把内蒙古国央企新媒体这条赛道从 0 跑到收口成型。</div>
+            <div style="font-size:20px;font-weight:600;color:#16150F">邢鹏越</div>
+            <div style="margin-top:5px;font-size:14px;color:#1F3A5F;font-weight:500">创始人 / 总经理</div>
+            <div style="margin-top:12px;font-size:14.5px;line-height:1.8;color:#57564F;font-weight:300">六年国央企新媒体实战,操盘 1210+ 账号矩阵,把内蒙古国央企新媒体这条赛道从 0 跑到收口成型。</div>
           </div>
         </div>
-        <div class="team-facts">
-          <div><div class="k">协同方式</div><div class="v">致密协同</div></div>
-          <div><div class="k">覆盖职能</div><div class="v">全流程</div></div>
-          <div><div class="k">双主体</div><div class="v">内蒙古 + 深圳</div></div>
+        <div style="margin-top:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(28,27,24,0.1);border:1px solid rgba(28,27,24,0.1);border-radius:12px;overflow:hidden">
+          <div style="background:#fff;padding:22px 18px"><div style="font-size:13px;color:#8A887F">协同方式</div><div style="margin-top:6px;font-size:17px;font-weight:500;color:#16150F">致密协同</div></div>
+          <div style="background:#fff;padding:22px 18px"><div style="font-size:13px;color:#8A887F">覆盖职能</div><div style="margin-top:6px;font-size:17px;font-weight:500;color:#16150F">全链路</div></div>
+          <div style="background:#fff;padding:22px 18px"><div style="font-size:13px;color:#8A887F">双主体</div><div style="margin-top:6px;font-size:17px;font-weight:500;color:#16150F">内蒙古 + 深圳</div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 7 · 核心价值观 -->
-  <section id="about" class="wrap values">
-    <div class="values-head" data-reveal>
-      <div class="kicker">
-        <span class="line"></span>
-        <span class="txt">核心价值观</span>
-        <span class="line"></span>
+  <section id="values" style="max-width:1280px;margin:0 auto;padding:150px 48px">
+    <div data-reveal style="text-align:center">
+      <div style="display:inline-flex;align-items:center;gap:14px;margin-bottom:30px">
+        <span style="width:28px;height:1px;background:#1F3A5F"></span>
+        <span style="font-size:13px;letter-spacing:0.14em;color:#1F3A5F;font-weight:500">核心价值观</span>
+        <span style="width:28px;height:1px;background:#1F3A5F"></span>
       </div>
-      <p class="motto">潜心是本金,造势是复利。</p>
-      <p class="sub">「潜势」二字,讲的是由潜而势的组织节奏 —— 先把能力、信誉和系统做深,再让积累彼此连接,形成可复制、可持续的组织力量。</p>
+      <p style="font-family:'Noto Serif SC',serif;font-weight:500;font-size:34px;line-height:1.6;color:#16150F">潜心是本金,造势是复利。</p>
+      <p style="margin-top:18px;font-size:16.5px;line-height:1.9;color:#57564F;font-weight:300;max-width:640px;margin-left:auto;margin-right:auto">「潜势」二字源出乾卦,讲的是由潜而势的组织节奏 —— 先把能力、信誉和系统做深,再让积累彼此连接,形成可复制、可持续的组织力量。</p>
     </div>
-    <div class="values-grid" data-reveal>
-      <div><div class="zi">潜心</div><p>沉到问题最底层,不把短期流量当作长期能力。</p></div>
-      <div><div class="zi">零客诉</div><p>把品牌安全与用户权益放在短期业绩之前。</p></div>
-      <div><div class="zi">系统化</div><p>把个人经验变成 SOP、数据能力和组织资产。</p></div>
-      <div><div class="zi">致密协同</div><p>以人的成长和高密度协同提升组织效率。</p></div>
-      <div><div class="zi">风险诚实</div><p>不夸大,不把推进中事项写成既成事实。</p></div>
+    <div data-reveal style="margin-top:64px;display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(28,27,24,0.1);border:1px solid rgba(28,27,24,0.1);border-radius:12px;overflow:hidden;transition-delay:.12s" data-prod-grid>
+      <div style="background:#FBFAF8;padding:30px 26px"><div style="font-size:19px;font-weight:600;color:#1F3A5F">潜心</div><div style="margin-top:7px;font-family:'Noto Serif SC',serif;font-size:12.5px;color:#A4A299">潜龙勿用 · 藏器于身</div><p style="margin-top:12px;font-size:14px;line-height:1.8;color:#57564F;font-weight:300">沉到问题最底层,不把短期流量当作长期能力。</p></div>
+      <div style="background:#FBFAF8;padding:30px 26px"><div style="font-size:19px;font-weight:600;color:#1F3A5F">零客诉</div><div style="margin-top:7px;font-family:'Noto Serif SC',serif;font-size:12.5px;color:#A4A299">终日乾乾 · 夕惕若厉</div><p style="margin-top:12px;font-size:14px;line-height:1.8;color:#57564F;font-weight:300">把品牌安全与用户权益放在短期业绩之前。</p></div>
+      <div style="background:#FBFAF8;padding:30px 26px"><div style="font-size:19px;font-weight:600;color:#1F3A5F">系统化</div><div style="margin-top:7px;font-family:'Noto Serif SC',serif;font-size:12.5px;color:#A4A299">天行健 · 自强不息</div><p style="margin-top:12px;font-size:14px;line-height:1.8;color:#57564F;font-weight:300">把个人经验变成 SOP、数据能力和组织资产。</p></div>
+      <div style="background:#FBFAF8;padding:30px 26px"><div style="font-size:19px;font-weight:600;color:#1F3A5F">致密协同</div><div style="margin-top:7px;font-family:'Noto Serif SC',serif;font-size:12.5px;color:#A4A299">自强不息 · 厚德载物</div><p style="margin-top:12px;font-size:14px;line-height:1.8;color:#57564F;font-weight:300">以人的成长和高密度协同提升组织效率。</p></div>
+      <div style="background:#FBFAF8;padding:30px 26px"><div style="font-size:19px;font-weight:600;color:#1F3A5F">风险诚实</div><div style="margin-top:7px;font-family:'Noto Serif SC',serif;font-size:12.5px;color:#A4A299">亢龙有悔 · 自我刹车</div><p style="margin-top:12px;font-size:14px;line-height:1.8;color:#57564F;font-weight:300">不夸大,不把推进中事项写成既成事实。</p></div>
     </div>
-    <div class="more" data-reveal>
-      <a href="about.html" class="arrow-link">关于潜势<span>→</span></a>
+    <div data-reveal style="margin-top:42px;text-align:center;transition-delay:.2s">
+      <a href="about.html" class="arrow-link">品牌释义与发展路径 · 关于潜势<span>→</span></a>
     </div>
   </section>
 
-  <!-- 8 · CTA -->
-  <section id="contact" class="cta-band">
-    <div class="cta">
-      <h2 data-reveal>想把运营商的生意<br>搬进直播间吗?</h2>
-      <p data-reveal>运营商合作、院校共建、投资洽谈,都欢迎与我们聊聊。</p>
-      <div class="btns" data-reveal>
-        <a href="contact.html" class="btn-dark">预约业务洽谈</a>
-        <a href="products.html" class="btn-ghost">查看业务详情</a>
+  <section id="contact" style="border-top:1px solid rgba(28,27,24,0.08);background:#FBFAF8">
+    <div style="max-width:1280px;margin:0 auto;padding:130px 48px;text-align:center">
+      <h2 data-reveal style="font-family:'Noto Serif SC',serif;font-weight:600;font-size:46px;line-height:1.34;color:#16150F">想把运营商的生意<br>搬进直播间吗?</h2>
+      <p data-reveal style="margin-top:26px;font-size:18px;color:#57564F;font-weight:300;transition-delay:.08s">运营商合作、院校共建、投资洽谈,都欢迎与我们聊聊。</p>
+      <p data-reveal style="margin-top:20px;font-family:'Noto Serif SC',serif;font-size:20px;color:#1F3A5F;font-weight:500;transition-delay:.12s">别人追势,潜势造势。</p>
+      <div data-reveal style="margin-top:40px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;transition-delay:.16s">
+        <a href="contact.html" class="btn-dark" style="padding:15px 34px">预约业务洽谈</a>
+        <a href="products.html" class="btn-outline">查看业务详情</a>
       </div>
     </div>
   </section>
 
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-cols">
+  <footer style="background:radial-gradient(110% 130% at 0% 0%,rgba(31,58,95,0.18),rgba(22,21,15,0) 52%),#16150F;color:#C9C7BD">
+    <div style="max-width:1280px;margin:0 auto;padding:80px 48px 0">
+      <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:48px;padding-bottom:64px" data-footer-grid>
         <div>
-          <div class="footer-brand">
-            <img src="images/logo-mark-light.svg" alt="潜势标志">
-            <span>潜势</span>
+          <div style="display:flex;align-items:center;gap:11px;margin-bottom:22px">
+            <img src="images/logo-mark-light.svg" alt="潜势标志" style="width:24px;height:24px;display:block">
+            <span style="font-size:19px;font-weight:700;color:#FBFAF6;letter-spacing:0.04em">潜势</span>
           </div>
-          <p class="footer-about">一个解决专业问题的一体化组织 —— 面向央国企与公共机构,提供新媒体运营、内容传播、经营转化、人才培养与组织咨询服务。</p>
+          <p style="font-size:15px;line-height:1.85;color:#8E8C82;font-weight:300;max-width:320px">一个解决专业问题的一体化组织 —— 面向央国企与公共机构,提供新媒体运营、内容传播、经营转化、人才培养与组织咨询服务。</p>
         </div>
-        <div class="footer-col">
-          <div class="h">业务</div>
-          <div class="links">
-            <a href="products.html">新媒体矩阵化运营</a>
-            <a href="products.html">佣金争夺战训赛营</a>
-            <a href="products.html">政企新媒体服务</a>
-          </div>
-        </div>
-        <div class="footer-col">
-          <div class="h">公司</div>
-          <div class="links">
-            <a href="about.html">关于我们</a>
-            <a href="#moat">核心优势</a>
-            <a href="#cases">客户案例</a>
+        <div>
+          <div style="font-size:13px;letter-spacing:0.14em;color:#6C6A60;margin-bottom:22px">业务</div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <a href="products.html" class="flink">新媒体矩阵化运营</a>
+            <a href="products.html" class="flink">权威与专业内容传播</a>
+            <a href="products.html" class="flink">佣金争夺战训赛营</a>
           </div>
         </div>
-        <div class="footer-col">
-          <div class="h">联系</div>
-          <div class="links">
-            <a href="tel:18611206321">186 1120 6321</a>
-            <span class="muted">呼和浩特市赛罕区</span>
-            <a href="contact.html" class="hl">预约洽谈 →</a>
+        <div>
+          <div style="font-size:13px;letter-spacing:0.14em;color:#6C6A60;margin-bottom:22px">公司</div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <a href="about.html" class="flink">关于我们</a>
+            <a href="#moat" class="flink">核心优势</a>
+            <a href="#cases" class="flink">客户案例</a>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:13px;letter-spacing:0.14em;color:#6C6A60;margin-bottom:22px">联系</div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <a href="tel:18611206321" class="flink">186 1120 6321</a>
+            <span style="font-size:15px;color:#8E8C82">呼和浩特市回民区香格里拉酒店 4 楼</span>
+            <a href="contact.html" style="font-size:15px;color:#7C9CC4;font-weight:500">预约洽谈 →</a>
           </div>
         </div>
       </div>
-      <div class="footer-bar">
-        <span>© 2026 内蒙古潜势科技有限公司 · 版权所有</span>
-        <span>双主体协同 · 内蒙古潜势科技 × 深圳潜势咨询</span>
+      <p style="font-size:12.5px;line-height:1.9;color:#55534A;max-width:980px;padding-bottom:28px">本站含发展愿景与前瞻性表述,不构成投资、收益或合作承诺;账号数、客资数、资质与零客诉记录按公司台账定期复核;涉及运营商产品营销的具体渠道、产品、地域与销售链路,以甲方书面授权及最新合规口径为准。</p>
+      <div style="border-top:1px solid rgba(255,255,255,0.1);padding:28px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+        <span style="font-size:13.5px;color:#6C6A60">© 2026 内蒙古潜势科技有限公司 · 版权所有</span>
+        <span style="font-size:13.5px;color:#6C6A60">双主体协同 · 内蒙古潜势科技 × 深圳潜势咨询</span>
       </div>
     </div>
   </footer>
@@ -556,42 +409,35 @@
     a.addEventListener('click', function(){ menu.classList.remove('open'); btn.setAttribute('aria-expanded','false'); });
   });
 
-  var els = document.querySelectorAll('[data-reveal]');
+  var reveals = document.querySelectorAll('[data-reveal]');
   function show(e){ e.classList.add('revealed'); }
-  var hasIO = 'IntersectionObserver' in window;
-  if(hasIO){
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(en){ if(en.isIntersecting){ show(en.target); io.unobserve(en.target); } });
-    }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
-    els.forEach(function(e){ io.observe(e); });
-  } else {
-    els.forEach(show);
-  }
-
-  var counters = document.querySelectorAll('[data-count]');
+  var counts = document.querySelectorAll('[data-count]');
   function runCount(el){
     var target = parseInt(el.dataset.count, 10);
-    if(isNaN(target)) return;
-    var dur = 1100;
-    var start = performance.now();
+    if (isNaN(target)) return;
+    var dur = 1100, start = performance.now();
     function tick(now){
       var t = Math.min(1, (now - start) / dur);
       var eased = 1 - Math.pow(1 - t, 3);
       el.textContent = String(Math.round(target * eased));
-      if(t < 1) requestAnimationFrame(tick);
-      else el.textContent = String(target);
+      if (t < 1) requestAnimationFrame(tick); else el.textContent = String(target);
     }
     el.textContent = '0';
     requestAnimationFrame(tick);
   }
-  if(hasIO){
-    var co = new IntersectionObserver(function(entries){
-      entries.forEach(function(en){ if(en.isIntersecting){ runCount(en.target); co.unobserve(en.target); } });
-    }, { threshold: 0.6 });
-    counters.forEach(function(e){ co.observe(e); });
-  } else {
-    counters.forEach(runCount);
+  if(!('IntersectionObserver' in window)){
+    reveals.forEach(show);
+    counts.forEach(function(e){ e.textContent = e.dataset.count; });
+    return;
   }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ if(en.isIntersecting){ show(en.target); io.unobserve(en.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
+  reveals.forEach(function(e){ io.observe(e); });
+  var co = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ if(en.isIntersecting){ runCount(en.target); co.unobserve(en.target); } });
+  }, { threshold: 0.6 });
+  counts.forEach(function(e){ co.observe(e); });
 })();
 </script>
 </body>

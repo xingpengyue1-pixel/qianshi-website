@@ -19,11 +19,11 @@
     <rect x="64" y="70" width="772" height="170" rx="20" fill="#16150F"></rect>
   </g>
   <text x="96" y="128" font-family="'Noto Sans SC',sans-serif" font-size="18" fill="#7FB7A6" letter-spacing="2">标杆订单 · 内蒙古移动</text>
-  <text x="94" y="200" font-family="'Noto Serif SC',serif" font-size="84" font-weight="600" fill="#FBFAF6">1500<tspan font-size="44" fill="#7FB7A6">万 / 年</tspan></text>
+  <text x="94" y="200" font-family="'Noto Serif SC',serif" font-size="84" font-weight="600" fill="#FBFAF6">千万级<tspan font-size="44" fill="#7FB7A6"> · 推进中</tspan></text>
   <g>
     <rect x="600" y="108" width="200" height="100" rx="14" fill="#22332E"></rect>
     <text x="624" y="146" font-family="'Noto Sans SC',sans-serif" font-size="16" fill="#9FCBBD">账号矩阵</text>
-    <text x="622" y="188" font-family="'Noto Serif SC',serif" font-size="40" font-weight="600" fill="#FBFAF6">40 <tspan font-size="18" fill="#9FCBBD">个 · 开通中</tspan></text>
+    <text x="622" y="188" font-family="'Noto Serif SC',serif" font-size="40" font-weight="600" fill="#FBFAF6">1210<tspan font-size="18" fill="#9FCBBD">+ 个 · 运营中</tspan></text>
   </g>
 
   <g filter="url(#d-sh)">
@@ -57,6 +57,6 @@
   </g>
   <text x="588" y="538" font-family="'Noto Sans SC',sans-serif" font-size="17" font-weight="600" fill="#EAF3EF">单位经济模型</text>
   <text x="588" y="592" font-family="'Noto Serif SC',serif" font-size="52" font-weight="600" fill="#FBFAF6">3 <tspan font-size="22" fill="#BFE0D5">张卡 / 天</tspan></text>
-  <text x="588" y="630" font-family="'Noto Sans SC',sans-serif" font-size="16" fill="#BFE0D5">即可保本 · 已验证为正</text>
-  <text x="588" y="662" font-family="'Noto Sans SC',sans-serif" font-size="14" fill="#9FCBBD">单直播间年成本约 29.7 万元</text>
+  <text x="588" y="630" font-family="'Noto Sans SC',sans-serif" font-size="16" fill="#BFE0D5">即可保本 · 口径透明</text>
+  <text x="588" y="662" font-family="'Noto Sans SC',sans-serif" font-size="14" fill="#9FCBBD">成本与佣金逐单可对账</text>
 </svg>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>业务与服务 · 潜势科技</title>
-<meta name="description" content="潜势五段价值链业务版图:国央企新媒体官方账号矩阵化运营、佣金争夺战训赛营、政企新媒体延伸布局与管理咨询。每条业务都对应清晰的客户、收费方式和交付形态。">
+<meta name="description" content="潜势五段价值链业务版图:国央企新媒体官方账号矩阵化运营、权威与专业内容传播、佣金争夺战训赛营、本地生活文旅家庭协同与管理咨询。每条业务都对应清晰的客户、收费方式和交付形态。">
 <link rel="icon" href="images/logo-mark.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,12 +17,10 @@
   h1,h2{text-wrap:balance}
   h3,p,li{text-wrap:pretty}
   ::selection{background:#1F3A5F;color:#fff}
-  .wrap{max-width:1280px;margin:0 auto;padding-left:48px;padding-right:48px}
 
   @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
   @keyframes lineGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 
-  /* ---------- header ---------- */
   .site-header{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:saturate(140%) blur(14px);-webkit-backdrop-filter:saturate(140%) blur(14px);background:rgba(245,244,241,0.78);border-bottom:1px solid rgba(28,27,24,0.08)}
   .site-nav{max-width:1280px;margin:0 auto;padding:0 48px;height:72px;display:flex;align-items:center;justify-content:space-between}
   .brand{display:flex;align-items:center;gap:11px}
@@ -42,293 +40,229 @@
   .mobile-menu a{font-size:17px;padding:12px 0;border-bottom:1px solid rgba(28,27,24,0.06)}
   .mobile-menu a:last-child{border-bottom:none;padding:14px 0;color:#1F3A5F;font-weight:500}
 
-  /* ---------- shared ---------- */
-  .kicker{display:flex;align-items:center;gap:14px;margin-bottom:26px}
-  .kicker .line{width:34px;height:1px;background:#1F3A5F}
-  .kicker .txt{font-size:13px;letter-spacing:0.14em;color:#1F3A5F;font-weight:500}
   [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1)}
   [data-reveal].revealed{opacity:1;transform:none}
-  .alt-band{border-top:1px solid rgba(28,27,24,0.08);background:#FBFAF8}
-  .plain-band{border-top:1px solid rgba(28,27,24,0.08)}
-
-  /* ---------- hero ---------- */
-  .hero{padding-top:172px;padding-bottom:84px}
-  .hero .kicker{margin-bottom:30px;animation:fadeUp .8s .05s both}
-  .hero .kicker .line{transform-origin:left;animation:lineGrow .9s .2s both}
-  .hero h1{font-family:'Noto Serif SC',serif;font-weight:600;font-size:52px;line-height:1.3;color:#16150F;max-width:880px;animation:fadeUp .9s .12s both}
-  .hero p{margin-top:28px;font-size:18px;line-height:1.9;color:#57564F;max-width:680px;font-weight:300;animation:fadeUp .9s .22s both}
-
-  /* ---------- 编号业务区块 ---------- */
-  .biz{padding-top:96px;padding-bottom:96px;display:grid;grid-template-columns:0.5fr 1.5fr;gap:64px}
-  .biz .no{font-size:64px;font-weight:300;color:#1F3A5F;line-height:1}
-  .biz .label{margin-top:18px;font-size:13px;color:#A4A299;font-weight:500;letter-spacing:0.12em}
-  .biz h2{font-family:'Noto Serif SC',serif;font-weight:600;font-size:34px;line-height:1.4;color:#16150F}
-  .biz .lede{margin-top:20px;font-size:17px;line-height:1.95;color:#57564F;font-weight:300;max-width:640px}
-  .fact-grid{margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(28,27,24,0.1);border:1px solid rgba(28,27,24,0.1);border-radius:10px;overflow:hidden}
-  .fact-grid>div{background:#fff;padding:26px 24px;transition:background .35s ease}
-  .fact-grid>div:hover{background:#FBFAF8}
-  .fact-grid .k{font-size:13px;color:#8A887F}
-  .fact-grid .v{margin-top:8px;font-size:16px;font-weight:500;color:#16150F;line-height:1.6}
-  .econ-card{margin-top:24px;padding:24px 28px;background:#fff;border:1px solid rgba(28,27,24,0.1);border-left:3px solid #1F3A5F;border-radius:0 10px 10px 0}
-  .econ-card .h{font-size:13px;color:#1F3A5F;font-weight:500;letter-spacing:0.08em;margin-bottom:10px}
-  .econ-card p{font-size:15.5px;line-height:1.85;color:#3A3935}
-
-  /* ---------- 运营操作系统 ---------- */
-  .os{padding-top:104px;padding-bottom:104px}
-  .os-head{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:64px}
-  .os-head h2{font-family:'Noto Serif SC',serif;font-weight:600;font-size:34px;line-height:1.4;color:#16150F}
-  .os-head p{font-size:16.5px;line-height:1.95;color:#57564F;font-weight:300;padding-bottom:4px}
-  .stage-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid rgba(28,27,24,0.12);border-radius:12px;overflow:hidden;background:#fff}
-  .stage-grid>div{padding:40px 36px;border-right:1px solid rgba(28,27,24,0.1);transition:background .35s ease}
-  .stage-grid>div:last-child{border-right:none}
-  .stage-grid>div:hover{background:#FBFAF8}
-  .stage-tag{display:flex;align-items:baseline;gap:10px;margin-bottom:18px}
-  .stage-tag .n{font-size:13px;font-weight:600;color:#1F3A5F;letter-spacing:0.1em}
-  .stage-tag .c{font-size:13px;color:#A4A299}
-  .stage-grid h3{font-size:20px;font-weight:500;color:#16150F;line-height:1.5}
-  .stage-grid p{margin-top:14px;font-size:14.5px;line-height:1.85;color:#57564F;font-weight:300}
-  .os-duo{margin-top:28px;display:grid;grid-template-columns:1.25fr 1fr;gap:24px}
-  .why-card{background:radial-gradient(135% 130% at 0% 0%,rgba(31,58,95,0.26),rgba(22,21,15,0) 58%),#16150F;border-radius:12px;padding:42px 44px;color:#EDEBE4}
-  .why-card .h{font-size:13px;color:#F97316;font-weight:500;letter-spacing:0.1em;margin-bottom:16px}
-  .why-card p{font-size:17px;line-height:1.85;color:#F4F2EC;font-weight:300}
-  .why-card strong{font-weight:500;color:#fff}
-  .tools-card{background:#fff;border:1px solid rgba(28,27,24,0.12);border-radius:12px;padding:34px 36px}
-  .tools-card .h{font-size:13px;color:#8A887F;margin-bottom:20px}
-  .tools-card .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-bottom:13px;border-bottom:1px solid rgba(28,27,24,0.08);margin-bottom:14px}
-  .tools-card .row:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0}
-  .tools-card .row .name{font-size:15px;font-weight:500;color:#16150F}
-  .tools-card .row .sub{font-size:13px;color:#8A887F}
-  .fine-note{margin-top:20px;font-size:13.5px;color:#8A887F}
-
-  /* ---------- 延伸布局 ---------- */
-  .ext-grid{margin-top:36px;display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-  .ext-grid>div{background:#fff;padding:26px 28px;border:1px solid rgba(28,27,24,0.1);border-radius:10px;transition:transform .35s cubic-bezier(.2,.6,.2,1),box-shadow .35s,border-color .35s}
-  .ext-grid>div:hover{transform:translateY(-4px);box-shadow:0 18px 38px -22px rgba(22,21,15,0.3);border-color:rgba(31,58,95,0.45)}
-  .ext-grid .t{font-size:18px;font-weight:500;color:#16150F}
-  .ext-grid p{margin-top:10px;font-size:14.5px;line-height:1.8;color:#57564F;font-weight:300}
-
-  /* ---------- CTA ---------- */
-  .cta{background:radial-gradient(125% 120% at 100% 0%,rgba(31,58,95,0.22),rgba(22,21,15,0) 56%),#16150F;color:#EDEBE4}
-  .cta-inner{max-width:1280px;margin:0 auto;padding:120px 48px;text-align:center}
-  .cta h2{font-family:'Noto Serif SC',serif;font-weight:600;font-size:42px;line-height:1.36;color:#FBFAF6}
-  .cta .btns{margin-top:38px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
-  .btn-light{font-size:16px;font-weight:500;color:#16150F;background:#FBFAF6;padding:15px 34px;border-radius:999px;transition:transform .25s}
+  .btn-light{font-size:16px;font-weight:500;color:#16150F;background:#FBFAF6;padding:15px 34px;border-radius:999px;transition:transform .25s;display:inline-block}
   .btn-light:hover{transform:translateY(-2px)}
-  .btn-dark-ghost{font-size:16px;font-weight:500;color:#EDEBE4;padding:15px 32px;border-radius:999px;border:1px solid rgba(255,255,255,0.25);transition:border-color .25s}
-  .btn-dark-ghost:hover{border-color:#7C9CC4}
+  .btn-ghost{font-size:16px;font-weight:500;color:#EDEBE4;padding:15px 32px;border-radius:999px;border:1px solid rgba(255,255,255,0.25);transition:border-color .25s;display:inline-block}
+  .btn-ghost:hover{border-color:#5B7DA8}
 
-  /* ---------- footer ---------- */
-  .site-footer{background:radial-gradient(110% 130% at 0% 0%,rgba(31,58,95,0.16),rgba(22,21,15,0) 52%),#16150F;color:#C9C7BD;border-top:1px solid rgba(255,255,255,0.08)}
-  .footer-inner{max-width:1280px;margin:0 auto;padding:48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
-  .footer-brand{display:flex;align-items:center;gap:11px}
-  .footer-brand img{width:22px;height:22px;display:block}
-  .footer-brand span{font-size:17px;font-weight:700;color:#FBFAF6;letter-spacing:0.04em}
-  .footer-inner .copy{font-size:13.5px;color:#6C6A60}
-
+  [data-stat]>div{transition:background .35s ease}
+  [data-stat]>div:hover{background:#FBFAF8 !important}
+  [data-stage]>div{transition:background .35s ease}
+  [data-stage]>div:hover{background:#FBFAF8}
+  [data-ext]>div{transition:transform .35s cubic-bezier(.2,.6,.2,1),box-shadow .35s,border-color .35s}
+  [data-ext]>div:hover{transform:translateY(-4px);box-shadow:0 18px 38px -22px rgba(22,21,15,0.3);border-color:rgba(31,58,95,0.45)}
   @media(max-width:900px){
     .nav-links{display:none}
     .menu-btn{display:block}
-    section,.cta-inner,.footer-inner{padding-left:24px !important;padding-right:24px !important}
-    .hero h1{font-size:36px}
-    .biz{grid-template-columns:1fr;gap:32px}
-    .os-head{grid-template-columns:1fr}
-    .stage-grid{grid-template-columns:1fr}
-    .stage-grid>div{border-right:none;border-bottom:1px solid rgba(28,27,24,0.1)}
-    .stage-grid>div:last-child{border-bottom:none}
-    .os-duo{grid-template-columns:1fr}
-    .fact-grid{grid-template-columns:1fr}
-    .ext-grid{grid-template-columns:1fr}
+    .mobile-menu{padding-left:24px;padding-right:24px}
+    section{padding-left:24px !important;padding-right:24px !important}
+    [data-2col]{grid-template-columns:1fr !important}
+    [data-stat]{grid-template-columns:1fr !important}
+    [data-stage]{grid-template-columns:1fr !important}
+    [data-stage]>div{border-right:none !important;border-bottom:1px solid rgba(28,27,24,0.1)}
+    [data-ext]{grid-template-columns:1fr !important}
   }
 </style>
 </head>
 <body>
 
+<header class="site-header">
+  <nav class="site-nav">
+    <a href="index.html" class="brand">
+      <img src="images/logo-mark.svg" alt="潜势标志">
+      <span class="brand-name">潜势<em>科技</em></span>
+    </a>
+    <div class="nav-links">
+      <a href="products.html" class="nav-link active">业务与服务</a>
+      <a href="index.html#moat" class="nav-link">核心优势</a>
+      <a href="index.html#cases" class="nav-link">客户案例</a>
+      <a href="about.html" class="nav-link">关于我们</a>
+      <a href="contact.html" class="nav-cta">联系我们</a>
+    </div>
+    <button class="menu-btn" aria-label="菜单" aria-expanded="false" id="menuBtn"><span></span><span></span></button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="products.html">业务与服务</a>
+    <a href="index.html#moat">核心优势</a>
+    <a href="index.html#cases">客户案例</a>
+    <a href="about.html">关于我们</a>
+    <a href="contact.html">联系我们 →</a>
+  </div>
+</header>
+
 <div style="min-height:100vh">
 
-  <header class="site-header">
-    <nav class="site-nav">
-      <a href="index.html" class="brand">
-        <img src="images/logo-mark.svg" alt="潜势标志">
-        <span class="brand-name">潜势<em>科技</em></span>
-      </a>
-      <div class="nav-links">
-        <a href="products.html" class="nav-link active">业务与服务</a>
-        <a href="index.html#moat" class="nav-link">核心优势</a>
-        <a href="index.html#cases" class="nav-link">客户案例</a>
-        <a href="about.html" class="nav-link">关于我们</a>
-        <a href="contact.html" class="nav-cta">联系我们</a>
-      </div>
-      <button id="menuBtn" class="menu-btn" aria-label="菜单" aria-expanded="false">
-        <span></span><span></span>
-      </button>
-    </nav>
-    <div id="mobileMenu" class="mobile-menu">
-      <a href="products.html">业务与服务</a>
-      <a href="index.html#moat">核心优势</a>
-      <a href="index.html#cases">客户案例</a>
-      <a href="about.html">关于我们</a>
-      <a href="contact.html">联系我们 →</a>
+  <section style="max-width:1280px;margin:0 auto;padding:172px 48px 84px;position:relative">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:30px;animation:fadeUp .8s .05s both">
+      <span style="width:34px;height:1px;background:#1F3A5F;transform-origin:left;animation:lineGrow .9s .2s both"></span>
+      <span style="font-size:13px;letter-spacing:0.14em;color:#1F3A5F;font-weight:500">业务与服务</span>
     </div>
-  </header>
-
-  <!-- 1 · Hero -->
-  <section class="wrap hero">
-    <div class="kicker">
-      <span class="line"></span>
-      <span class="txt">业务与服务</span>
-    </div>
-    <h1>五段价值链,<br>相互喂养的一体化业务版图</h1>
-    <p>媒介运营、媒介传播、经营转化、人才培养输送、管理咨询与产业协同 —— 前一段为后一段供能,后一段反哺前一段。每条业务都对应清晰的客户、收费方式和交付形态,别人做其中一段,潜势建设整条链。</p>
+    <h1 style="font-family:'Noto Serif SC',serif;font-weight:600;font-size:52px;line-height:1.3;color:#16150F;max-width:880px;animation:fadeUp .9s .12s both">五段价值链,<br>相互喂养的一体化业务版图</h1>
+    <p style="margin-top:28px;font-size:18px;line-height:1.9;color:#57564F;max-width:680px;font-weight:300;animation:fadeUp .9s .22s both">媒介运营、媒介传播、经营转化、人才培养输送、管理咨询与产业协同 —— 前一段为后一段供能,后一段反哺前一段。每条业务都对应清晰的客户、收费方式和交付形态,别人做其中一段,潜势建设整条链。</p>
   </section>
 
-  <!-- 2 · 01 主营业务 -->
-  <section class="alt-band">
-    <div class="wrap biz">
+  <section style="border-top:1px solid rgba(28,27,24,0.08);background:#FBFAF8">
+    <div style="max-width:1280px;margin:0 auto;padding:96px 48px;display:grid;grid-template-columns:0.5fr 1.5fr;gap:64px" data-2col>
       <div data-reveal>
-        <div class="no">01</div>
-        <div class="label">主营业务</div>
+        <div style="font-size:64px;font-weight:300;color:#1F3A5F;line-height:1">01</div>
+        <div style="margin-top:18px;font-size:13px;color:#A4A299;font-weight:500;letter-spacing:0.12em">主营业务 · ① 媒介运营 + ③ 经营转化</div>
       </div>
+      <div data-reveal style="transition-delay:.1s">
+        <h2 style="font-family:'Noto Serif SC',serif;font-weight:600;font-size:34px;line-height:1.4;color:#16150F">国央企新媒体官方账号矩阵化运营</h2>
+        <p style="margin-top:20px;font-size:17px;line-height:1.95;color:#57564F;font-weight:300;max-width:640px">以乙方身份,为中国移动、中国联通等国央企搭建并矩阵化运营官方新媒体账号,覆盖抖音、视频号、小红书,通过直播、短视频与种草笔记把号卡、宽带卖给本地用户。我们负责账号搭建、内容生产、直播投流、客资清洗与结算对账的全流程。</p>
+        <div style="margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(28,27,24,0.1);border:1px solid rgba(28,27,24,0.1);border-radius:10px;overflow:hidden" data-stat>
+          <div style="background:#fff;padding:26px 24px"><div style="font-size:13px;color:#8A887F">收费方式</div><div style="margin-top:8px;font-size:16px;font-weight:500;color:#16150F;line-height:1.6">运营服务费 + 销售提成 + 投流分成</div></div>
+          <div style="background:#fff;padding:26px 24px"><div style="font-size:13px;color:#8A887F">目标客户</div><div style="margin-top:8px;font-size:16px;font-weight:500;color:#16150F;line-height:1.6">运营商各盟市 / 区分公司</div></div>
+          <div style="background:#fff;padding:26px 24px"><div style="font-size:13px;color:#8A887F">交付形态</div><div style="margin-top:8px;font-size:16px;font-weight:500;color:#16150F;line-height:1.6">官方新媒体账号矩阵化运营</div></div>
+        </div>
+        <div style="margin-top:24px;padding:24px 28px;background:#fff;border:1px solid rgba(28,27,24,0.1);border-left:3px solid #1F3A5F;border-radius:0 10px 10px 0">
+          <div style="font-size:13px;color:#1F3A5F;font-weight:500;letter-spacing:0.08em;margin-bottom:10px">单位经济模型</div>
+          <p style="font-size:15.5px;line-height:1.85;color:#3A3935">每个直播间以「日销 <strong>3 张激活卡</strong>即可保本」为口径设计,成本与佣金逐单可对账;同一模型可复制到新盟市与新运营商。千万级标杆订单推进中,以最终签约为准。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="border-top:1px solid rgba(28,27,24,0.08);background:#F5F4F1">
+    <div style="max-width:1280px;margin:0 auto;padding:104px 48px">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:26px">
+        <span style="width:34px;height:1px;background:#1F3A5F"></span>
+        <span style="font-size:13px;letter-spacing:0.14em;color:#1F3A5F;font-weight:500">主营业务 · 运营操作系统</span>
+      </div>
+      <div data-reveal style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:64px" data-2col>
+        <h2 style="font-family:'Noto Serif SC',serif;font-weight:600;font-size:34px;line-height:1.4;color:#16150F">把「会做新媒体」拆成<br>一套可对账、可复制的流程</h2>
+        <p style="font-size:16.5px;line-height:1.95;color:#57564F;font-weight:300;padding-bottom:4px">同一套系统在每个盟市重复运转:用官方认证账号矩阵把流量做起来,把每一条客资清洗成可外呼的线索,再以「实名 + 首充激活」为唯一成交口径与运营商对账结算。账号、流量、客资、结算四段全程在系统里留痕。</p>
+      </div>
+
+      <div data-reveal style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid rgba(28,27,24,0.12);border-radius:12px;overflow:hidden;background:#fff" data-stage>
+        <div style="padding:40px 36px;border-right:1px solid rgba(28,27,24,0.1)">
+          <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:18px"><span style="font-size:13px;font-weight:600;color:#1F3A5F;letter-spacing:0.1em">阶段一</span><span style="font-size:13px;color:#A4A299">内容获客</span></div>
+          <h3 style="font-size:20px;font-weight:500;color:#16150F;line-height:1.5">官方认证账号矩阵<br>把本地流量做起来</h3>
+          <p style="margin-top:14px;font-size:14.5px;line-height:1.85;color:#57564F;font-weight:300">按盟市归属地分号,直播、短视频与种草笔记持续生产。投流分工:抖音以巨量千川 / 本地推 / 引擎承接,视频号经腾讯广告投放,小红书用聚光平台种草。</p>
+        </div>
+        <div style="padding:40px 36px;border-right:1px solid rgba(28,27,24,0.1)">
+          <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:18px"><span style="font-size:13px;font-weight:600;color:#1F3A5F;letter-spacing:0.1em">阶段二</span><span style="font-size:13px;color:#A4A299">客资清洗 · ETL</span></div>
+          <h3 style="font-size:20px;font-weight:500;color:#16150F;line-height:1.5">把留资线索<br>洗成可外呼的客资</h3>
+          <p style="margin-top:14px;font-size:14.5px;line-height:1.85;color:#57564F;font-weight:300">私信与表单留资统一去重、清洗、标签化,外呼核验意向后入库。持续清洗沉淀出 2 万+ 有效客资,而非一次性流量。</p>
+        </div>
+        <div style="padding:40px 36px">
+          <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:18px"><span style="font-size:13px;font-weight:600;color:#1F3A5F;letter-spacing:0.1em">阶段三</span><span style="font-size:13px;color:#A4A299">激活结算</span></div>
+          <h3 style="font-size:20px;font-weight:500;color:#16150F;line-height:1.5">以「激活」为口径<br>与运营商对账</h3>
+          <p style="margin-top:14px;font-size:14.5px;line-height:1.85;color:#57564F;font-weight:300">号卡需实名 + 首充激活才计为成交,按张计佣。秒结 / 次月结 / 月结与运营商逐单对账,口径透明、不加包、不二次营销。</p>
+        </div>
+      </div>
+
+      <div data-reveal style="margin-top:28px;display:grid;grid-template-columns:1.25fr 1fr;gap:24px" data-2col>
+        <div style="background:radial-gradient(135% 130% at 0% 0%,rgba(31,58,95,0.26),rgba(22,21,15,0) 58%),#16150F;border-radius:12px;padding:42px 44px;color:#EDEBE4">
+          <div style="font-size:13px;color:#F97316;font-weight:500;letter-spacing:0.1em;margin-bottom:16px">为什么是 1210+ 账号,而不是一个大号</div>
+          <p style="font-size:17px;line-height:1.85;color:#F4F2EC;font-weight:300">运营商套餐由<strong style="font-weight:500;color:#fff">集团 → 省 → 地市</strong>三级制定,资费与归属地随盟市而变。要卖本地套餐,就得用本地号做本地内容 —— 每个盟市落地独立账号,正是这套地市级矩阵的由来,也是新进入者难以一夜复制的工程量。</p>
+        </div>
+        <div style="background:#fff;border:1px solid rgba(28,27,24,0.12);border-radius:12px;padding:34px 36px">
+          <div style="font-size:13px;color:#8A887F;margin-bottom:20px">全平台投流工具</div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-bottom:13px;border-bottom:1px solid rgba(28,27,24,0.08)"><span style="font-size:15px;font-weight:500;color:#16150F">抖音 · 巨量引擎</span><span style="font-size:13px;color:#8A887F">千川 / 本地推 / 引擎 AD</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-bottom:13px;border-bottom:1px solid rgba(28,27,24,0.08)"><span style="font-size:15px;font-weight:500;color:#16150F">视频号 · 腾讯广告</span><span style="font-size:13px;color:#8A887F">ADQ 投放 · 微信豆加热</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-bottom:13px;border-bottom:1px solid rgba(28,27,24,0.08)"><span style="font-size:15px;font-weight:500;color:#16150F">小红书 · 聚光</span><span style="font-size:13px;color:#8A887F">笔记种草 · 薯条加热</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span style="font-size:15px;font-weight:500;color:#16150F">全域达人 · 星图 / 蒲公英</span><span style="font-size:13px;color:#8A887F">达人合作 · 内容加热</span></div>
+          </div>
+        </div>
+      </div>
+      <p style="margin-top:20px;font-size:13.5px;color:#8A887F">注 · 投流工具分属字节跳动巨量引擎、腾讯广告与小红书聚光等平台,潜势作为认证服务商在合规授权下使用;数据口径以公司框架文件为准,实际经营存在不确定性。</p>
+    </div>
+  </section>
+
+  <section style="border-top:1px solid rgba(28,27,24,0.08);max-width:1280px;margin:0 auto;padding:96px 48px;display:grid;grid-template-columns:0.5fr 1.5fr;gap:64px" data-2col>
+    <div data-reveal>
+      <div style="font-size:64px;font-weight:300;color:#1F3A5F;line-height:1">02</div>
+      <div style="margin-top:18px;font-size:13px;color:#A4A299;font-weight:500;letter-spacing:0.12em">传播矩阵 · ② 媒介传播</div>
+    </div>
+    <div data-reveal style="transition-delay:.1s">
+      <h2 style="font-family:'Noto Serif SC',serif;font-weight:600;font-size:34px;line-height:1.4;color:#16150F">权威与专业内容传播</h2>
+      <p style="margin-top:20px;font-size:17px;line-height:1.95;color:#57564F;font-weight:300;max-width:640px">把媒介运营积累的内容能力,延伸到党政与法治领域的权威传播:围绕公共传播、法治内容与区域新闻协同持续建设,以两个地区新闻中心与普法中心为载体,为矩阵运营和经营转化建立品牌信任背书。</p>
+      <div style="margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(28,27,24,0.1);border:1px solid rgba(28,27,24,0.1);border-radius:10px;overflow:hidden" data-stat>
+        <div style="background:#fff;padding:26px 24px"><div style="font-size:13px;color:#8A887F">承载形态</div><div style="margin-top:8px;font-size:16px;font-weight:500;color:#16150F;line-height:1.6">地区新闻中心 × 2 + 普法中心</div></div>
+        <div style="background:#fff;padding:26px 24px"><div style="font-size:13px;color:#8A887F">内容方向</div><div style="margin-top:8px;font-size:16px;font-weight:500;color:#16150F;line-height:1.6">公共传播 · 法治内容 · 区域新闻</div></div>
+        <div style="background:#fff;padding:26px 24px"><div style="font-size:13px;color:#8A887F">链上价值</div><div style="margin-top:8px;font-size:16px;font-weight:500;color:#16150F;line-height:1.6">为 ①③ 段建立信任与背书</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="border-top:1px solid rgba(28,27,24,0.08);background:#FBFAF8">
+    <div style="max-width:1280px;margin:0 auto;padding:96px 48px;display:grid;grid-template-columns:0.5fr 1.5fr;gap:64px" data-2col>
       <div data-reveal>
-        <h2>国央企新媒体官方账号矩阵化运营</h2>
-        <p class="lede">以乙方身份,为中国移动、中国联通等国央企搭建并矩阵化运营官方新媒体账号,覆盖抖音、视频号、小红书,通过直播、短视频与种草笔记把号卡、宽带卖给本地用户。我们负责账号搭建、内容生产、直播投流、客资清洗与结算对账的全流程。</p>
-        <div class="fact-grid">
-          <div><div class="k">收费方式</div><div class="v">运营服务费 + 销售提成 + 投流分成</div></div>
-          <div><div class="k">目标客户</div><div class="v">运营商各盟市 / 区分公司</div></div>
-          <div><div class="k">交付形态</div><div class="v">官方新媒体账号矩阵化运营</div></div>
+        <div style="font-size:64px;font-weight:300;color:#1F3A5F;line-height:1">03</div>
+        <div style="margin-top:18px;font-size:13px;color:#A4A299;font-weight:500;letter-spacing:0.12em">第二曲线 · ④ 人才培养输送</div>
+      </div>
+      <div data-reveal style="transition-delay:.1s">
+        <h2 style="font-family:'Noto Serif SC',serif;font-weight:600;font-size:34px;line-height:1.4;color:#16150F">佣金争夺战 · 新媒体新就业训赛营</h2>
+        <p style="margin-top:20px;font-size:17px;line-height:1.95;color:#57564F;font-weight:300;max-width:640px">与艺术院校共建的训赛营,以「比赛 + 实训」的形式培养直播主播与新媒体运营人才。它既向运营商矩阵持续输送熟练主播,解决「招人难」,本身也是一个 to G(政府就业项目)、to B(企业培训)、to C(个人付费)通吃的独立产品。训赛营脱胎于我们连续承办的三届运营商直播大赛,把赛事沉淀的选拔与培养机制产品化。</p>
+        <div style="margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(28,27,24,0.1);border:1px solid rgba(28,27,24,0.1);border-radius:10px;overflow:hidden" data-stat>
+          <div style="background:#fff;padding:26px 24px"><div style="font-size:13px;color:#8A887F">首期落地</div><div style="margin-top:8px;font-size:16px;font-weight:500;color:#16150F;line-height:1.6">内蒙古艺术学院已交付</div></div>
+          <div style="background:#fff;padding:26px 24px"><div style="font-size:13px;color:#8A887F">双重价值</div><div style="margin-top:8px;font-size:16px;font-weight:500;color:#16150F;line-height:1.6">人才供应链 + 独立营收</div></div>
+          <div style="background:#fff;padding:26px 24px"><div style="font-size:13px;color:#8A887F">客户结构</div><div style="margin-top:8px;font-size:16px;font-weight:500;color:#16150F;line-height:1.6">to G / to B / to C</div></div>
         </div>
-        <div class="econ-card">
-          <div class="h">单位经济模型</div>
-          <p>单直播间年成本约 <strong>29.7 万元</strong>,每个直播间每天卖出 <strong>3 张卡</strong>即可保本。内蒙古移动 1500 万年预算 / 40 账号矩阵标杆订单,模型已验证为正。</p>
-        </div>
+        <p style="margin-top:20px;font-size:13.5px;line-height:1.8;color:#8A887F">注 · 公开产教融合案例多为「职业院校 × 通用电商」组合;「艺术院校 × 运营商业务 × 佣金就业出口」的三方结构在公开案例中少见(基于 2026 年 6 月公开信息检索,检索存在盲区)。</p>
       </div>
     </div>
   </section>
 
-  <!-- 3 · 运营操作系统 -->
-  <section class="plain-band">
-    <div class="wrap os">
-      <div class="kicker">
-        <span class="line"></span>
-        <span class="txt">主营业务 · 运营操作系统</span>
+  <section style="border-top:1px solid rgba(28,27,24,0.08);max-width:1280px;margin:0 auto;padding:96px 48px;display:grid;grid-template-columns:0.5fr 1.5fr;gap:64px" data-2col>
+    <div data-reveal>
+      <div style="font-size:64px;font-weight:300;color:#1F3A5F;line-height:1">04</div>
+      <div style="margin-top:18px;font-size:13px;color:#A4A299;font-weight:500;letter-spacing:0.12em">延伸布局 · ①③ 场景延伸</div>
+    </div>
+    <div data-reveal style="transition-delay:.1s">
+      <h2 style="font-family:'Noto Serif SC',serif;font-weight:600;font-size:34px;line-height:1.4;color:#16150F">本地生活、文旅及家庭业务协同</h2>
+      <p style="margin-top:20px;font-size:17px;line-height:1.95;color:#57564F;font-weight:300;max-width:640px">沿「政企新媒体服务」主航道,以真实项目为单位分阶段、轻验证地探索新方向。每个方向都借助已有的运营商关系、资质与操作系统,在不分散主业的前提下寻找下一条曲线 —— 不以概念代替结果。</p>
+      <div style="margin-top:36px;display:grid;grid-template-columns:repeat(2,1fr);gap:16px" data-ext>
+        <div style="background:#fff;padding:26px 28px;border:1px solid rgba(28,27,24,0.1);border-radius:10px"><div style="font-size:18px;font-weight:500;color:#16150F">团播</div><p style="margin-top:10px;font-size:14.5px;line-height:1.8;color:#57564F;font-weight:300">多主播协同的直播间形态,提升单位时长产出。</p></div>
+        <div style="background:#fff;padding:26px 28px;border:1px solid rgba(28,27,24,0.1);border-radius:10px"><div style="font-size:18px;font-weight:500;color:#16150F">智家通通</div><p style="margin-top:10px;font-size:14.5px;line-height:1.8;color:#57564F;font-weight:300">面向智慧家庭、宽带融合产品的专项运营,与东方国信协作推进。</p></div>
+        <div style="background:#fff;padding:26px 28px;border:1px solid rgba(28,27,24,0.1);border-radius:10px"><div style="font-size:18px;font-weight:500;color:#16150F">本地生活</div><p style="margin-top:10px;font-size:14.5px;line-height:1.8;color:#57564F;font-weight:300">依托矩阵与客资能力,承接本地生活场景的内容与成交服务。</p></div>
+        <div style="background:#fff;padding:26px 28px;border:1px solid rgba(28,27,24,0.1);border-radius:10px"><div style="font-size:18px;font-weight:500;color:#16150F">文旅运营</div><p style="margin-top:10px;font-size:14.5px;line-height:1.8;color:#57564F;font-weight:300">面向地方文旅资源的内容种草与直播带货。</p></div>
       </div>
-      <div class="os-head" data-reveal>
-        <h2>把「会做新媒体」拆成<br>一套可对账、可复制的流程</h2>
-        <p>同一套系统在每个盟市重复运转:用官方认证账号矩阵把流量做起来,把每一条客资清洗成可外呼的线索,再以「实名 + 首充激活」为唯一成交口径与运营商对账结算。账号、流量、客资、结算四段全程在系统里留痕。</p>
-      </div>
-
-      <div class="stage-grid" data-reveal>
-        <div>
-          <div class="stage-tag"><span class="n">阶段一</span><span class="c">内容获客</span></div>
-          <h3>官方认证账号矩阵<br>把本地流量做起来</h3>
-          <p>按盟市归属地分号,直播、短视频与种草笔记持续生产。投流分工:抖音以巨量千川 / 本地推 / 引擎承接,视频号经腾讯广告投放,小红书用聚光平台种草。</p>
-        </div>
-        <div>
-          <div class="stage-tag"><span class="n">阶段二</span><span class="c">客资清洗 · ETL</span></div>
-          <h3>把留资线索<br>洗成可外呼的客资</h3>
-          <p>私信与表单留资统一去重、清洗、标签化,外呼核验意向后入库。持续清洗沉淀出 2 万+ 有效客资,而非一次性流量。</p>
-        </div>
-        <div>
-          <div class="stage-tag"><span class="n">阶段三</span><span class="c">激活结算</span></div>
-          <h3>以「激活」为口径<br>与运营商对账</h3>
-          <p>号卡需实名 + 首充激活才计为成交,按张计佣。秒结 / 次月结 / 月结与运营商逐单对账,口径透明、不加包、不二次营销。</p>
-        </div>
-      </div>
-
-      <div class="os-duo" data-reveal>
-        <div class="why-card">
-          <div class="h">为什么是 1210+ 账号,而不是一个大号</div>
-          <p>运营商套餐由<strong>集团 → 省 → 地市</strong>三级制定,资费与归属地随盟市而变。要卖本地套餐,就得用本地号做本地内容 —— 每个盟市落地独立账号,正是这套地市级矩阵的由来,也是新进入者难以一夜复制的工程量。</p>
-        </div>
-        <div class="tools-card">
-          <div class="h">全平台投流工具</div>
-          <div class="row"><span class="name">抖音 · 巨量引擎</span><span class="sub">千川 / 本地推 / 引擎 AD</span></div>
-          <div class="row"><span class="name">视频号 · 腾讯广告</span><span class="sub">ADQ 投放 · 微信豆加热</span></div>
-          <div class="row"><span class="name">小红书 · 聚光</span><span class="sub">笔记种草 · 薯条加热</span></div>
-          <div class="row"><span class="name">全域达人 · 星图 / 蒲公英</span><span class="sub">达人合作 · 内容加热</span></div>
-        </div>
-      </div>
-      <p class="fine-note">注 · 投流工具分属字节跳动巨量引擎、腾讯广告与小红书聚光等平台,潜势作为认证服务商在合规授权下使用;数据口径以公司框架文件为准,实际经营存在不确定性。</p>
+      <p style="margin-top:20px;font-size:13.5px;color:#8A887F">注 · 上述延伸方向处于分阶段验证状态,落地节奏视市场与资源而定,不构成业绩承诺。</p>
     </div>
   </section>
 
-  <!-- 4 · 02 第二曲线 -->
-  <section class="plain-band">
-    <div class="wrap biz">
-      <div>
-        <div class="no">02</div>
-        <div class="label">第二曲线</div>
-      </div>
+  <section style="border-top:1px solid rgba(28,27,24,0.08);background:#FBFAF8">
+    <div style="max-width:1280px;margin:0 auto;padding:96px 48px;display:grid;grid-template-columns:0.5fr 1.5fr;gap:64px" data-2col>
       <div data-reveal>
-        <h2>佣金争夺战 · 新媒体新就业训赛营</h2>
-        <p class="lede">与艺术院校共建的训赛营,以「比赛 + 实训」的形式培养直播主播与新媒体运营人才。它既向运营商矩阵持续输送熟练主播,解决「招人难」,本身也是一个 to G(政府就业项目)、to B(企业培训)、to C(个人付费)通吃的独立产品。训赛营脱胎于我们连续承办的三届运营商直播大赛,把赛事沉淀的选拔与培养机制产品化。</p>
-        <div class="fact-grid">
-          <div><div class="k">首期落地</div><div class="v">内蒙古艺术学院已交付</div></div>
-          <div><div class="k">双重价值</div><div class="v">人才供应链 + 独立营收</div></div>
-          <div><div class="k">客户结构</div><div class="v">to G / to B / to C</div></div>
+        <div style="font-size:64px;font-weight:300;color:#1F3A5F;line-height:1">05</div>
+        <div style="margin-top:18px;font-size:13px;color:#A4A299;font-weight:500;letter-spacing:0.12em">方法论沉淀 · ⑤ 管理咨询与产业协同</div>
+      </div>
+      <div data-reveal style="transition-delay:.1s">
+        <h2 style="font-family:'Noto Serif SC',serif;font-weight:600;font-size:34px;line-height:1.4;color:#16150F">潜势咨询 · 管理咨询与产业协同</h2>
+        <p style="margin-top:20px;font-size:17px;line-height:1.95;color:#57564F;font-weight:300;max-width:640px">由深圳母体承载组织治理、方法论产品化与新业务孵化,把一次做成的事沉淀为可复用的方法、组织能力与长期协同空间 —— 让方法、人才和组织能力形成长期复利。</p>
+        <div style="margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(28,27,24,0.1);border:1px solid rgba(28,27,24,0.1);border-radius:10px;overflow:hidden" data-stat>
+          <div style="background:#fff;padding:26px 24px"><div style="font-size:13px;color:#8A887F">价值链定位</div><div style="margin-top:8px;font-size:16px;font-weight:500;color:#16150F;line-height:1.6">⑤ 管理咨询与产业协同</div></div>
+          <div style="background:#fff;padding:26px 24px"><div style="font-size:13px;color:#8A887F">承载主体</div><div style="margin-top:8px;font-size:16px;font-weight:500;color:#16150F;line-height:1.6">深圳市潜势企业管理咨询</div></div>
+          <div style="background:#fff;padding:26px 24px"><div style="font-size:13px;color:#8A887F">形成资产</div><div style="margin-top:8px;font-size:16px;font-weight:500;color:#16150F;line-height:1.6">方法论 · 组织能力 · 协同空间</div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 5 · 03 延伸布局 -->
-  <section class="alt-band">
-    <div class="wrap biz">
-      <div data-reveal>
-        <div class="no">03</div>
-        <div class="label">延伸布局</div>
-      </div>
-      <div data-reveal>
-        <h2>政企新媒体延伸方向</h2>
-        <p class="lede">沿「政企新媒体服务」主航道,分阶段、轻验证地探索新方向。每个方向都借助已有的运营商关系、资质与操作系统,在不分散主业的前提下寻找下一条曲线。</p>
-        <div class="ext-grid">
-          <div><div class="t">团播</div><p>多主播协同的直播间形态,提升单位时长产出。</p></div>
-          <div><div class="t">智家通通</div><p>面向智慧家庭、宽带融合产品的专项运营。</p></div>
-          <div><div class="t">法治头条</div><p>面向政法系统的政务新媒体内容与运营服务。</p></div>
-          <div><div class="t">文旅运营</div><p>面向地方文旅资源的内容种草与直播带货。</p></div>
-        </div>
-        <p class="fine-note">注 · 上述延伸方向处于分阶段验证状态,落地节奏视市场与资源而定。</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 6 · 04 方法论沉淀 -->
-  <section class="plain-band">
-    <div class="wrap biz">
-      <div>
-        <div class="no">04</div>
-        <div class="label">方法论沉淀</div>
-      </div>
-      <div>
-        <h2>潜势咨询 · 管理咨询与产业协同</h2>
-        <p class="lede">由深圳母体承载组织治理、方法论产品化与新业务孵化,把一次做成的事沉淀为可复用的方法、组织能力与长期协同空间 —— 让方法、人才和组织能力形成长期复利。</p>
-        <div class="fact-grid">
-          <div><div class="k">价值链定位</div><div class="v">⑤ 管理咨询与产业协同</div></div>
-          <div><div class="k">承载主体</div><div class="v">深圳市潜势企业管理咨询</div></div>
-          <div><div class="k">形成资产</div><div class="v">方法论 · 组织能力 · 协同空间</div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 7 · CTA -->
-  <section class="cta">
-    <div class="cta-inner">
-      <h2>想知道哪条业务最适合<br>与你的组织合作?</h2>
-      <div class="btns">
+  <section style="background:radial-gradient(125% 120% at 100% 0%,rgba(31,58,95,0.22),rgba(22,21,15,0) 56%),#16150F;color:#EDEBE4">
+    <div style="max-width:1280px;margin:0 auto;padding:120px 48px;text-align:center">
+      <h2 style="font-family:'Noto Serif SC',serif;font-weight:600;font-size:42px;line-height:1.36;color:#FBFAF6">想知道哪条业务最适合<br>与你的组织合作?</h2>
+      <div style="margin-top:38px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
         <a href="contact.html" class="btn-light">预约业务洽谈</a>
-        <a href="index.html#cases" class="btn-dark-ghost">查看客户案例</a>
+        <a href="index.html#cases" class="btn-ghost">查看客户案例</a>
       </div>
     </div>
   </section>
 
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <img src="images/logo-mark-light.svg" alt="潜势标志">
-        <span>潜势</span>
+  <footer style="background:radial-gradient(110% 130% at 0% 0%,rgba(31,58,95,0.16),rgba(22,21,15,0) 52%),#16150F;color:#C9C7BD;border-top:1px solid rgba(255,255,255,0.08)">
+    <div style="max-width:1280px;margin:0 auto;padding:48px 48px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+      <div style="display:flex;align-items:center;gap:11px">
+        <img src="images/logo-mark-light.svg" alt="潜势标志" style="width:22px;height:22px;display:block">
+        <span style="font-size:17px;font-weight:700;color:#FBFAF6;letter-spacing:0.04em">潜势</span>
       </div>
-      <span class="copy">© 2026 内蒙古潜势科技有限公司 · 双主体协同 · 深圳潜势咨询</span>
+      <span style="font-size:13.5px;color:#6C6A60">© 2026 内蒙古潜势科技有限公司 · 双主体协同 · 深圳潜势咨询</span>
     </div>
+    <div style="max-width:1280px;margin:0 auto;padding:0 48px 40px;font-size:12.5px;line-height:1.9;color:#55534A">本页所列收费方式、单位经济口径与延伸方向均含前瞻性表述,不构成投资、收益或合作承诺;涉及运营商产品营销的具体渠道、产品、地域与销售链路,以甲方书面授权及最新合规口径为准。</div>
   </footer>
 
 </div>
