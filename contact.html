@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.classList.add("js")</script>
 <title>联系我们 · 潜势科技</title>
 <meta name="description" content="联系潜势科技:运营商合作、院校共建训赛营、投资洽谈。创始人邢鹏越,办公地址呼和浩特市回民区香格里拉酒店4楼行政办公区,双主体协同(内蒙古潜势科技 × 深圳潜势咨询)。">
 <link rel="icon" href="images/logo-mark.svg" type="image/svg+xml">
@@ -39,8 +40,8 @@
   .mobile-menu a{font-size:17px;padding:12px 0;border-bottom:1px solid rgba(28,27,24,0.06)}
   .mobile-menu a:last-child{border-bottom:none;padding:14px 0;color:#1F3A5F;font-weight:500}
 
-  [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1)}
-  [data-reveal].revealed{opacity:1;transform:none}
+  html.js [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1)}
+  html.js [data-reveal].revealed{opacity:1;transform:none}
   .tel-link{font-size:18px;font-weight:500;color:#16150F;transition:color .2s}
   .tel-link:hover{color:#1F3A5F}
   .field{width:100%;padding:13px 16px;font-size:15px;color:#16150F;background:#FBFAF8;border:1px solid rgba(28,27,24,0.16);border-radius:9px;outline:none;transition:border-color .2s}
@@ -120,26 +121,25 @@
 
     <div>
       <div data-reveal style="background:#fff;border:1px solid rgba(28,27,24,0.1);border-radius:16px;padding:44px 44px;transition-delay:.15s">
-        <h2 style="font-size:22px;font-weight:600;color:#16150F">留下需求,我们尽快回复</h2>
-        <p style="margin-top:10px;font-size:14.5px;color:#6E6C64;font-weight:300">填写后我们会在 1 个工作日内与你联系。你留下的信息仅用于本次合作对接,不作其他用途。</p>
-        <div id="formDone" style="display:none;margin-top:32px;padding:40px 32px;text-align:center;background:#F4F7F5;border:1px solid rgba(31,58,95,0.25);border-radius:12px">
-          <div style="width:52px;height:52px;border-radius:50%;background:#1F3A5F;display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:26px;color:#fff">✓</div>
-          <div style="margin-top:18px;font-size:18px;font-weight:500;color:#16150F">已收到,感谢你的关注!</div>
-          <div style="margin-top:8px;font-size:14.5px;color:#57564F;font-weight:300">我们会尽快与你取得联系;着急的话,直接拨 186 1120 6321。</div>
+        <h2 style="font-size:22px;font-weight:600;color:#16150F">留下需求,请电话告知</h2>
+        <p id="formIntro" style="margin-top:10px;font-size:14.5px;color:#6E6C64;font-weight:300">本页没有联系邮箱,表单不会自动送达。请填写必填项后按提示直接电话联系;填写的内容不会被本站保存,也不作其他用途。</p>
+        <div id="formDone" style="display:none;margin-top:32px;padding:40px 32px;text-align:left;background:#F4F7F5;border:1px solid rgba(31,58,95,0.25);border-radius:12px" role="status" aria-live="polite">
+          <div id="formDoneTitle" style="font-size:18px;font-weight:500;color:#16150F">这条需求还没有送出</div>
+          <div id="formDoneDetail" style="margin-top:8px;font-size:14.5px;line-height:1.7;color:#57564F;font-weight:300">本页没有联系邮箱,网站也不能代收表单。请直接拨打 <a href="tel:18611206321" style="color:#1F3A5F;font-weight:500;white-space:nowrap">186 1120 6321</a>,向邢鹏越说明你的需求。<br>我们尚未收到你填写的内容。</div>
         </div>
-        <div id="formFields" style="margin-top:30px;display:flex;flex-direction:column;gap:20px">
+        <form id="formFields" action="contact.html" method="get" style="margin-top:30px;display:flex;flex-direction:column;gap:20px">
           <div>
-            <label style="display:block;font-size:13.5px;color:#46453E;margin-bottom:9px;font-weight:500">姓名 / 单位</label>
-            <input type="text" class="field" placeholder="如:中国移动 XX 分公司 / 张经理">
+            <label for="contactName" style="display:block;font-size:13.5px;color:#46453E;margin-bottom:9px;font-weight:500">姓名 / 单位</label>
+            <input id="contactName" type="text" class="field" required placeholder="如:中国移动 XX 分公司 / 张经理">
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px" data-2col>
             <div>
-              <label style="display:block;font-size:13.5px;color:#46453E;margin-bottom:9px;font-weight:500">电话</label>
-              <input type="tel" class="field" placeholder="手机号码">
+              <label for="contactTel" style="display:block;font-size:13.5px;color:#46453E;margin-bottom:9px;font-weight:500">电话</label>
+              <input id="contactTel" type="tel" class="field" required placeholder="手机号码">
             </div>
             <div>
-              <label style="display:block;font-size:13.5px;color:#46453E;margin-bottom:9px;font-weight:500">合作方向</label>
-              <select class="field">
+              <label for="contactTopic" style="display:block;font-size:13.5px;color:#46453E;margin-bottom:9px;font-weight:500">合作方向</label>
+              <select id="contactTopic" class="field" required>
                 <option>国央企新媒体矩阵运营</option>
                 <option>权威与专业内容传播</option>
                 <option>院校共建训赛营</option>
@@ -150,11 +150,11 @@
             </div>
           </div>
           <div>
-            <label style="display:block;font-size:13.5px;color:#46453E;margin-bottom:9px;font-weight:500">需求说明</label>
-            <textarea rows="4" class="field" placeholder="简单描述你的需求或背景" style="resize:vertical"></textarea>
+            <label for="contactNote" style="display:block;font-size:13.5px;color:#46453E;margin-bottom:9px;font-weight:500">需求说明</label>
+            <textarea id="contactNote" rows="4" class="field" required placeholder="简单描述你的需求或背景" style="resize:vertical"></textarea>
           </div>
-          <button class="submit-btn" id="submitBtn">提交需求</button>
-        </div>
+          <button class="submit-btn" id="submitBtn" type="submit">提交需求</button>
+        </form>
       </div>
     </div>
   </section>
@@ -194,7 +194,7 @@
       </div>
       <span style="font-size:13.5px;color:#6C6A60">© 2026 内蒙古潜势科技有限公司 · 双主体协同 · 深圳潜势咨询</span>
     </div>
-    <div style="max-width:1280px;margin:0 auto;padding:0 48px 40px;font-size:12.5px;line-height:1.9;color:#55534A">你在本页提交的信息仅用于合作对接,不作其他用途;本站含前瞻性表述,不构成投资、收益或合作承诺。</div>
+    <div style="max-width:1280px;margin:0 auto;padding:0 48px 40px;font-size:12.5px;line-height:1.9;color:#55534A">你在本页填写的信息不会被本站接收,也不作其他用途;本站含前瞻性表述,不构成投资、收益或合作承诺。</div>
   </footer>
 
 </div>
@@ -211,9 +211,145 @@
     a.addEventListener('click', function(){ menu.classList.remove('open'); btn.setAttribute('aria-expanded','false'); });
   });
 
-  document.getElementById('submitBtn').addEventListener('click', function(){
-    document.getElementById('formFields').style.display = 'none';
+  function stripBlocks(html, tag) {
+    return String(html || '').replace(new RegExp('<' + tag + '[\\s\\S]*?<\\/' + tag + '>', 'gi'), '');
+  }
+
+  function findContactEmail(html) {
+    var source = stripBlocks(stripBlocks(html, 'script'), 'style');
+    var mailto = source.match(/href\s*=\s*["']mailto:([^"'?\s]+)/i);
+    var address, found;
+    if (mailto) {
+      address = decodeURIComponent(mailto[1]).trim();
+      if (/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(address)) return address;
+    }
+    found = source.match(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/);
+    return found ? found[0] : '';
+  }
+
+  function buildContactMailto(email, fields) {
+    var body = [
+      '姓名 / 单位: ' + fields.name,
+      '电话: ' + fields.phone,
+      '合作方向: ' + fields.topic,
+      '需求说明:',
+      fields.note
+    ].join('\n');
+    return 'mailto:' + email + '?subject=' + encodeURIComponent('官网合作需求') + '&body=' + encodeURIComponent(body);
+  }
+
+  function deliverContact(email, tel, values) {
+    var name = String(values.name || '').trim();
+    var phone = String(values.phone || '').trim();
+    var topic = String(values.topic || '').trim();
+    var note = String(values.note || '').trim();
+    var summary, telHref, telText;
+    if (!name || !phone || !topic || !note) return { ok: false };
+    summary = ['姓名 / 单位: ' + name, '电话: ' + phone, '合作方向: ' + topic, '需求说明: ' + note].join('\n');
+    if (email) {
+      return {
+        ok: true,
+        mode: 'mailto',
+        href: buildContactMailto(email, { name: name, phone: phone, topic: topic, note: note }),
+        title: '邮件还需要你亲自发送',
+        detail: '已按页面上的联系邮箱 ' + email + ' 准备好邮件内容,并尝试打开邮件客户端。在你按下发送之前,我们没有收到这条需求。',
+        summary: summary
+      };
+    }
+    telHref = tel && tel.href ? String(tel.href) : '';
+    telText = tel && tel.text ? String(tel.text).replace(/\s+/g, ' ').trim() : '';
+    if (telText) {
+      return {
+        ok: true,
+        mode: 'tel',
+        href: telHref,
+        telText: telText,
+        title: '这条需求还没有送出',
+        detail: '本页没有联系邮箱,网站也不能代收表单。请直接拨打 ' + telText + ',向邢鹏越说明你的需求。我们尚未收到你填写的内容。',
+        summary: summary
+      };
+    }
+    return {
+      ok: true,
+      mode: 'tel',
+      href: '',
+      telText: '',
+      title: '这条需求还没有送出',
+      detail: '本页没有联系邮箱,也没有列出电话。请改用电话直接联系。我们尚未收到你填写的内容。',
+      summary: summary
+    };
+  }
+
+  var pageEmail = findContactEmail(document.documentElement.outerHTML);
+  if (pageEmail) {
+    document.getElementById('formIntro').textContent = '本站不能代收表单。填写必填项后,会把内容放进发给 ' + pageEmail + ' 的邮件草稿,需要你在邮件客户端里亲自发送;发送之前我们没有收到。';
+  }
+  var telAnchor = document.querySelector('a[href^="tel:"]');
+  var telInfo = telAnchor ? { href: telAnchor.getAttribute('href'), text: telAnchor.textContent } : null;
+  var form = document.getElementById('formFields');
+  var controls = [
+    document.getElementById('contactName'),
+    document.getElementById('contactTel'),
+    document.getElementById('contactTopic'),
+    document.getElementById('contactNote')
+  ];
+  controls.forEach(function (field) {
+    field.addEventListener('input', function () {
+      if (field.value.trim() !== '') field.setCustomValidity('');
+    });
+  });
+  form.addEventListener('submit', function (event) {
+    var firstInvalid = null;
+    event.preventDefault();
+    controls.forEach(function (field) {
+      var empty = field.value.trim() === '';
+      field.setCustomValidity(empty ? '请填写这项内容' : '');
+      if (empty && !firstInvalid) firstInvalid = field;
+    });
+    if (!form.reportValidity()) {
+      if (firstInvalid) firstInvalid.focus();
+      return;
+    }
+    var result = deliverContact(pageEmail, telInfo, {
+      name: document.getElementById('contactName').value,
+      phone: document.getElementById('contactTel').value,
+      topic: document.getElementById('contactTopic').value,
+      note: document.getElementById('contactNote').value
+    });
+    var detail, link, summary;
+    if (!result.ok) {
+      if (firstInvalid) firstInvalid.focus();
+      return;
+    }
+    document.getElementById('formDoneTitle').textContent = result.title;
+    detail = document.getElementById('formDoneDetail');
+    detail.textContent = '';
+    if (result.mode === 'mailto') {
+      detail.appendChild(document.createTextNode(result.detail));
+    } else if (result.href && result.telText) {
+      detail.appendChild(document.createTextNode('本页没有联系邮箱,网站也不能代收表单。请直接拨打 '));
+      link = document.createElement('a');
+      link.setAttribute('href', result.href);
+      link.style.color = '#1F3A5F';
+      link.style.fontWeight = '500';
+      link.style.whiteSpace = 'nowrap';
+      link.textContent = result.telText;
+      detail.appendChild(link);
+      detail.appendChild(document.createTextNode(',向邢鹏越说明你的需求。'));
+      detail.appendChild(document.createElement('br'));
+      detail.appendChild(document.createTextNode('我们尚未收到你填写的内容。'));
+    } else {
+      detail.appendChild(document.createTextNode(result.detail));
+    }
+    if (result.summary) {
+      summary = document.createElement('div');
+      summary.style.cssText = 'margin-top:16px;text-align:left;white-space:pre-wrap';
+      summary.textContent = result.summary;
+      detail.appendChild(summary);
+    }
+    form.style.display = 'none';
     document.getElementById('formDone').style.display = 'block';
+    if (result.mode === 'mailto') window.location.href = result.href;
   });
 
   var els = document.querySelectorAll('[data-reveal]');

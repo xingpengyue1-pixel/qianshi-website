@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.classList.add("js")</script>
 <title>关于我们 · 潜势科技</title>
 <meta name="description" content="潜势是一家面向央国企、公共机构与专业服务组织,提供新媒体运营、内容传播、经营转化、人才培养和组织咨询的一体化专业组织。">
 <link rel="icon" href="images/logo-mark.svg" type="image/svg+xml">
@@ -52,8 +53,8 @@
   .alt-band{border-top:1px solid rgba(28,27,24,0.08);background:#FBFAF8}
   .card-grid{display:grid;gap:1px;background:rgba(28,27,24,0.12);border:1px solid rgba(28,27,24,0.12);border-radius:10px;overflow:hidden}
   .card{background:#fff;padding:44px 42px}
-  [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1)}
-  [data-reveal].revealed{opacity:1;transform:none}
+  html.js [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1)}
+  html.js [data-reveal].revealed{opacity:1;transform:none}
 
   /* ---------- hero ---------- */
   .hero{padding-top:172px;padding-bottom:84px}
