@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "node --test --test-reporter=spec tests/site.test.mjs",
-    "validate": "html-validate *.html"
+    "validate": "html-validate index.html products.html about.html contact.html insights/*.html"
   },
   "engines": {
     "node": ">=20"

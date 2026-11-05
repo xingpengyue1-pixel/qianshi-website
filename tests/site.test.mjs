@@ -12,10 +12,31 @@ const SITE_ORIGIN = "https://site.local";
 
 const htmlvalidate = new HtmlValidate(new FileSystemConfigLoader());
 
-function listHtmlFiles() {
-  return readdirSync(ROOT)
-    .filter((name) => name.endsWith(".html"))
-    .sort();
+const SKIP_DIRS = new Set(["node_modules"]);
+
+function listHtmlFiles(dir = ROOT) {
+  const files = [];
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    if (entry.name.startsWith(".") || SKIP_DIRS.has(entry.name)) continue;
+    const abs = path.join(dir, entry.name);
+    if (entry.isDirectory()) files.push(...listHtmlFiles(abs));
+    else if (entry.isFile() && entry.name.endsWith(".html")) {
+      files.push(path.relative(ROOT, abs).split(path.sep).join("/"));
+    }
+  }
+  return files.sort();
+}
+
+function sitePrefix(file) {
+  return "../".repeat(file.split("/").length - 1);
+}
+
+const SITE = "https://qianxin-zaoshi.com";
+
+function pageUrl(file) {
+  if (file === "index.html") return `${SITE}/`;
+  if (file.endsWith("/index.html")) return `${SITE}/${file.slice(0, -"index.html".length)}`;
+  return `${SITE}/${file}`;
 }
 
 function readPage(name) {
@@ -120,14 +141,14 @@ describe("文档骨架", () => {
       const description = document.querySelector("meta[name=description]")?.getAttribute("content")?.trim();
       assert.ok(description && description.length > 10, `${name} 缺少 meta description`);
       assert.equal(document.querySelectorAll("h1").length, 1, `${name} 应有且仅有一个 h1`);
-      assert.equal(document.querySelector("link[rel=icon]")?.getAttribute("href"), "images/logo-mark.svg");
+      assert.equal(document.querySelector("link[rel=icon]")?.getAttribute("href"), `${sitePrefix(name)}images/logo-mark.svg`);
     });
 
     it(`${name} 有页头、页脚、品牌回首页和移动菜单`, () => {
       const document = loadPage(name);
       assert.ok(document.querySelector("header.site-header"));
       assert.ok(document.querySelector("footer"));
-      assert.equal(document.querySelector("a.brand")?.getAttribute("href"), "index.html");
+      assert.equal(document.querySelector("a.brand")?.getAttribute("href"), `${sitePrefix(name)}index.html`);
       assert.ok(document.querySelector("a.brand img")?.getAttribute("alt"));
       const menu = document.querySelector("#menuBtn");
       assert.equal(menu?.getAttribute("aria-label"), "菜单");
@@ -161,6 +182,83 @@ describe("导航", () => {
       }
     });
   }
+
+  it("每个页面的页头导航都有方法论", () => {
+    for (const name of listHtmlFiles()) {
+      const expected = name.startsWith("insights/") ? "index.html" : "insights/index.html";
+      const document = loadPage(name);
+      for (const selector of [".nav-links", "#mobileMenu"]) {
+        const link = document.querySelectorAll(`${selector} a`).find((anchor) => anchor.text.includes("方法论"));
+        assert.ok(link, `${name} ${selector} 缺少「方法论」`);
+        assert.equal(link.getAttribute("href"), expected, `${name} ${selector} 的方法论链接不对`);
+      }
+    }
+  });
+});
+
+describe("SEO", () => {
+  it("robots.txt 允许抓取并指向站点地图", () => {
+    const robots = readFileSync(path.join(ROOT, "robots.txt"), "utf8").replace(/\r\n/g, "\n");
+    assert.match(robots, /^User-agent:\s*\*\s*$/m);
+    assert.match(robots, /^Allow:\s*\/\s*$/m);
+    assert.equal(robots.includes("Disallow:"), false);
+    assert.match(robots, /^Sitemap:\s*https:\/\/qianxin-zaoshi\.com\/sitemap\.xml\s*$/m);
+  });
+
+  it("sitemap.xml 覆盖每一个 HTML 页面", () => {
+    const xml = readFileSync(path.join(ROOT, "sitemap.xml"), "utf8");
+    const locs = [...xml.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/g)].map((match) => match[1]);
+    assert.deepEqual(locs.slice().sort(), listHtmlFiles().map(pageUrl).sort());
+  });
+
+  it("分享封面是 1200×630 的 PNG", () => {
+    const file = path.join(ROOT, "images/og-cover.png");
+    const bytes = readFileSync(file);
+    assert.equal(bytes.toString("ascii", 1, 4), "PNG");
+    assert.equal(bytes.readUInt32BE(16), 1200);
+    assert.equal(bytes.readUInt32BE(20), 630);
+  });
+
+  for (const name of listHtmlFiles()) {
+    it(`${name} 有 canonical、Open Graph 和 twitter:card`, () => {
+      const document = loadPage(name);
+      const title = document.querySelector("title")?.text?.trim();
+      const description = document.querySelector("meta[name=description]")?.getAttribute("content")?.trim();
+      const url = pageUrl(name);
+      assert.equal(document.querySelector("link[rel=canonical]")?.getAttribute("href"), url);
+      const og = (property) => document.querySelector(`meta[property="og:${property}"]`)?.getAttribute("content")?.trim();
+      assert.equal(og("title"), title);
+      assert.equal(og("description"), description);
+      const article = name.startsWith("insights/") && !name.endsWith("/index.html");
+      assert.equal(og("type"), article ? "article" : "website");
+      assert.equal(og("url"), url);
+      assert.equal(og("image"), `${SITE}/images/og-cover.png`);
+      assert.equal(og("locale"), "zh_CN");
+      assert.equal(document.querySelector('meta[name="twitter:card"]')?.getAttribute("content")?.trim(), "summary_large_image");
+    });
+  }
+});
+
+describe("方法论", () => {
+  const articles = [
+    ["asset-loop.html", "方法论资产化：7 圈循环与 5 段法"],
+    ["reverse-pitfalls.html", "反向沉淀与 5 个坑"],
+    ["douyin-script.html", "案例：抖音短视频脚本生成器"],
+    ["topic-miner.html", "案例：短视频选题挖掘器"],
+  ];
+
+  it("目录列出四篇文章,文末链到方法论仓库", () => {
+    const index = loadPage("insights/index.html");
+    const hrefs = index.querySelectorAll("a").map((anchor) => anchor.getAttribute("href"));
+    for (const [href, title] of articles) {
+      assert.ok(hrefs.includes(href), `目录缺少 ${href}`);
+      const page = loadPage(`insights/${href}`);
+      assert.equal(page.querySelector("h1").text.trim(), title);
+      const source = page.querySelectorAll("a").find((anchor) => anchor.getAttribute("href") === "https://github.com/xingpengyue1-pixel/qianshi-methodology");
+      assert.ok(source, `${href} 没有链到方法论仓库`);
+      assert.match(source.getAttribute("rel") || "", /\bnoopener\b/);
+    }
+  });
 });
 
 describe("关键页面元素", () => {
