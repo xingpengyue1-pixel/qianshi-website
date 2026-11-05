@@ -1,0 +1,17 @@
+{
+  "name": "qianshi-website",
+  "private": true,
+  "description": "潜势科技静态官网的校验脚本。站点本身无需构建。",
+  "type": "module",
+  "scripts": {
+    "test": "node --test --test-reporter=spec tests/site.test.mjs",
+    "validate": "html-validate *.html"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "html-validate": "^11.18.0",
+    "node-html-parser": "^6.1.13"
+  }
+}
