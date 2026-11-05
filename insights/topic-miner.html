@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.classList.add("js")</script>
+<title>案例：短视频选题挖掘器 · 潜势科技</title>
+<meta name="description" content="选题挖掘器与脚本生成器同构。输入是 inputs.md 里的一线信号,输出是一张选题卡:信号源、痛点、视角、三条标题、三维打分。范式库已有三条,第四条待沉淀。">
+<link rel="canonical" href="https://qianxin-zaoshi.com/insights/topic-miner.html">
+<meta property="og:title" content="案例：短视频选题挖掘器 · 潜势科技">
+<meta property="og:description" content="选题挖掘器与脚本生成器同构。输入是 inputs.md 里的一线信号,输出是一张选题卡:信号源、痛点、视角、三条标题、三维打分。范式库已有三条,第四条待沉淀。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://qianxin-zaoshi.com/insights/topic-miner.html">
+<meta property="og:image" content="https://qianxin-zaoshi.com/images/og-cover.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../images/logo-mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-behavior:smooth;scroll-padding-top:96px}
+  body{margin:0;background-color:#F5F4F1;background-image:radial-gradient(rgba(28,27,24,0.045) 1px,transparent 1px);background-size:26px 26px;color:#1C1B18;font-family:"Noto Sans SC",-apple-system,sans-serif;line-height:1.5}
+  a{color:inherit;text-decoration:none}
+  h1,h2{text-wrap:balance}
+  h3,p,li{text-wrap:pretty}
+  ::selection{background:#1F3A5F;color:#fff}
+  .site-header{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:saturate(140%) blur(14px);-webkit-backdrop-filter:saturate(140%) blur(14px);background:rgba(245,244,241,0.78);border-bottom:1px solid rgba(28,27,24,0.08)}
+  .site-nav{max-width:1280px;margin:0 auto;padding:0 48px;height:72px;display:flex;align-items:center;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:11px}
+  .brand img{width:26px;height:26px;display:block}
+  .brand-name{font-size:19px;font-weight:700;letter-spacing:0.04em;color:#1F3A5F}
+  .brand-name em{font-style:normal;font-weight:400;color:#57564F}
+  .nav-links{display:flex;align-items:center;gap:26px}
+  .nav-link{font-size:15px;color:#3A3935;transition:color .2s}
+  .nav-link:hover{color:#1F3A5F}
+  .nav-link.active{color:#1F3A5F;font-weight:500}
+  .nav-cta{font-size:15px;font-weight:500;color:#fff;background:#1C1B18;padding:10px 22px;border-radius:999px;transition:background .25s}
+  .nav-cta:hover{background:#1F3A5F}
+  .menu-btn{display:none;background:none;border:none;cursor:pointer;padding:8px}
+  .menu-btn span{display:block;width:24px;height:2px;background:#1C1B18;margin:5px 0}
+  .mobile-menu{display:none;border-top:1px solid rgba(28,27,24,0.08);background:rgba(245,244,241,0.97);padding:18px 48px 26px;flex-direction:column;gap:6px}
+  .mobile-menu.open{display:flex}
+  .mobile-menu a{font-size:17px;padding:12px 0;border-bottom:1px solid rgba(28,27,24,0.06)}
+  .mobile-menu a:last-child{border-bottom:none;padding:14px 0;color:#1F3A5F;font-weight:500}
+  html.js [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1)}
+  html.js [data-reveal].revealed{opacity:1;transform:none}
+  .kicker{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+  .kicker .line{width:34px;height:1px;background:#1F3A5F}
+  .kicker .txt{font-size:13px;letter-spacing:0.14em;color:#1F3A5F;font-weight:500}
+  .prose{max-width:760px}
+  .prose h1{font-family:"Noto Serif SC",serif;font-weight:600;font-size:42px;line-height:1.35;color:#16150F}
+  .lede{margin-top:22px;font-size:18px;line-height:1.9;color:#57564F;font-weight:300}
+  .prose h2{margin-top:56px;font-family:"Noto Serif SC",serif;font-weight:600;font-size:28px;line-height:1.4;color:#16150F}
+  .prose h3{margin-top:28px;font-size:18px;font-weight:600;color:#16150F;line-height:1.5}
+  .prose p,.prose li{font-size:16.5px;line-height:1.95;color:#3A3935;font-weight:300}
+  .prose p{margin-top:16px}
+  .prose ul,.prose ol{margin-top:14px;padding-left:1.25em}
+  .prose li{margin-top:8px}
+  .prose strong{font-weight:600;color:#16150F}
+  .callout{margin-top:18px;padding:22px 26px;background:#fff;border:1px solid rgba(28,27,24,0.1);border-left:3px solid #F97316;border-radius:0 12px 12px 0}
+  .callout p{margin-top:0}
+  .stack{margin-top:22px;display:flex;flex-direction:column;gap:1px;background:rgba(28,27,24,0.1);border:1px solid rgba(28,27,24,0.1);border-radius:12px;overflow:hidden}
+  .stack article{background:#fff;padding:22px 26px}
+  .stack h3{margin-top:0}
+  .stack p{margin-top:8px}
+  .when{font-size:13px;letter-spacing:0.08em;color:#1F3A5F;font-weight:600}
+  .related{margin-top:18px}
+  .related a{color:#1F3A5F;font-weight:500}
+  .source{margin-top:28px;padding-top:22px;border-top:1px solid rgba(28,27,24,0.12)}
+  .source a{color:#1F3A5F;font-weight:500}
+  @media(max-width:900px){
+    .nav-links{display:none}
+    .menu-btn{display:block}
+    .mobile-menu{padding-left:24px;padding-right:24px}
+    section{padding-left:24px !important;padding-right:24px !important}
+    .prose h1{font-size:32px !important}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="site-nav">
+    <a href="../index.html" class="brand">
+      <img src="../images/logo-mark.svg" alt="潜势标志">
+      <span class="brand-name">潜势<em>科技</em></span>
+    </a>
+    <div class="nav-links">
+      <a href="../products.html" class="nav-link">业务与服务</a>
+      <a href="../index.html#moat" class="nav-link">核心优势</a>
+      <a href="../index.html#cases" class="nav-link">客户案例</a>
+      <a href="index.html" class="nav-link active">方法论</a>
+      <a href="../about.html" class="nav-link">关于我们</a>
+      <a href="../contact.html" class="nav-cta">联系我们</a>
+    </div>
+    <button class="menu-btn" aria-label="菜单" aria-expanded="false" id="menuBtn"><span></span><span></span></button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../products.html">业务与服务</a>
+    <a href="../index.html#moat">核心优势</a>
+    <a href="../index.html#cases">客户案例</a>
+    <a href="index.html">方法论</a>
+    <a href="../about.html">关于我们</a>
+    <a href="../contact.html">联系我们 →</a>
+  </div>
+</header>
+
+<div style="min-height:100vh">
+
+  <section style="max-width:1280px;margin:0 auto;padding:168px 48px 96px">
+    <article class="prose" data-reveal>
+      <div class="kicker"><span class="line"></span><span class="txt">方法论 · 范式库示例</span></div>
+      <h1>案例：短视频选题挖掘器</h1>
+      <p class="lede">模板开篇写明,它和<a href="douyin-script.html">抖音脚本生成器</a>同构:5 段法,加上范式库、公式集、多样性约束和风格约束。语境同样是操盘手记。输入是 inputs.md 里的一线信号,输出是每条信号一张选题卡。</p>
+
+      <h2>段落结构:选题卡五个必填字段</h2>
+      <div class="stack">
+        <article>
+          <p class="when">1 · 信号源 · 50–100 字</p>
+          <h3>原始信号,并且能回溯</h3>
+          <p>来源要具体到某个微信群、某张装维单、某张反馈表,或某个数据看板。</p>
+        </article>
+        <article>
+          <p class="when">2 · 痛点提取 · 30–60 字</p>
+          <h3>这个信号背后真正的痛点</h3>
+          <p>用一两句话讲清楚。</p>
+        </article>
+        <article>
+          <p class="when">3 · 角度转换 · 一句话</p>
+          <h3>先选定一个视角</h3>
+          <p>用户、师傅、管理者、系统、同行,五者选一。不要默认选用户。用一句话说明为什么选它。</p>
+        </article>
+        <article>
+          <p class="when">4 · 选题候选 · 3 条标题</p>
+          <h3>每条 12–18 个字</h3>
+          <p>三条标题要套到灵魂金句五公式里的至少两种。</p>
+        </article>
+        <article>
+          <p class="when">5 · 优先级筛选</p>
+          <h3>三个维度,各打 1–5 分</h3>
+          <p>商业价值、表达难度、合规风险。给出总分和推荐度。</p>
+        </article>
+      </div>
+
+      <h2>范式库</h2>
+      <p>模板标明种子是 2 条,位置留给持续沉淀。后来又补上第 3 条。第 4 条还空着。</p>
+
+      <h3>范式 01 · 「装维师傅吐槽」反推选题</h3>
+      <p><strong>适用:</strong>操盘手在装维群或装维单里,看到师傅的一线吐槽。</p>
+      <ol>
+        <li>抓吐槽原话,不要润色。</li>
+        <li>问:师傅在抱怨什么?是用户的事,还是系统的事?</li>
+        <li>把「系统的事」用用户视角重述。</li>
+        <li>用「时间反转钩子」做标题。脚本模板把这个钩子记为<a href="douyin-script.html">范式 01</a>。</li>
+      </ol>
+      <div class="callout"><p>已验证样本:信号「张姐让师傅记她女儿几年级」,选题「装维不是服务,是关系」,已用于 01 项目 P03。</p></div>
+
+      <h3>范式 02 · 「老用户沉默」反推选题</h3>
+      <p><strong>适用:</strong>看到留存数据下降,但没有具体投诉。模板写:沉默流失最危险。</p>
+      <ol>
+        <li>看数据:哪类用户最沉默?用了多久,又有多久没被触达。</li>
+        <li>反问:他不是不需要,是「不被看见」。</li>
+        <li>找一个老用户应该被看见的具体瞬间。模板举的是装维上门、厅店办理、电话回访。</li>
+        <li>把这个瞬间写成钩子。</li>
+      </ol>
+      <div class="callout"><p>已验证样本:信号「3.2 万户 8 年+ 宽带未触达 365 天」,选题「一个老用户顶 3 个新用户」,已用于 01 项目 P03。</p></div>
+
+      <h3>范式 03 · 「即时配送预期」反推选题</h3>
+      <p>模板标注这条来自 2026-06-14 的反向沉淀。</p>
+      <p><strong>适用:</strong>用户拿「快服务」的预期,去套「慢服务」的所有场景,包括报装、维修、投诉处理和工单。</p>
+      <ol>
+        <li>观察预期错位的具体场景,保留原话。</li>
+        <li>不指责用户,反推行业从未做过的预期管理。</li>
+        <li>用户视角讲反差,系统视角反思机制。</li>
+      </ol>
+      <div class="callout"><p>已验证样本:信号「用户 11 点下单问 12 点装通」,选题「装宽带不是点外卖,是动小手术」,对应 06 号选题卡。</p></div>
+
+      <h3>范式 04 · 待沉淀</h3>
+      <p>这一条还空着。模板写:跑完后挑最戳的,反向抽象,继续往这里加。</p>
+
+      <h2>公式集</h2>
+      <p>选题标题和脚本模板共用灵魂金句五公式,字数严格 12–18。三条候选必须覆盖至少两种公式。</p>
+      <ul>
+        <li>「A 不是 X,是 Y」</li>
+        <li>「不要 X,要 Y」</li>
+        <li>「X 之前,先 Y」</li>
+        <li>「X 之外,有 Y」</li>
+        <li>「X = Y」</li>
+      </ul>
+
+      <h2>多样性约束</h2>
+      <p>每周选题池有 5–7 条时,下面四条都要守住。</p>
+      <ul>
+        <li><strong>视角多样。</strong>5 条里,不能有 3 条及以上是同一视角。视角是师傅、用户、管理者、系统、同行。</li>
+        <li><strong>痛点类型多样。</strong>不能有 3 条及以上是同一类型。类型是投诉、流量、转化、留存、合规。</li>
+        <li><strong>公式覆盖。</strong>5 条标题必须覆盖至少 3 种灵魂金句公式。</li>
+        <li><strong>信号源多样。</strong>不能 5 条全来自装维,也不能全来自数据看板。</li>
+      </ul>
+
+      <h2>风格约束</h2>
+      <ul>
+        <li>禁词:赋能、闭环、抓手、协同、生态、链路。</li>
+        <li>标题要反直觉:戳痛,不喊口号,不堆教科书。</li>
+        <li>数据要真实。缺数据的地方,标注「基于公开信息推断」或「基于框架推断」。</li>
+        <li>信号源必须可回溯:哪个微信群、几号装维单、哪张反馈表、哪个数据看板。</li>
+        <li>合规优先。涉及职工肖像或单位形象时,选题卡里提示「拍摄前需授权」。</li>
+      </ul>
+
+      <h2>选题卡交出来的样子</h2>
+      <p>每条信号对应一个 markdown 文件。五个必填字段之外,模板还留了可选的第 6 段「拍摄建议」:在哪拍,谁出镜、是否需要授权,以及关键道具。道具例子是工服、工号牌、装维设备。</p>
+      <p>打分表有三列:维度、1–5 分、理由。表达难度和合规风险都是越低越好。总分按「商业价值 − 表达难度 − 合规风险」计算。推荐度写作 ★★★、★★ 或 ★。</p>
+      <p>卡片末尾有复盘位:跑完后挑最戳的标题,反向沉淀成新范式,回填到范式库。</p>
+
+      <h2>接着读</h2>
+      <ul class="related">
+        <li><a href="douyin-script.html">案例：抖音短视频脚本生成器</a></li>
+        <li><a href="asset-loop.html">方法论资产化：7 圈循环与 5 段法</a></li>
+        <li><a href="reverse-pitfalls.html">反向沉淀与 5 个坑</a></li>
+        <li><a href="index.html">返回方法论目录</a></li>
+      </ul>
+      <p class="source">本文改写自方法论仓库中的《02_范式库示例/04_短视频选题挖掘器》。文中的信号、选题和「01 项目 P03」「06 号选题卡」都是模板里写下的已验证样本,不是本文新统计的数字。全文见 <a href="https://github.com/xingpengyue1-pixel/qianshi-methodology" target="_blank" rel="noopener noreferrer">潜势咨询 · 方法论资产化框架</a>。</p>
+    </article>
+  </section>
+
+  <footer style="background:radial-gradient(110% 130% at 0% 0%,rgba(31,58,95,0.16),rgba(22,21,15,0) 52%),#16150F;color:#C9C7BD;border-top:1px solid rgba(255,255,255,0.08)">
+    <div style="max-width:1280px;margin:0 auto;padding:48px 48px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+      <div style="display:flex;align-items:center;gap:11px">
+        <img src="../images/logo-mark-light.svg" alt="潜势标志" style="width:22px;height:22px;display:block">
+        <span style="font-size:17px;font-weight:700;color:#FBFAF6;letter-spacing:0.04em">潜势</span>
+      </div>
+      <span style="font-size:13.5px;color:#6C6A60">© 2026 内蒙古潜势科技有限公司 · 双主体协同 · 深圳潜势咨询</span>
+    </div>
+    <div style="max-width:1280px;margin:0 auto;padding:0 48px 40px;font-size:12.5px;line-height:1.9;color:#55534A">方法论栏目改写自潜势咨询公开的脱敏框架,不含客户数据与商业信息。本站其他页面含前瞻性表述,不构成投资、收益或合作承诺。</div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var btn = document.getElementById('menuBtn');
+  var menu = document.getElementById('mobileMenu');
+  btn.addEventListener('click', function(){
+    var open = menu.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ menu.classList.remove('open'); btn.setAttribute('aria-expanded','false'); });
+  });
+  var els = document.querySelectorAll('[data-reveal]');
+  function show(e){ e.classList.add('revealed'); }
+  if(!('IntersectionObserver' in window)){ els.forEach(show); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ if(en.isIntersecting){ show(en.target); io.unobserve(en.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
+  els.forEach(function(e){ io.observe(e); });
+})();
+</script>
+</body>
+</html>

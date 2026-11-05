@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.classList.add("js")</script>
+<title>案例：抖音短视频脚本生成器 · 潜势科技</title>
+<meta name="description" content="5 段法落在短视频脚本上的一份在用模板:钩子、痛点放大、反常识转折、灵魂金句和 CTA,加上时间反转钩子、五条金句公式,以及批量生成时的多样性约束和风格约束。">
+<link rel="canonical" href="https://qianxin-zaoshi.com/insights/douyin-script.html">
+<meta property="og:title" content="案例：抖音短视频脚本生成器 · 潜势科技">
+<meta property="og:description" content="5 段法落在短视频脚本上的一份在用模板:钩子、痛点放大、反常识转折、灵魂金句和 CTA,加上时间反转钩子、五条金句公式,以及批量生成时的多样性约束和风格约束。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://qianxin-zaoshi.com/insights/douyin-script.html">
+<meta property="og:image" content="https://qianxin-zaoshi.com/images/og-cover.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../images/logo-mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-behavior:smooth;scroll-padding-top:96px}
+  body{margin:0;background-color:#F5F4F1;background-image:radial-gradient(rgba(28,27,24,0.045) 1px,transparent 1px);background-size:26px 26px;color:#1C1B18;font-family:"Noto Sans SC",-apple-system,sans-serif;line-height:1.5}
+  a{color:inherit;text-decoration:none}
+  h1,h2{text-wrap:balance}
+  h3,p,li{text-wrap:pretty}
+  ::selection{background:#1F3A5F;color:#fff}
+  .site-header{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:saturate(140%) blur(14px);-webkit-backdrop-filter:saturate(140%) blur(14px);background:rgba(245,244,241,0.78);border-bottom:1px solid rgba(28,27,24,0.08)}
+  .site-nav{max-width:1280px;margin:0 auto;padding:0 48px;height:72px;display:flex;align-items:center;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:11px}
+  .brand img{width:26px;height:26px;display:block}
+  .brand-name{font-size:19px;font-weight:700;letter-spacing:0.04em;color:#1F3A5F}
+  .brand-name em{font-style:normal;font-weight:400;color:#57564F}
+  .nav-links{display:flex;align-items:center;gap:26px}
+  .nav-link{font-size:15px;color:#3A3935;transition:color .2s}
+  .nav-link:hover{color:#1F3A5F}
+  .nav-link.active{color:#1F3A5F;font-weight:500}
+  .nav-cta{font-size:15px;font-weight:500;color:#fff;background:#1C1B18;padding:10px 22px;border-radius:999px;transition:background .25s}
+  .nav-cta:hover{background:#1F3A5F}
+  .menu-btn{display:none;background:none;border:none;cursor:pointer;padding:8px}
+  .menu-btn span{display:block;width:24px;height:2px;background:#1C1B18;margin:5px 0}
+  .mobile-menu{display:none;border-top:1px solid rgba(28,27,24,0.08);background:rgba(245,244,241,0.97);padding:18px 48px 26px;flex-direction:column;gap:6px}
+  .mobile-menu.open{display:flex}
+  .mobile-menu a{font-size:17px;padding:12px 0;border-bottom:1px solid rgba(28,27,24,0.06)}
+  .mobile-menu a:last-child{border-bottom:none;padding:14px 0;color:#1F3A5F;font-weight:500}
+  html.js [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1)}
+  html.js [data-reveal].revealed{opacity:1;transform:none}
+  .kicker{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+  .kicker .line{width:34px;height:1px;background:#1F3A5F}
+  .kicker .txt{font-size:13px;letter-spacing:0.14em;color:#1F3A5F;font-weight:500}
+  .prose{max-width:760px}
+  .prose h1{font-family:"Noto Serif SC",serif;font-weight:600;font-size:42px;line-height:1.35;color:#16150F}
+  .lede{margin-top:22px;font-size:18px;line-height:1.9;color:#57564F;font-weight:300}
+  .prose h2{margin-top:56px;font-family:"Noto Serif SC",serif;font-weight:600;font-size:28px;line-height:1.4;color:#16150F}
+  .prose h3{margin-top:28px;font-size:18px;font-weight:600;color:#16150F;line-height:1.5}
+  .prose p,.prose li{font-size:16.5px;line-height:1.95;color:#3A3935;font-weight:300}
+  .prose p{margin-top:16px}
+  .prose ul,.prose ol{margin-top:14px;padding-left:1.25em}
+  .prose li{margin-top:8px}
+  .prose strong{font-weight:600;color:#16150F}
+  .callout{margin-top:22px;padding:22px 26px;background:#fff;border:1px solid rgba(28,27,24,0.1);border-left:3px solid #1F3A5F;border-radius:0 12px 12px 0}
+  .callout p{margin-top:0}
+  .stack{margin-top:22px;display:flex;flex-direction:column;gap:1px;background:rgba(28,27,24,0.1);border:1px solid rgba(28,27,24,0.1);border-radius:12px;overflow:hidden}
+  .stack article{background:#fff;padding:22px 26px}
+  .stack h3{margin-top:0}
+  .stack p{margin-top:8px}
+  .when{font-size:13px;letter-spacing:0.08em;color:#1F3A5F;font-weight:600}
+  .related{margin-top:18px}
+  .related a{color:#1F3A5F;font-weight:500}
+  .source{margin-top:28px;padding-top:22px;border-top:1px solid rgba(28,27,24,0.12)}
+  .source a{color:#1F3A5F;font-weight:500}
+  @media(max-width:900px){
+    .nav-links{display:none}
+    .menu-btn{display:block}
+    .mobile-menu{padding-left:24px;padding-right:24px}
+    section{padding-left:24px !important;padding-right:24px !important}
+    .prose h1{font-size:32px !important}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="site-nav">
+    <a href="../index.html" class="brand">
+      <img src="../images/logo-mark.svg" alt="潜势标志">
+      <span class="brand-name">潜势<em>科技</em></span>
+    </a>
+    <div class="nav-links">
+      <a href="../products.html" class="nav-link">业务与服务</a>
+      <a href="../index.html#moat" class="nav-link">核心优势</a>
+      <a href="../index.html#cases" class="nav-link">客户案例</a>
+      <a href="index.html" class="nav-link active">方法论</a>
+      <a href="../about.html" class="nav-link">关于我们</a>
+      <a href="../contact.html" class="nav-cta">联系我们</a>
+    </div>
+    <button class="menu-btn" aria-label="菜单" aria-expanded="false" id="menuBtn"><span></span><span></span></button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../products.html">业务与服务</a>
+    <a href="../index.html#moat">核心优势</a>
+    <a href="../index.html#cases">客户案例</a>
+    <a href="index.html">方法论</a>
+    <a href="../about.html">关于我们</a>
+    <a href="../contact.html">联系我们 →</a>
+  </div>
+</header>
+
+<div style="min-height:100vh">
+
+  <section style="max-width:1280px;margin:0 auto;padding:168px 48px 96px">
+    <article class="prose" data-reveal>
+      <div class="kicker"><span class="line"></span><span class="txt">方法论 · 范式库示例</span></div>
+      <h1>案例：抖音短视频脚本生成器</h1>
+      <p class="lede">仓库里的文件名是《01_抖音短视频脚本生成器》,正文标题是「短视频脚本模板」,语境标的是操盘手记。它和选题挖掘器一起,被框架称为真实在用的生成器模板,用来示范<a href="asset-loop.html">5 段法</a>怎么落到具体场景。下面按这 5 段来读,不另加规则。</p>
+
+      <h2>段落结构:一条脚本的五段</h2>
+      <div class="stack">
+        <article>
+          <p class="when">钩子 · 0–3 秒</p>
+          <h3>一句话戳中观众</h3>
+          <p>让人觉得「这跟我有关」。</p>
+        </article>
+        <article>
+          <p class="when">痛点放大 · 3–10 秒</p>
+          <h3>把行业默认动作的代价讲清楚</h3>
+        </article>
+        <article>
+          <p class="when">反常识转折 · 10–25 秒</p>
+          <h3>给出非主流、但更接近本质的判断</h3>
+        </article>
+        <article>
+          <p class="when">灵魂金句 · 25–30 秒</p>
+          <h3>12–18 个字</h3>
+          <p>从下面五个公式里任选一个。</p>
+        </article>
+        <article>
+          <p class="when">CTA · 30 秒以后</p>
+          <h3>评论区互动 / 关注追更 / 私信领资料</h3>
+        </article>
+      </div>
+
+      <h2>范式库:钩子优选</h2>
+      <p>模板把钩子范式放在持续沉淀位。每跑出一条手感好的钩子,就把它的结构反向抽象,加到这里。这一段会随着练习变厚。模板自己写:这就是方法论资产化。</p>
+      <p>目前记下来的是范式 01。</p>
+
+      <h3>范式 01 · 时间反转钩子</h3>
+      <div class="callout">
+        <p>你以为 X 是因为 A?其实问题在更早的时点,就已经注定、已经决定,或已经埋下。</p>
+      </div>
+      <p>核心动作有两句。第一句锚定对方的默认归因。第二句把问题时点往前推,推到对方意识不到的环节,制造一种失控感。</p>
+      <p>它有效,是因为焦点从执行层被拉到源头层,和第三段「反常识转折」对得上:钩子先埋伏笔,转折只是把伏笔挑明。</p>
+      <p><strong>适用:</strong>方法论、复盘、业务诊断、行业反思类选题。</p>
+      <p><strong>不适用:</strong>玩梗、情绪、共情、故事类选题。</p>
+      <h3>已验证样本</h3>
+      <ul>
+        <li>你以为播放上不去是剪辑差?其实问题在你按下录制键之前就注定了。(短视频,模板标注的来源是 scripts/04)</li>
+      </ul>
+      <h3>可迁移样本</h3>
+      <p>模板注明这些句子可以直接套到其他选题:</p>
+      <ul>
+        <li>你以为投流没效果是钱不够?其实问题在你打开后台之前就决定了。(电商投流)</li>
+        <li>你以为客户跑单是销售弱?其实在第一次报价之前就已经输了。(B 端销售)</li>
+        <li>你以为团队带不动是人不行?其实在你定 OKR 之前就已经埋了雷。(管理)</li>
+      </ul>
+
+      <h2>公式集:灵魂金句五选一</h2>
+      <ul>
+        <li>「A 不是 X,是 Y」</li>
+        <li>「不要 X,要 Y」</li>
+        <li>「X 之前,先 Y」</li>
+        <li>「X 之外,有 Y」</li>
+        <li>「X = Y」</li>
+      </ul>
+      <p>灵魂金句必须严格落在 12–18 个字。</p>
+
+      <h2>多样性约束</h2>
+      <p>一批选题不少于 3 条、同时生成时,5 条灵魂金句必须覆盖五种公式里的至少 3 种。</p>
+      <ul>
+        <li>同一公式连续命中 3 条及以上,视为过拟合,要重写。</li>
+        <li>优先让 5 条覆盖全部 5 个公式,模板称之为满分输出。</li>
+        <li>单条独立生成时,不受这条约束。</li>
+      </ul>
+
+      <h2>风格约束</h2>
+      <ul>
+        <li>反直觉,能戳痛,不喊口号。</li>
+        <li>有产业重量感,不堆教科书定义。</li>
+        <li>避免「赋能」「闭环」「抓手」这类空话。</li>
+        <li>灵魂金句严格控制在 12–18 个字。</li>
+      </ul>
+
+      <h2>接着读</h2>
+      <ul class="related">
+        <li><a href="topic-miner.html">案例：短视频选题挖掘器</a></li>
+        <li><a href="asset-loop.html">方法论资产化：7 圈循环与 5 段法</a></li>
+        <li><a href="reverse-pitfalls.html">反向沉淀与 5 个坑</a></li>
+        <li><a href="index.html">返回方法论目录</a></li>
+      </ul>
+      <p class="source">本文改写自方法论仓库中的《02_范式库示例/01_抖音短视频脚本生成器》,没有加入原文之外的样本或规则。全文见 <a href="https://github.com/xingpengyue1-pixel/qianshi-methodology" target="_blank" rel="noopener noreferrer">潜势咨询 · 方法论资产化框架</a>。</p>
+    </article>
+  </section>
+
+  <footer style="background:radial-gradient(110% 130% at 0% 0%,rgba(31,58,95,0.16),rgba(22,21,15,0) 52%),#16150F;color:#C9C7BD;border-top:1px solid rgba(255,255,255,0.08)">
+    <div style="max-width:1280px;margin:0 auto;padding:48px 48px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+      <div style="display:flex;align-items:center;gap:11px">
+        <img src="../images/logo-mark-light.svg" alt="潜势标志" style="width:22px;height:22px;display:block">
+        <span style="font-size:17px;font-weight:700;color:#FBFAF6;letter-spacing:0.04em">潜势</span>
+      </div>
+      <span style="font-size:13.5px;color:#6C6A60">© 2026 内蒙古潜势科技有限公司 · 双主体协同 · 深圳潜势咨询</span>
+    </div>
+    <div style="max-width:1280px;margin:0 auto;padding:0 48px 40px;font-size:12.5px;line-height:1.9;color:#55534A">方法论栏目改写自潜势咨询公开的脱敏框架,不含客户数据与商业信息。本站其他页面含前瞻性表述,不构成投资、收益或合作承诺。</div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var btn = document.getElementById('menuBtn');
+  var menu = document.getElementById('mobileMenu');
+  btn.addEventListener('click', function(){
+    var open = menu.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ menu.classList.remove('open'); btn.setAttribute('aria-expanded','false'); });
+  });
+  var els = document.querySelectorAll('[data-reveal]');
+  function show(e){ e.classList.add('revealed'); }
+  if(!('IntersectionObserver' in window)){ els.forEach(show); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ if(en.isIntersecting){ show(en.target); io.unobserve(en.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
+  els.forEach(function(e){ io.observe(e); });
+})();
+</script>
+</body>
+</html>
