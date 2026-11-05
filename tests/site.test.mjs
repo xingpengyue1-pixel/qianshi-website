@@ -3,7 +3,6 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
-import vm from "node:vm";
 import { FileSystemConfigLoader, HtmlValidate } from "html-validate";
 import { parse } from "node-html-parser";
 
@@ -205,20 +204,26 @@ describe("关键页面元素", () => {
     }
   });
 
-  it("联系页包含电话、地址和需求表单控件", () => {
+  it("联系页包含电话、地址和金数据咨询表单", () => {
     const html = readPage("contact.html");
     const document = loadPage("contact.html");
     assert.match(document.querySelector("h1").text, /运营商合作/);
     assert.ok(html.includes("香格里拉"));
     assert.ok(html.includes("邢鹏越"));
-    assert.ok(document.querySelector("a.tel-link[href^='tel:']"));
-    assert.ok(document.querySelector("#formFields input[type=text]"));
-    assert.ok(document.querySelector("#formFields input[type=tel]"));
-    assert.ok(document.querySelector("#formFields select"));
-    assert.ok(document.querySelector("#formFields textarea"));
-    assert.equal(document.querySelectorAll("#formFields option").length, 6);
-    assert.ok(document.querySelector("#submitBtn"));
-    assert.ok(document.querySelector("#formDone"));
+    const phone = document.querySelector("a.tel-link[href='tel:18611206321']");
+    assert.equal(phone?.text.trim(), "186 1120 6321");
+    assert.equal(document.querySelector("#formFields"), null);
+    assert.equal(document.querySelector("#submitBtn"), null);
+    const frame = document.querySelector("iframe#goldendata_form_yt8gjZ");
+    assert.ok(frame, "联系页缺少金数据 iframe");
+    assert.equal(frame.getAttribute("title")?.trim().length > 0, true);
+    const src = new URL(frame.getAttribute("src"));
+    assert.equal(src.origin, "https://b6p2zqjy.jsjform.com");
+    assert.equal(src.pathname, "/f/yt8gjZ");
+    assert.equal(src.searchParams.get("embedded"), "true");
+    assert.equal(src.searchParams.get("inner_redirect"), "true");
+    assert.equal(src.searchParams.get("background"), "white");
+    assert.ok(["show", "hide"].includes(src.searchParams.get("banner")));
   });
 
   it("首页团队段落与关于页一样使用「全流程」", () => {
@@ -252,74 +257,43 @@ describe("关键页面元素", () => {
 });
 
 describe("联系表单", () => {
-  const fields = [
-    ["contactName", "INPUT"],
-    ["contactTel", "INPUT"],
-    ["contactTopic", "SELECT"],
-    ["contactNote", "TEXTAREA"],
-  ];
+  const FORM_PAGE = "https://b6p2zqjy.jsjform.com/f/yt8gjZ";
 
-  it("必填字段和标签关联,且不把表单交给第三方", () => {
+  it("用官方 iframe 嵌入金数据,并提供新窗口备用链接", () => {
     const html = readPage("contact.html");
     const document = loadPage("contact.html");
-    const form = document.querySelector("#formFields");
-    assert.equal(form?.tagName, "FORM");
-    assert.equal((form.getAttribute("action") || "").startsWith("http"), false);
-    assert.doesNotMatch(html, /formspree|getform|netlify|web3forms|formsubmit|jinshuju|金数据/i);
-    for (const [id, tag] of fields) {
-      const field = document.querySelector(`#${id}`);
-      assert.equal(field?.tagName, tag, id);
-      assert.equal(field?.hasAttribute("required"), true, `${id} 应必填`);
-      const label = document.querySelector(`label[for="${id}"]`);
-      assert.ok(label && label.text.trim(), `${id} 缺少关联标签`);
-    }
+    const frame = document.querySelector("iframe#goldendata_form_yt8gjZ");
+    const backup = document.querySelector("#formExternal");
+    assert.equal(frame?.tagName, "IFRAME");
+    assert.match(frame.getAttribute("class") || "", /form-frame/);
+    assert.equal(backup?.text.trim(), "在新窗口打开表单");
+    assert.equal(backup.getAttribute("href"), FORM_PAGE);
+    assert.equal(backup.getAttribute("target"), "_blank");
+    assert.match(backup.getAttribute("rel") || "", /\bnoopener\b/);
+    assert.match(backup.getAttribute("rel") || "", /\bnoreferrer\b/);
+    assert.equal(document.querySelector("form"), null);
+    assert.doesNotMatch(html, /formFields|contactName|contactTel|contactTopic|contactNote|submitBtn|deliverContact|findContactEmail|buildContactMailto/);
     const source = scriptText(document);
-    const handler = source.slice(source.indexOf("form.addEventListener('submit'"));
-    assert.match(handler, /preventDefault/);
-    assert.ok(handler.indexOf("reportValidity") !== -1 && handler.indexOf("reportValidity") < handler.indexOf("formDone"));
-    assert.match(source, /addEventListener\('input',\s*function \(\) \{\s*if \(field\.value\.trim\(\) !== ''\) field\.setCustomValidity\(''\);/);
-    assert.doesNotMatch(html, /已收到/);
-    assert.doesNotMatch(html, /1 个工作日/);
-    assert.match(document.querySelector("#formDone").text, /还没有送出/);
-    assert.match(document.querySelector("#formDone").text, /尚未收到/);
-    assert.match(document.querySelector("#formDone").text, /186 1120 6321/);
-    assert.match(document.querySelector("#formIntro").text, /不会自动送达|没有联系邮箱/);
+    assert.match(source, /addEventListener\('message'/);
+    assert.match(source, /heightChanged/);
+    assert.match(source, /requestViewportInfo/);
+    assert.match(source, /lockScroll/);
+    assert.match(source, /https:\/\/b6p2zqjy\.jsjform\.com/);
+    assert.match(source, /event\.origin !== formOrigin/);
+    assert.match(source, /nextHeight > Number\(formFrame\.dataset\.appliedHeight\) \+ 2/);
   });
 
-  it("页面上没有邮箱时引导电话,有邮箱时才组装 mailto", () => {
-    const api = loadContactApi();
-    const page = readPage("contact.html");
-    assert.equal(api.findContactEmail(page), "");
-    const tel = { href: "tel:18611206321", text: "186 1120 6321" };
-    const filled = { name: "张经理", phone: "13800001111", topic: "其他", note: "想做账号矩阵" };
-    const empty = api.deliverContact("", tel, { name: "  ", phone: "", topic: "其他", note: "有内容" });
-    assert.equal(empty.ok, false);
-    const phonePath = api.deliverContact("", tel, filled);
-    assert.equal(phonePath.ok, true);
-    assert.equal(phonePath.mode, "tel");
-    assert.equal(phonePath.href, "tel:18611206321");
-    assert.match(phonePath.detail, /186 1120 6321/);
-    assert.match(phonePath.detail, /尚未收到/);
-    assert.doesNotMatch(`${phonePath.title}${phonePath.detail}`, /已收到/);
-    assert.match(phonePath.summary, /想做账号矩阵/);
-    const noPhone = api.deliverContact("", null, filled);
-    assert.equal(noPhone.mode, "tel");
-    assert.match(noPhone.detail, /电话/);
-    assert.equal(noPhone.href, "");
-    const withLink = "<p><a href=\"mailto:hello@example.com?subject=old\">邮箱</a></p><script>skip@hidden.test</script>";
-    assert.equal(api.findContactEmail(withLink), "hello@example.com");
-    const mailed = api.deliverContact("hello@example.com", tel, filled);
-    assert.equal(mailed.mode, "mailto");
-    assert.equal(mailed.href.startsWith("mailto:hello@example.com?"), true);
-    const query = mailed.href.slice(mailed.href.indexOf("?"));
-    const params = new URLSearchParams(query);
-    assert.equal(params.get("subject"), "官网合作需求");
-    assert.match(params.get("body"), /张经理/);
-    assert.match(params.get("body"), /想做账号矩阵/);
-    assert.match(mailed.detail, /邮件客户端/);
-    assert.match(mailed.detail, /没有收到/);
-    assert.equal(api.findContactEmail("<p>写给 owner@qianshi.example 即可</p>"), "owner@qianshi.example");
-    assert.equal(api.findContactEmail("<script>only@secret.test</script><style>also@secret.test</style>"), "");
+  it("文案说明会收到并尽快联系,不写具体时限,页脚注明金数据", () => {
+    const html = readPage("contact.html");
+    const document = loadPage("contact.html");
+    const intro = document.querySelector("#formIntro").text;
+    const footer = document.querySelector("footer").text;
+    assert.match(intro, /提交后我们会收到并尽快联系/);
+    assert.match(intro, /186 1120 6321/);
+    assert.match(intro, /备用/);
+    assert.match(footer, /咨询表单由金数据提供/);
+    assert.match(footer, /提交后我们会收到并尽快联系/);
+    assert.doesNotMatch(html, /已收到|尚未收到|还没有送出|不会自动送达|不会被本站接收|1\s*个工作日|24\s*小时|小时内|分钟内/);
   });
 });
 
@@ -409,30 +383,6 @@ describe("链接", () => {
 
 function scriptText(document) {
   return document.querySelectorAll("script").map((script) => script.text).join("\n");
-}
-
-function extractFunction(source, name) {
-  const start = source.indexOf(`function ${name}(`);
-  assert.ok(start >= 0, `contact.html 缺少 ${name}`);
-  let depth = 0;
-  for (let i = source.indexOf("{", start); i < source.length; i += 1) {
-    if (source[i] === "{") depth += 1;
-    else if (source[i] === "}") {
-      depth -= 1;
-      if (depth === 0) return source.slice(start, i + 1);
-    }
-  }
-  assert.fail(`contact.html 中的 ${name} 没有结束`);
-}
-
-function loadContactApi() {
-  const source = scriptText(loadPage("contact.html"));
-  const code = ["stripBlocks", "findContactEmail", "buildContactMailto", "deliverContact"]
-    .map((name) => extractFunction(source, name))
-    .join("\n");
-  const sandbox = {};
-  vm.runInNewContext(`${code}\nthis.api = { findContactEmail, buildContactMailto, deliverContact };`, sandbox);
-  return sandbox.api;
 }
 
 async function assertReachable(url) {
