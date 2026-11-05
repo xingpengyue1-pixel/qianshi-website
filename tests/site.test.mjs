@@ -106,6 +106,22 @@ function idsFor(file) {
   return idCache.get(file);
 }
 
+describe("百度统计", () => {
+  const HM_ID = "5c783df2aa3a297a00b5cd82e703ccd9";
+
+  for (const name of listHtmlFiles()) {
+    it(`${name} 包含百度统计 hm.js`, () => {
+      const html = readPage(name);
+      const headEnd = html.indexOf("</head>");
+      assert.ok(headEnd !== -1, `${name} 缺少 </head>`);
+      assert.ok(
+        html.slice(0, headEnd).includes(`https://hm.baidu.com/hm.js?${HM_ID}`),
+        `${name} 的 head 缺少百度统计 ${HM_ID}`,
+      );
+    });
+  }
+});
+
 describe("页面清单", () => {
   it("根目录包含四张关键页面", () => {
     const files = listHtmlFiles();
