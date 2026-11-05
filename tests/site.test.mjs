@@ -201,12 +201,30 @@ describe("导航", () => {
 
   it("每个页面的页头导航都有方法论", () => {
     for (const name of listHtmlFiles()) {
-      const expected = name.startsWith("insights/") ? "index.html" : "insights/index.html";
+      const expected = name.startsWith("insights/")
+        ? "index.html"
+        : `${"../".repeat(name.split("/").length - 1)}insights/index.html`;
       const document = loadPage(name);
       for (const selector of [".nav-links", "#mobileMenu"]) {
         const link = document.querySelectorAll(`${selector} a`).find((anchor) => anchor.text.includes("方法论"));
         assert.ok(link, `${name} ${selector} 缺少「方法论」`);
         assert.equal(link.getAttribute("href"), expected, `${name} ${selector} 的方法论链接不对`);
+      }
+    }
+  });
+
+  it("每个页面的页头导航都有案例", () => {
+    for (const name of listHtmlFiles()) {
+      const expected = name.startsWith("cases/")
+        ? "index.html"
+        : name.includes("/")
+          ? "../cases/index.html"
+          : "cases/index.html";
+      const document = loadPage(name);
+      for (const selector of [".nav-links", "#mobileMenu"]) {
+        const link = document.querySelectorAll(`${selector} a`).find((anchor) => anchor.text.trim() === "案例");
+        assert.ok(link, `${name} ${selector} 缺少「案例」`);
+        assert.equal(link.getAttribute("href"), expected, `${name} ${selector} 的案例链接不对`);
       }
     }
   });
@@ -245,7 +263,7 @@ describe("SEO", () => {
       const og = (property) => document.querySelector(`meta[property="og:${property}"]`)?.getAttribute("content")?.trim();
       assert.equal(og("title"), title);
       assert.equal(og("description"), description);
-      const article = name.startsWith("insights/") && !name.endsWith("/index.html");
+      const article = (name.startsWith("insights/") || name.startsWith("cases/")) && !name.endsWith("/index.html");
       assert.equal(og("type"), article ? "article" : "website");
       assert.equal(og("url"), url);
       assert.equal(og("image"), `${SITE}/images/og-cover.png`);
@@ -273,6 +291,84 @@ describe("方法论", () => {
       const source = page.querySelectorAll("a").find((anchor) => anchor.getAttribute("href") === "https://github.com/xingpengyue1-pixel/qianshi-methodology");
       assert.ok(source, `${href} 没有链到方法论仓库`);
       assert.match(source.getAttribute("rel") || "", /\bnoopener\b/);
+    }
+  });
+});
+
+describe("案例", () => {
+  const pages = [
+    ["reserve-fund-audit.html", "备用金流水审计辅助方法"],
+    ["state-owned-matrix.html", "央国企新媒体矩阵运营"],
+    ["methodology-training.html", "方法论资产化教学"],
+    ["local-life-operations.html", "运营商抖音本地生活年度运营"],
+  ];
+  const sections = ["背景/挑战", "我们做了什么", "方法与交付", "成果"];
+  const anonymized = pages.slice(1).map(([href]) => href);
+  const banned = [
+    "草原云擎",
+    "Cloud-Steppe",
+    "中国移动",
+    "中国联通",
+    "中国电信",
+    "内蒙古移动",
+    "乌兰察布",
+    "艺术学院",
+    "邢鹏越",
+    "18611206321",
+    "186 1120",
+    "蜜雪冰城",
+    "字节",
+    "工会",
+    "万元",
+    "融资",
+    "Pre-A",
+    "对赌",
+    "阶梯付费",
+    "马甲号",
+    "智家通通",
+    "法治头条",
+    "呼和浩特",
+    "赛罕",
+    "iCloud",
+    "DMP",
+    "新疆",
+    "宁夏",
+    "黑龙江",
+  ];
+
+  it("目录列出四篇,每篇都有四段结构", () => {
+    const index = loadPage("cases/index.html");
+    assert.equal(index.querySelector("h1").text.trim(), "案例");
+    const hrefs = index.querySelectorAll("a").map((anchor) => anchor.getAttribute("href"));
+    for (const [href, title] of pages) {
+      assert.ok(hrefs.includes(href), `目录缺少 ${href}`);
+      const page = loadPage(`cases/${href}`);
+      assert.equal(page.querySelector("h1").text.trim(), title);
+      const headings = page.querySelectorAll("h2").map((heading) => heading.text.trim());
+      for (const section of sections) {
+        assert.ok(headings.includes(section), `${href} 缺少「${section}」`);
+      }
+    }
+  });
+
+  it("备用金一篇保持通用方法,并写明不是正式意见", () => {
+    const page = loadPage("cases/reserve-fund-audit.html");
+    const text = page.querySelector("article").text;
+    assert.match(text, /2026-09-24/);
+    assert.match(text, /不是正式审计意见/);
+    assert.match(text, /不构成正式鉴证结论/);
+    const hrefs = page.querySelectorAll("a").map((anchor) => anchor.getAttribute("href"));
+    assert.ok(hrefs.includes("https://fgk.chinatax.gov.cn/zcfgk/c100012/c5194804/content.html"));
+    assert.ok(hrefs.includes("https://kjs.mof.gov.cn/zhengcefabu/201904/P020190409588122375265.pdf"));
+  });
+
+  it("三篇服务页去掉客户、代号、金额和精确数字", () => {
+    for (const href of anonymized) {
+      const text = loadPage(`cases/${href}`).querySelector("article.prose").text;
+      assert.doesNotMatch(text, /\d/, `${href} 的正文里还有数字`);
+      for (const word of banned) {
+        assert.equal(text.includes(word), false, `${href} 仍含「${word}」`);
+      }
     }
   });
 });

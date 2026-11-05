@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.classList.add("js")</script>
+<title>备用金流水审计辅助方法 · 潜势科技</title>
+<meta name="description" content="一套不含实际账目的备用金流水核查顺序:保留原件、独立复算、区分款项性质、用唯一票号核候选,并且不把可能重叠的风险金额相加。只作审计辅助,不是正式审计意见。">
+<link rel="canonical" href="https://qianxin-zaoshi.com/cases/reserve-fund-audit.html">
+<meta property="og:title" content="备用金流水审计辅助方法 · 潜势科技">
+<meta property="og:description" content="一套不含实际账目的备用金流水核查顺序:保留原件、独立复算、区分款项性质、用唯一票号核候选,并且不把可能重叠的风险金额相加。只作审计辅助,不是正式审计意见。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://qianxin-zaoshi.com/cases/reserve-fund-audit.html">
+<meta property="og:image" content="https://qianxin-zaoshi.com/images/og-cover.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../images/logo-mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-behavior:smooth;scroll-padding-top:96px}
+  body{margin:0;background-color:#F5F4F1;background-image:radial-gradient(rgba(28,27,24,0.045) 1px,transparent 1px);background-size:26px 26px;color:#1C1B18;font-family:"Noto Sans SC",-apple-system,sans-serif;line-height:1.5}
+  a{color:inherit;text-decoration:none}
+  h1,h2{text-wrap:balance}
+  h3,p,li{text-wrap:pretty}
+  ::selection{background:#1F3A5F;color:#fff}
+  .site-header{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:saturate(140%) blur(14px);-webkit-backdrop-filter:saturate(140%) blur(14px);background:rgba(245,244,241,0.78);border-bottom:1px solid rgba(28,27,24,0.08)}
+  .site-nav{max-width:1280px;margin:0 auto;padding:0 48px;height:72px;display:flex;align-items:center;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:11px}
+  .brand img{width:26px;height:26px;display:block}
+  .brand-name{font-size:19px;font-weight:700;letter-spacing:0.04em;color:#1F3A5F}
+  .brand-name em{font-style:normal;font-weight:400;color:#57564F}
+  .nav-links{display:flex;align-items:center;gap:26px}
+  .nav-link{font-size:15px;color:#3A3935;transition:color .2s}
+  .nav-link:hover{color:#1F3A5F}
+  .nav-link.active{color:#1F3A5F;font-weight:500}
+  .nav-cta{font-size:15px;font-weight:500;color:#fff;background:#1C1B18;padding:10px 22px;border-radius:999px;transition:background .25s}
+  .nav-cta:hover{background:#1F3A5F}
+  .menu-btn{display:none;background:none;border:none;cursor:pointer;padding:8px}
+  .menu-btn span{display:block;width:24px;height:2px;background:#1C1B18;margin:5px 0}
+  .mobile-menu{display:none;border-top:1px solid rgba(28,27,24,0.08);background:rgba(245,244,241,0.97);padding:18px 48px 26px;flex-direction:column;gap:6px}
+  .mobile-menu.open{display:flex}
+  .mobile-menu a{font-size:17px;padding:12px 0;border-bottom:1px solid rgba(28,27,24,0.06)}
+  .mobile-menu a:last-child{border-bottom:none;padding:14px 0;color:#1F3A5F;font-weight:500}
+  html.js [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1)}
+  html.js [data-reveal].revealed{opacity:1;transform:none}
+  .kicker{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+  .kicker .line{width:34px;height:1px;background:#1F3A5F}
+  .kicker .txt{font-size:13px;letter-spacing:0.14em;color:#1F3A5F;font-weight:500}
+  .prose{max-width:760px}
+  .prose h1{font-family:"Noto Serif SC",serif;font-weight:600;font-size:42px;line-height:1.35;color:#16150F}
+  .lede{margin-top:22px;font-size:18px;line-height:1.9;color:#57564F;font-weight:300}
+  .prose h2{margin-top:56px;font-family:"Noto Serif SC",serif;font-weight:600;font-size:28px;line-height:1.4;color:#16150F}
+  .prose h3{margin-top:0;font-size:18px;font-weight:600;color:#16150F;line-height:1.5}
+  .prose p,.prose li{font-size:16.5px;line-height:1.95;color:#3A3935;font-weight:300}
+  .prose p{margin-top:16px}
+  .prose ul,.prose ol{margin-top:14px;padding-left:1.25em}
+  .prose li{margin-top:8px}
+  .prose strong{font-weight:600;color:#16150F}
+  .callout{margin-top:22px;padding:22px 26px;background:#fff;border:1px solid rgba(28,27,24,0.1);border-left:3px solid #1F3A5F;border-radius:0 12px 12px 0}
+  .callout p{margin-top:0;font-family:"Noto Serif SC",serif;font-size:18px;line-height:1.75;color:#16150F;font-weight:500}
+  .stack{margin-top:22px;display:flex;flex-direction:column;gap:1px;background:rgba(28,27,24,0.1);border:1px solid rgba(28,27,24,0.1);border-radius:12px;overflow:hidden}
+  .stack article{background:#fff;padding:22px 26px}
+  .stack p{margin-top:8px}
+  .related{margin-top:18px}
+  .related a{color:#1F3A5F;font-weight:500}
+  .source{margin-top:28px;padding-top:22px;border-top:1px solid rgba(28,27,24,0.12)}
+  .source a{color:#1F3A5F;font-weight:500}
+  @media(max-width:900px){
+    .nav-links{display:none}
+    .menu-btn{display:block}
+    .mobile-menu{padding-left:24px;padding-right:24px}
+    section{padding-left:24px !important;padding-right:24px !important}
+    .prose h1{font-size:32px !important}
+  }
+</style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?5c783df2aa3a297a00b5cd82e703ccd9";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="site-nav">
+    <a href="../index.html" class="brand">
+      <img src="../images/logo-mark.svg" alt="潜势标志">
+      <span class="brand-name">潜势<em>科技</em></span>
+    </a>
+    <div class="nav-links">
+      <a href="../products.html" class="nav-link">业务与服务</a>
+      <a href="../index.html#moat" class="nav-link">核心优势</a>
+      <a href="../index.html#cases" class="nav-link">客户案例</a>
+      <a href="index.html" class="nav-link">案例</a>
+      <a href="../insights/index.html" class="nav-link">方法论</a>
+      <a href="../about.html" class="nav-link">关于我们</a>
+      <a href="../contact.html" class="nav-cta">联系我们</a>
+    </div>
+    <button class="menu-btn" aria-label="菜单" aria-expanded="false" id="menuBtn"><span></span><span></span></button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../products.html">业务与服务</a>
+    <a href="../index.html#moat">核心优势</a>
+    <a href="../index.html#cases">客户案例</a>
+    <a href="index.html">案例</a>
+    <a href="../insights/index.html">方法论</a>
+    <a href="../about.html">关于我们</a>
+    <a href="../contact.html">联系我们 →</a>
+  </div>
+</header>
+
+<div style="min-height:100vh">
+
+  <section style="max-width:1280px;margin:0 auto;padding:168px 48px 96px">
+    <article class="prose" data-reveal>
+      <div class="kicker"><span class="line"></span><span class="txt">案例 · 方法</span></div>
+      <h1>备用金流水审计辅助方法</h1>
+      <p class="lede">版本 2026-09-24。这是通用方法,不包含任何实际账目、人员、客户、公司内部凭证或本地路径。它帮助把流水和审批对上,不是正式审计意见或法律判定。</p>
+
+      <h2 id="background">背景/挑战</h2>
+      <p>备用金流水里,看起来一样的记录不一定是同一笔支出。相同的日期、摘要和金额,只应先成为待核对的候选。日期缺失时要保留原始文本,不能为了整齐,把空白都并成同一天。</p>
+      <p>截图能对上,不等于已经独立验真。审批链接打得开,不等于审批已经通过。审批已经同意,也不等于钱已经付出。报表如果只给出图片张数,不能据此声称附件已经看过或验过。</p>
+      <p>几条疑点的金额如果可能重叠,加在一起就会把一笔问题算成多笔损失。统计上显眼,也不能被写成造假的概率。同额也不等于同一支出。</p>
+
+      <h2 id="did">我们做了什么</h2>
+      <p>把核查收成两份不含业务数据的文本。一份按顺序检查流水,一份专门做审批和账表的交叉核验。可以公开的只有方法本身。内部明细、账号、客户和审批链接不放上公开页面,也不提交到公开检索。</p>
+      <div class="callout"><p>本方法用于审计辅助,不是正式审计意见或法律判定,也不构成正式鉴证结论。</p></div>
+
+      <h2 id="method">方法与交付</h2>
+      <p>流水按这个顺序核查。</p>
+      <ol>
+        <li>保留原件和 SHA-256。识别明细、备忘、合计、隐藏内容以及特殊图片格式。</li>
+        <li>独立复算逐行合计、滚动余额和总计,并用文件内部的 XML 交叉验证。金额按十进制复算,区分缓存值、公式和常量。</li>
+        <li>区分借款、费用、转交备用金、保证金、平台余额、退回款和收入来源。</li>
+        <li>相同日期、摘要、金额只生成候选。缺失日期保留原始文本,不全部合并为同一天。</li>
+        <li>用唯一交易号、票号或订单号核对候选,并检验分次付款、多人出行、折扣、退款和跨期补录这些替代解释。</li>
+        <li>已取得发票、待开票、已取得未打印、支付截图和审批链接分开登记。截图匹配不代表独立验真,链接存在不代表审批通过。</li>
+        <li>每条问题记下事实位置、计算、潜在影响、其他解释、补证和结论边界。不得把可能重叠的风险金额相加为损失。</li>
+        <li>分开写明会计错误、疑似不实记录和个人故意行为各自的证据门槛。不根据统计异常编造造假概率。</li>
+        <li>只在核验之后,在副本上更正,并保留改前值、依据和复核人。</li>
+      </ol>
+      <p>审批和账表再交叉核验一次。这一份同样不含业务数据。</p>
+      <ol>
+        <li>导出时限定审批类型和期间,记下筛选条件、文件哈希和下载时间。审批编号相同的多条明细归为一张。</li>
+        <li>已同意、已拒绝、已撤回分开统计。读完拒绝和撤回的原因,认出转办、重提和补充金额。不能把所有申请金额直接相加。</li>
+        <li>允许一单拆成多条账表记录,也允许多单并成一条。每次拼合都保留原始行号并复算,避免同一笔被重复分配。</li>
+        <li>同额不等于同一支出。核对申请人、经办人、付款人、收款人、时间、地点、业务用途和唯一订单。</li>
+        <li>审批已同意不代表已经付款。代付之后又再次申请的,核对最终收款账户,不因为申请人姓名相同就认定重复获款。</li>
+        <li>被拒记录可能另有线下处理。如实写下流程缺口,不删掉解释性意见来指责申请人。</li>
+        <li>报表只提供图片张数时,不能声称已经查看或验真附件。旧链接打不开,也不证明审批不存在或被删除。</li>
+        <li>新证据同时用来支持和排除疑点。首轮筛查遗漏的,标明修订,不藏起旧版本。</li>
+        <li>个人测评、健康或其他无关的敏感内容,不拿来判断这个人可不可信。财务审查只使用必要的金额、审批、支付和业务证据。</li>
+      </ol>
+      <p>工具上另有四条限制。</p>
+      <ul>
+        <li>WPS 里用 DISPIMG 放进单元格的图片,要检查 cellimages.xml 和关系文件。普通图片接口返回零,不代表没有附件。</li>
+        <li>公开检索只提交公开问题,不提交内部明细、账号、客户或审批链接。</li>
+        <li>空抓取、错误页面和无关搜索结果不计作证据。保存失败记录,改用已经核验过的替代来源。</li>
+        <li>公开位置只留通用方法。内部证据留在受控位置。</li>
+      </ul>
+      <p>方法文本引用的公开依据:</p>
+      <ul>
+        <li><a href="https://fgk.chinatax.gov.cn/zcfgk/c100012/c5194804/content.html" target="_blank" rel="noopener noreferrer">国家税务总局公告 2018 年第 28 号</a></li>
+        <li><a href="https://kjs.mof.gov.cn/zhengcefabu/201904/P020190409588122375265.pdf" target="_blank" rel="noopener noreferrer">财政部发布的 2019 年修订审计准则第 1141 号</a></li>
+      </ul>
+
+      <h2 id="result">成果</h2>
+      <p>留下的是一套可以重复执行的核查顺序,以及写明的结论边界。这里没有某一次账目的发现,因为方法文本本身不带账。</p>
+      <ul>
+        <li>问题记录必须同时写下事实位置、计算、潜在影响、其他解释、补证和结论能说到哪里。</li>
+        <li>可能重叠的风险金额不相加,不把一笔疑点报成多笔损失。</li>
+        <li>不根据统计异常编造造假概率。会计错误、疑似不实记录和个人故意行为,各看各的证据门槛。</li>
+        <li>更正只发生在核验之后的副本上,改前值、依据和复核人留着。</li>
+        <li>候选之间的关联,仍要有原始支付流水和唯一订单才能闭合。</li>
+      </ul>
+      <p>所以这一页的结果是方法,不是审计意见,也不构成正式鉴证结论。</p>
+
+      <h2>接着读</h2>
+      <ul class="related">
+        <li><a href="state-owned-matrix.html">央国企新媒体矩阵运营</a></li>
+        <li><a href="methodology-training.html">方法论资产化教学</a></li>
+        <li><a href="local-life-operations.html">运营商抖音本地生活年度运营</a></li>
+        <li><a href="index.html">返回案例目录</a></li>
+      </ul>
+      <p class="source">本页改写自通用方法文本和审批交叉核验补充,没有加入账目、人员或客户,也没有配账本截图。其他主题的结算审计和股东核算不放在这一页。</p>
+    </article>
+  </section>
+
+  <footer style="background:radial-gradient(110% 130% at 0% 0%,rgba(31,58,95,0.16),rgba(22,21,15,0) 52%),#16150F;color:#C9C7BD;border-top:1px solid rgba(255,255,255,0.08)">
+    <div style="max-width:1280px;margin:0 auto;padding:48px 48px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+      <div style="display:flex;align-items:center;gap:11px">
+        <img src="../images/logo-mark-light.svg" alt="潜势标志" style="width:22px;height:22px;display:block">
+        <span style="font-size:17px;font-weight:700;color:#FBFAF6;letter-spacing:0.04em">潜势</span>
+      </div>
+      <span style="font-size:13.5px;color:#6C6A60">© 2026 内蒙古潜势科技有限公司 · 双主体协同 · 深圳潜势咨询</span>
+    </div>
+    <div style="max-width:1280px;margin:0 auto;padding:0 48px 40px;font-size:12.5px;line-height:1.9;color:#55534A">本页是通用审计辅助方法,不含账目与客户数据,不是正式审计意见或法律判定。案例栏目的服务页另作了匿名处理,成果只作定性描述,不构成业绩或合作承诺。</div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var btn = document.getElementById('menuBtn');
+  var menu = document.getElementById('mobileMenu');
+  btn.addEventListener('click', function(){
+    var open = menu.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ menu.classList.remove('open'); btn.setAttribute('aria-expanded','false'); });
+  });
+  var els = document.querySelectorAll('[data-reveal]');
+  function show(e){ e.classList.add('revealed'); }
+  if(!('IntersectionObserver' in window)){ els.forEach(show); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ if(en.isIntersecting){ show(en.target); io.unobserve(en.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
+  els.forEach(function(e){ io.observe(e); });
+})();
+</script>
+</body>
+</html>
