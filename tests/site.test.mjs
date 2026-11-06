@@ -584,15 +584,46 @@ describe("链接", () => {
       try {
         await assertReachable(url);
       } catch (error) {
-        failures.push(`${page} -> ${url}: ${error.message}`);
+        const failure = externalFailure(page, url, error);
+        if (failure) failures.push(failure);
       }
     }
     assert.deepEqual(failures, []);
+  });
+
+  it("境内政府站点连不上不算死链,HTTP 错误仍然算", () => {
+    const tax = "https://fgk.chinatax.gov.cn/zcfgk/c100012/c5194804/content.html";
+    const mof = "https://kjs.mof.gov.cn/zhengcefabu/201904/P020190409588122375265.pdf";
+    const page = "cases/reserve-fund-audit.html";
+    const timeout = new Error("The operation was aborted due to timeout");
+    timeout.name = "TimeoutError";
+    assert.equal(externalFailure(page, tax, new TypeError("fetch failed")), null);
+    assert.equal(externalFailure(page, mof, new TypeError("fetch failed")), null);
+    assert.equal(externalFailure(page, mof, timeout), null);
+    assert.match(externalFailure(page, tax, new Error("HTTP 404")), /HTTP 404/);
+    assert.match(externalFailure(page, `${new URL(tax).origin}/no-such-page`, new Error("HTTP 404")), /HTTP 404/);
+    assert.match(externalFailure(page, "https://fgk.chinatax.gov.invalid/content.html", new TypeError("fetch failed")), /fetch failed/);
+    assert.match(externalFailure("insights/index.html", "https://github.com/xingpengyue1-pixel/qianshi-methodology", new TypeError("fetch failed")), /fetch failed/);
   });
 });
 
 function scriptText(document) {
   return document.querySelectorAll("script").map((script) => script.text).join("\n");
+}
+
+// 税务总局、财政部官网在海外 CI 上常被超时或重置。连得上时,4xx/5xx 仍算死链。
+const MAINLAND_GOV_HOSTS = new Set(["fgk.chinatax.gov.cn", "kjs.mof.gov.cn"]);
+
+function externalFailure(page, url, error) {
+  let hostname = "";
+  try {
+    hostname = new URL(url).hostname;
+  } catch {
+    hostname = "";
+  }
+  const transport = !/^HTTP \d+/.test(error?.message || "");
+  if (MAINLAND_GOV_HOSTS.has(hostname) && transport) return null;
+  return `${page} -> ${url}: ${error.message}`;
 }
 
 async function assertReachable(url) {
