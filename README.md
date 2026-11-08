@@ -64,7 +64,7 @@ python3 -m http.server 8080
 - `no-inline-style`：样式就写在各页面里，这条会报出大量与正确性无关的问题。
 - `no-implicit-button-type`、`tel-non-breaking`：现有按钮和电话号码的写法会触发它们。引入测试时不改页面，所以不让 CI 因此失败。
 
-需要 Node.js 20 或以上。
+需要 Node.js `^22.22.0` 或 `>=24.8.0`，与 html-validate 的要求一致。
 
 ```bash
 npm ci

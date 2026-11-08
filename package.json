@@ -8,10 +8,10 @@
     "validate": "html-validate index.html products.html about.html contact.html insights/*.html cases/*.html"
   },
   "engines": {
-    "node": ">=20"
+    "node": "^22.22.0 || >=24.8.0"
   },
   "devDependencies": {
     "html-validate": "^11.18.0",
-    "node-html-parser": "^6.1.13"
+    "node-html-parser": "^9.0.7"
   }
 }
