@@ -273,6 +273,104 @@ describe("SEO", () => {
   }
 });
 
+describe("PR #9 案例 SEO 与内链", () => {
+  const articles = [
+    "cases/group-buy-script-check.html",
+    "cases/hall-local-content.html",
+    "cases/store-visit-production.html",
+  ];
+  const pages = ["cases/index.html", ...articles];
+  // PR #9 原始提交 8d5949b 的提交日期，日期不取测试运行时间。
+  const commitDate = "2026-11-08";
+
+  for (const name of pages) {
+    it(`${name} 有唯一的摘要、canonical 和完整分享信息`, () => {
+      const document = loadPage(name);
+      for (const selector of [
+        'meta[name="description"]',
+        'link[rel="canonical"]',
+        ...["type", "title", "description", "url", "image"].map((key) => `meta[property="og:${key}"]`),
+      ]) {
+        assert.equal(document.querySelectorAll(selector).length, 1, `${name}: ${selector}`);
+      }
+      const description = document.querySelector('meta[name="description"]').getAttribute("content").trim();
+      const length = [...description].length;
+      assert.ok(length >= 70 && length <= 120, `${name} 摘要为 ${length} 字`);
+      assert.equal(document.querySelector('link[rel="canonical"]').getAttribute("href"), pageUrl(name));
+      const og = (key) => document.querySelector(`meta[property="og:${key}"]`).getAttribute("content");
+      assert.equal(og("title"), document.querySelector("title").text.trim());
+      assert.equal(og("description"), description);
+      assert.equal(og("url"), pageUrl(name));
+      assert.equal(og("type"), articles.includes(name) ? "article" : "website");
+      const image = new URL(og("image"));
+      assert.equal(image.origin, SITE);
+      assert.ok(existsSync(path.join(ROOT, decodeURIComponent(image.pathname))), `${name} 分享图不存在`);
+    });
+
+    it(`${name} 的 Article JSON-LD 可解析且与页面一致`, () => {
+      const document = loadPage(name);
+      const scripts = document.querySelectorAll('script[type="application/ld+json"]');
+      assert.equal(scripts.length, 1, `${name} 应有一份结构化数据`);
+      const article = JSON.parse(scripts[0].text);
+      assert.equal(article["@context"], "https://schema.org");
+      assert.equal(article["@type"], "Article");
+      assert.equal(article.headline, document.querySelector("h1").text.trim());
+      assert.equal(article.description, document.querySelector('meta[name="description"]').getAttribute("content"));
+      for (const key of ["datePublished", "dateModified"]) {
+        assert.equal(article[key], commitDate);
+        assert.equal(new Date(article[key]).toISOString().slice(0, 10), article[key]);
+      }
+      for (const key of ["author", "publisher"]) {
+        assert.deepEqual(article[key], { "@type": "Organization", name: "内蒙古潜势科技有限公司" });
+      }
+      assert.deepEqual(article.mainEntityOfPage, { "@type": "WebPage", "@id": pageUrl(name) });
+    });
+
+    it(`${name} 标题不跳级、图片有 alt、内链目标存在`, () => {
+      const document = loadPage(name);
+      assert.equal(document.querySelectorAll("h1").length, 1);
+      let previousLevel = 0;
+      for (const heading of document.querySelectorAll("h1, h2, h3, h4, h5, h6")) {
+        const level = Number(heading.tagName.slice(1));
+        assert.ok(level <= previousLevel + 1, `${name} 标题跳级: ${heading.text}`);
+        previousLevel = level;
+      }
+      for (const image of document.querySelectorAll("img")) {
+        assert.ok(image.getAttribute("alt")?.trim(), `${name} 图片缺少 alt`);
+      }
+      for (const anchor of document.querySelectorAll("a[href]")) {
+        const url = new URL(anchor.getAttribute("href"), pageUrl(name));
+        if (url.origin !== SITE) continue;
+        const local = resolveLocal(name, `${url.pathname}${url.search}${url.hash}`);
+        assert.ok(existsSync(path.join(ROOT, local.rel)), `${name} 内链不存在: ${url.href}`);
+        if (local.hash) assert.equal(idsFor(local.rel).get(local.hash), 1, `${name} 锚点不存在: ${url.href}`);
+      }
+    });
+  }
+
+  for (const name of articles) {
+    it(`${name} 文末互链另两篇与案例首页，正文链接到现有服务页`, () => {
+      const document = loadPage(name);
+      assert.ok(document.querySelectorAll("article h2").some((heading) => heading.text.trim() === "相关案例"));
+      const related = document.querySelectorAll("article .related a").map((anchor) => resolveLocal(name, anchor.getAttribute("href")).rel);
+      for (const target of pages.filter((file) => file !== name)) {
+        assert.ok(related.includes(target), `${name} 缺少相关案例 ${target}`);
+      }
+      const serviceLinks = document.querySelectorAll('article p a[href="../products.html"]');
+      assert.ok(serviceLinks.length > 0, `${name} 正文缺少对应服务页链接`);
+    });
+  }
+
+  it("案例首页及三篇新文章的 sitemap lastmod 与 PR 提交日期一致", () => {
+    const sitemap = parse(readFileSync(path.join(ROOT, "sitemap.xml"), "utf8"));
+    for (const name of pages) {
+      const entries = sitemap.querySelectorAll("url").filter((entry) => entry.querySelector("loc")?.text === pageUrl(name));
+      assert.equal(entries.length, 1, `${name} 应在 sitemap 中出现一次`);
+      assert.equal(entries[0].querySelector("lastmod")?.text, commitDate);
+    }
+  });
+});
+
 describe("方法论", () => {
   const articles = [
     ["asset-loop.html", "方法论资产化：7 圈循环与 5 段法"],
