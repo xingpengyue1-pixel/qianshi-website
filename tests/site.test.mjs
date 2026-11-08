@@ -301,6 +301,9 @@ describe("案例", () => {
     ["state-owned-matrix.html", "央国企新媒体矩阵运营"],
     ["methodology-training.html", "方法论资产化教学"],
     ["local-life-operations.html", "运营商抖音本地生活年度运营"],
+    ["store-visit-production.html", "本地生活探店短视频的标准化生产流程"],
+    ["group-buy-script-check.html", "团购商详与短视频脚本一致性检查"],
+    ["hall-local-content.html", "运营商营业厅本地内容经营方法"],
   ];
   const sections = ["背景/挑战", "我们做了什么", "方法与交付", "成果"];
   const anonymized = pages.slice(1).map(([href]) => href);
@@ -336,7 +339,7 @@ describe("案例", () => {
     "黑龙江",
   ];
 
-  it("目录列出四篇,每篇都有四段结构", () => {
+  it("目录列出七篇,每篇都有四段结构", () => {
     const index = loadPage("cases/index.html");
     assert.equal(index.querySelector("h1").text.trim(), "案例");
     const hrefs = index.querySelectorAll("a").map((anchor) => anchor.getAttribute("href"));
@@ -351,6 +354,21 @@ describe("案例", () => {
     }
   });
 
+  it("三篇新方法的全文在八百到一千二百字,并收在联系我们", () => {
+    for (const href of [
+      "store-visit-production.html",
+      "group-buy-script-check.html",
+      "hall-local-content.html",
+    ]) {
+      const page = loadPage(`cases/${href}`);
+      const text = page.querySelector("article.prose").text.replace(/\s+/g, "");
+      assert.ok(text.length >= 800 && text.length <= 1200, `${href} 字数为 ${text.length}`);
+      const closing = page.querySelector("p.closing a");
+      assert.equal(closing?.text.trim(), "联系我们");
+      assert.equal(closing?.getAttribute("href"), "../contact.html");
+    }
+  });
+
   it("备用金一篇保持通用方法,并写明不是正式意见", () => {
     const page = loadPage("cases/reserve-fund-audit.html");
     const text = page.querySelector("article").text;
@@ -362,7 +380,7 @@ describe("案例", () => {
     assert.ok(hrefs.includes("https://kjs.mof.gov.cn/zhengcefabu/201904/P020190409588122375265.pdf"));
   });
 
-  it("三篇服务页去掉客户、代号、金额和精确数字", () => {
+  it("匿名页去掉客户、代号、金额和精确数字", () => {
     for (const href of anonymized) {
       const text = loadPage(`cases/${href}`).querySelector("article.prose").text;
       assert.doesNotMatch(text, /\d/, `${href} 的正文里还有数字`);
