@@ -55,7 +55,7 @@ python3 -m http.server 8080
 检查四项内容：
 
 1. **HTML 校验**：用 [html-validate](https://html-validate.org/) 的 recommended 规则检查仓库里每个 `.html`，包括 `insights/`。
-2. **死链**：页内链接、图片、样式表和图标必须指向仓库里存在的文件；带 `#锚点` 的链接必须命中目标页面上唯一的 `id`。`http(s)` 资源会实际请求一次（当前是 Google Fonts 样式表，以及方法论文章指向的公开仓库）。
+2. **死链**：页内链接、图片、样式表和图标必须指向仓库里存在的文件；带 `#锚点` 的链接必须命中目标页面上唯一的 `id`。外链只核对清单：每条都是可解析的 `https`，并且和页面里出现的地址一致。这一步不访问网络。
 3. **关键元素**：每个页面都要有语言、标题、描述、唯一的 `h1`、页头页脚、回首页的品牌链接和移动菜单；首页锚点、五段业务、关于页时间线要在。联系页要有电话 186 1120 6321、金数据 iframe，以及「在新窗口打开表单」。
 4. **SEO**：每个页面有 canonical、Open Graph 和 `twitter:card`；`robots.txt` 允许抓取并声明站点地图；`sitemap.xml` 覆盖每一个 HTML；分享封面是 1200×630 的 PNG。导航里都有「方法论」。
 
@@ -71,16 +71,20 @@ npm ci
 npm test
 ```
 
+`npm test` 是默认检查，不访问网络，结果不随外网变化。
+
 只跑 HTML 校验：
 
 ```bash
 npm run validate
 ```
 
-外链检查需要能访问公网。离线时可以跳过：
+要确认外链现在打得开，另跑：
 
 ```bash
-SKIP_EXTERNAL_LINKS=1 npm test
+npm run test:links
 ```
+
+它会请求页面里的每一条外链：Google Fonts 样式表、联系页的金数据表单、方法论指向的公开仓库，以及备用金一文中的税务总局、财政部链接。连不上、超时、HTTP 4xx/5xx 都算失败，不因网站而放行。CI 只跑 `npm test`，不跑这一条。
 
 推送到 `main` 或打开 Pull Request 时，[`.github/workflows/ci.yml`](.github/workflows/ci.yml) 会在 Ubuntu 上执行 `npm ci` 和 `npm test`。

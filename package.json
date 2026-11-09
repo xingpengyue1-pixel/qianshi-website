@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "node --test --test-reporter=spec tests/site.test.mjs",
+    "test:links": "node --test --test-reporter=spec tests/external-links.test.mjs",
     "validate": "html-validate index.html products.html about.html contact.html insights/*.html cases/*.html"
   },
   "engines": {
