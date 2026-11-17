@@ -1,30 +1,30 @@
 import assert from "node:assert/strict";
-import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
-import { describe, it } from "node:test";
+import { after, describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 import { FileSystemConfigLoader, HtmlValidate } from "html-validate";
 import { parse } from "node-html-parser";
+import { listHtmlFiles as listHtmlFilesIn, reportExternalFailure, resolveLocal, visitReferences } from "./references.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const REQUIRED_PAGES = ["index.html", "products.html", "about.html", "contact.html"];
-const SITE_ORIGIN = "https://site.local";
 
 const htmlvalidate = new HtmlValidate(new FileSystemConfigLoader());
 
-const SKIP_DIRS = new Set(["node_modules"]);
+// 默认套件不访问网络。实请求在 tests/external-links.test.mjs，由 npm run test:links 单独跑。
+const fetchCalls = [];
+globalThis.fetch = async (input) => {
+  fetchCalls.push(String(input));
+  throw new Error("默认测试不应访问网络");
+};
+
+after(() => {
+  assert.deepEqual(fetchCalls, [], `默认测试访问了网络: ${fetchCalls.join(", ")}`);
+});
 
 function listHtmlFiles(dir = ROOT) {
-  const files = [];
-  for (const entry of readdirSync(dir, { withFileTypes: true })) {
-    if (entry.name.startsWith(".") || SKIP_DIRS.has(entry.name)) continue;
-    const abs = path.join(dir, entry.name);
-    if (entry.isDirectory()) files.push(...listHtmlFiles(abs));
-    else if (entry.isFile() && entry.name.endsWith(".html")) {
-      files.push(path.relative(ROOT, abs).split(path.sep).join("/"));
-    }
-  }
-  return files.sort();
+  return listHtmlFilesIn(ROOT, dir);
 }
 
 function sitePrefix(file) {
@@ -45,49 +45,6 @@ function readPage(name) {
 
 function loadPage(name) {
   return parse(readPage(name));
-}
-
-function classify(raw) {
-  if (raw == null || raw === "" || raw.startsWith("javascript:") || raw.startsWith("data:")) {
-    return { kind: "invalid", raw: raw ?? "" };
-  }
-  if (raw.startsWith("mailto:")) return { kind: "mailto", raw };
-  if (raw.startsWith("tel:")) return { kind: "tel", raw };
-  if (/^https?:\/\//i.test(raw)) return { kind: "external", raw };
-  return { kind: "local", raw };
-}
-
-function resolveLocal(pageFile, raw) {
-  const base = new URL(pageFile, `${SITE_ORIGIN}/`);
-  const url = new URL(raw, base);
-  if (url.origin !== SITE_ORIGIN) return { kind: "external", href: url.href };
-  let pathname = decodeURIComponent(url.pathname);
-  if (pathname.endsWith("/")) pathname += "index.html";
-  const rel = path.posix.normalize(pathname.replace(/^\/+/, "") || "index.html");
-  if (rel.startsWith("..") || path.posix.isAbsolute(rel)) {
-    throw new Error(`${pageFile} 中的链接逃出站点根目录: ${raw}`);
-  }
-  return {
-    kind: "local",
-    rel,
-    hash: decodeURIComponent(url.hash.replace(/^#/, "")),
-  };
-}
-
-function pageReferences(document) {
-  const refs = [];
-  for (const el of document.querySelectorAll("a[href], area[href], img[src], script[src], source[src], video[src], audio[src], link[href]")) {
-    const tag = el.tagName.toLowerCase();
-    if (tag === "link") {
-      const rels = (el.getAttribute("rel") || "").toLowerCase().split(/\s+/);
-      const resource = rels.some((rel) =>
-        ["stylesheet", "icon", "manifest", "apple-touch-icon", "preload", "modulepreload"].includes(rel),
-      );
-      if (!resource) continue;
-    }
-    refs.push(el.getAttribute("href") || el.getAttribute("src"));
-  }
-  return refs;
 }
 
 function idsIn(file) {
@@ -644,39 +601,26 @@ describe("无脚本时内容可见", () => {
 });
 
 function walkReferences() {
-  const external = new Map();
-  for (const name of listHtmlFiles()) {
-    const document = loadPage(name);
-    for (const image of document.querySelectorAll("img")) {
+  return visitReferences(ROOT, {
+    onImage(name, image) {
       const alt = image.getAttribute("alt");
       assert.ok(alt && alt.trim(), `${name} 有图片缺少 alt`);
-    }
-    for (const raw of pageReferences(document)) {
-      const kind = classify(raw);
-      if (kind.kind === "invalid") assert.fail(`${name} 含有无效链接: ${raw}`);
-      if (kind.kind === "tel") {
-        assert.match(kind.raw, /^tel:\+?\d{8,15}$/, `${name} 的电话链接异常: ${kind.raw}`);
-        continue;
-      }
-      if (kind.kind === "mailto") continue;
-      if (kind.kind === "external") {
-        if (!external.has(kind.raw)) external.set(kind.raw, name);
-        continue;
-      }
-      const local = resolveLocal(name, kind.raw);
-      if (local.kind === "external") {
-        if (!external.has(local.href)) external.set(local.href, name);
-        continue;
-      }
+    },
+    onInvalid(name, raw) {
+      assert.fail(`${name} 含有无效链接: ${raw}`);
+    },
+    onTel(name, raw) {
+      assert.match(raw, /^tel:\+?\d{8,15}$/, `${name} 的电话链接异常: ${raw}`);
+    },
+    onLocal(name, raw, local) {
       const target = path.join(ROOT, local.rel);
-      assert.ok(existsSync(target), `${name} 死链: ${kind.raw} -> ${local.rel}`);
+      assert.ok(existsSync(target), `${name} 死链: ${raw} -> ${local.rel}`);
       if (local.hash) {
-        assert.ok(local.rel.endsWith(".html"), `${name} 的锚点不在 HTML 上: ${kind.raw}`);
+        assert.ok(local.rel.endsWith(".html"), `${name} 的锚点不在 HTML 上: ${raw}`);
         assert.equal(idsFor(local.rel).get(local.hash), 1, `${name} 指向不存在或重复的锚点 ${local.rel}#${local.hash}`);
       }
-    }
-  }
-  return external;
+    },
+  });
 }
 
 describe("链接", () => {
@@ -692,72 +636,61 @@ describe("链接", () => {
     }
   });
 
-  it("外部资源可以访问", { skip: process.env.SKIP_EXTERNAL_LINKS === "1" }, async () => {
+  it("外链清单与页面一致，且都是 https", () => {
     const external = walkReferences();
-    assert.ok(external.size > 0, "页面中没有需要检查的外部资源");
-    const failures = [];
-    for (const [url, page] of external) {
-      try {
-        await assertReachable(url);
-      } catch (error) {
-        const failure = externalFailure(page, url, error);
-        if (failure) failures.push(failure);
-      }
+    const fonts = "https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;500;600&display=swap";
+    const tax = "https://fgk.chinatax.gov.cn/zcfgk/c100012/c5194804/content.html";
+    const mof = "https://kjs.mof.gov.cn/zhengcefabu/201904/P020190409588122375265.pdf";
+    const form = "https://b6p2zqjy.jsjform.com/f/yt8gjZ";
+    const repo = "https://github.com/xingpengyue1-pixel/qianshi-methodology";
+    assert.deepEqual([...external.entries()], [
+      [fonts, "about.html"],
+      [tax, "cases/reserve-fund-audit.html"],
+      [mof, "cases/reserve-fund-audit.html"],
+      [form, "contact.html"],
+      [repo, "insights/asset-loop.html"],
+    ]);
+    for (const url of external.keys()) {
+      const parsed = new URL(url);
+      assert.equal(parsed.protocol, "https:");
+      assert.ok(parsed.hostname);
     }
-    assert.deepEqual(failures, []);
   });
 
-  it("境内政府站点连不上不算死链,HTTP 错误仍然算", () => {
+  it("连接失败和 HTTP 错误都要报告，政府站点也不例外", () => {
     const tax = "https://fgk.chinatax.gov.cn/zcfgk/c100012/c5194804/content.html";
     const mof = "https://kjs.mof.gov.cn/zhengcefabu/201904/P020190409588122375265.pdf";
     const page = "cases/reserve-fund-audit.html";
     const timeout = new Error("The operation was aborted due to timeout");
     timeout.name = "TimeoutError";
-    assert.equal(externalFailure(page, tax, new TypeError("fetch failed")), null);
-    assert.equal(externalFailure(page, mof, new TypeError("fetch failed")), null);
-    assert.equal(externalFailure(page, mof, timeout), null);
-    assert.match(externalFailure(page, tax, new Error("HTTP 404")), /HTTP 404/);
-    assert.match(externalFailure(page, `${new URL(tax).origin}/no-such-page`, new Error("HTTP 404")), /HTTP 404/);
-    assert.match(externalFailure(page, "https://fgk.chinatax.gov.invalid/content.html", new TypeError("fetch failed")), /fetch failed/);
-    assert.match(externalFailure("insights/index.html", "https://github.com/xingpengyue1-pixel/qianshi-methodology", new TypeError("fetch failed")), /fetch failed/);
+    const expectFailure = (pageName, url, error) => {
+      assert.equal(reportExternalFailure(pageName, url, error), `${pageName} -> ${url}: ${error.message}`);
+    };
+    expectFailure(page, tax, new TypeError("fetch failed"));
+    expectFailure(page, mof, new TypeError("fetch failed"));
+    expectFailure(page, mof, timeout);
+    expectFailure(page, tax, new Error("HTTP 404"));
+    expectFailure(page, `${new URL(tax).origin}/no-such-page`, new Error("HTTP 404"));
+    expectFailure(page, "https://fgk.chinatax.gov.invalid/content.html", new TypeError("fetch failed"));
+    expectFailure("insights/index.html", "https://github.com/xingpengyue1-pixel/qianshi-methodology", new TypeError("fetch failed"));
+  });
+
+  it("默认检查不加载外链实请求", () => {
+    const pkg = JSON.parse(readFileSync(path.join(ROOT, "package.json"), "utf8"));
+    assert.equal(pkg.scripts.test, "node --test --test-reporter=spec tests/site.test.mjs");
+    assert.equal(pkg.scripts["test:links"], "node --test --test-reporter=spec tests/external-links.test.mjs");
+    assert.equal(pkg.scripts.test.includes("external-links"), false);
+    const ci = readFileSync(path.join(ROOT, ".github/workflows/ci.yml"), "utf8");
+    assert.match(ci, /\bnpm test\b/);
+    assert.equal(ci.includes("test:links"), false);
+    const checker = readFileSync(path.join(ROOT, "tests/references.mjs"), "utf8");
+    const live = readFileSync(path.join(ROOT, "tests/external-links.test.mjs"), "utf8");
+    assert.equal(checker.includes("MAINLAND_GOV_HOSTS"), false);
+    assert.equal(live.includes("MAINLAND_GOV_HOSTS"), false);
+    assert.match(live, /failures\.push\(reportExternalFailure/);
   });
 });
 
 function scriptText(document) {
   return document.querySelectorAll("script").map((script) => script.text).join("\n");
-}
-
-// 税务总局、财政部官网在海外 CI 上常被超时或重置。连得上时,4xx/5xx 仍算死链。
-const MAINLAND_GOV_HOSTS = new Set(["fgk.chinatax.gov.cn", "kjs.mof.gov.cn"]);
-
-function externalFailure(page, url, error) {
-  let hostname = "";
-  try {
-    hostname = new URL(url).hostname;
-  } catch {
-    hostname = "";
-  }
-  const transport = !/^HTTP \d+/.test(error?.message || "");
-  if (MAINLAND_GOV_HOSTS.has(hostname) && transport) return null;
-  return `${page} -> ${url}: ${error.message}`;
-}
-
-async function assertReachable(url) {
-  let lastError;
-  for (let attempt = 0; attempt < 2; attempt += 1) {
-    try {
-      const response = await fetch(url, {
-        redirect: "follow",
-        headers: { "user-agent": "qianshi-website-linkcheck/1.0" },
-        signal: AbortSignal.timeout(20000),
-      });
-      await response.body?.cancel();
-      if (response.status >= 400) throw new Error(`HTTP ${response.status}`);
-      return;
-    } catch (error) {
-      lastError = error;
-      if (attempt === 0) await new Promise((resolve) => setTimeout(resolve, 1000));
-    }
-  }
-  throw lastError;
 }
