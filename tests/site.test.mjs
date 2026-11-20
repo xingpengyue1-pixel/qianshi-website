@@ -239,6 +239,7 @@ describe("PR #9 案例 SEO 与内链", () => {
   const pages = ["cases/index.html", ...articles];
   // PR #9 原始提交 8d5949b 的提交日期，日期不取测试运行时间。
   const commitDate = "2026-11-08";
+  const modifiedDate = (name) => name === "cases/index.html" ? "2026-11-20" : commitDate;
 
   for (const name of pages) {
     it(`${name} 有唯一的摘要、canonical 和完整分享信息`, () => {
@@ -274,7 +275,7 @@ describe("PR #9 案例 SEO 与内链", () => {
       assert.equal(article.headline, document.querySelector("h1").text.trim());
       assert.equal(article.description, document.querySelector('meta[name="description"]').getAttribute("content"));
       for (const key of ["datePublished", "dateModified"]) {
-        assert.equal(article[key], commitDate);
+        assert.equal(article[key], key === "dateModified" ? modifiedDate(name) : commitDate);
         assert.equal(new Date(article[key]).toISOString().slice(0, 10), article[key]);
       }
       for (const key of ["author", "publisher"]) {
@@ -318,12 +319,12 @@ describe("PR #9 案例 SEO 与内链", () => {
     });
   }
 
-  it("案例首页及三篇新文章的 sitemap lastmod 与 PR 提交日期一致", () => {
+  it("案例首页及三篇方法文章的 sitemap lastmod 对应更新时间", () => {
     const sitemap = parse(readFileSync(path.join(ROOT, "sitemap.xml"), "utf8"));
     for (const name of pages) {
       const entries = sitemap.querySelectorAll("url").filter((entry) => entry.querySelector("loc")?.text === pageUrl(name));
       assert.equal(entries.length, 1, `${name} 应在 sitemap 中出现一次`);
-      assert.equal(entries[0].querySelector("lastmod")?.text, commitDate);
+      assert.equal(entries[0].querySelector("lastmod")?.text, modifiedDate(name));
     }
   });
 });
@@ -347,6 +348,25 @@ describe("方法论", () => {
       assert.ok(source, `${href} 没有链到方法论仓库`);
       assert.match(source.getAttribute("rel") || "", /\bnoopener\b/);
     }
+  });
+});
+
+describe("企业出海服务", () => {
+  it("从首页及案例目录可进入案例，项目状态和承接主体清楚", () => {
+    const href = "cases/ordos-export-services.html";
+    const home = loadPage("index.html");
+    assert.ok(home.querySelector('#products a[href="products.html#cross-border"]'));
+    assert.ok(home.querySelector('#cases a[href="cases/ordos-export-services.html"]'));
+    assert.ok(loadPage("cases/index.html").querySelector('a[href="ordos-export-services.html"]'));
+    const service = loadPage("products.html").querySelector("#cross-border");
+    assert.equal(service.querySelectorAll("dt").length, 4);
+    assert.ok(service.querySelector('a[href="cases/ordos-export-services.html"]'));
+    const project = loadPage(href).querySelector("article");
+    assert.match(project.text, /服务进行中/);
+    assert.match(project.text, /内蒙古潜势科技有限公司/);
+    assert.doesNotMatch(project.text, /PXZB-|中标金额|已完成验收|订单金额/);
+    assert.ok(project.querySelector('a[href="../products.html#cross-border"]'));
+    assert.ok(project.querySelector('a[href="../contact.html"]'));
   });
 });
 
