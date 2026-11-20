@@ -85,6 +85,6 @@ npm run validate
 npm run test:links
 ```
 
-它会请求页面里的每一条外链：Google Fonts 样式表、联系页的金数据表单、方法论指向的公开仓库，以及备用金一文中的税务总局、财政部链接。连不上、超时、HTTP 4xx/5xx 都算失败，不因网站而放行。CI 只跑 `npm test`，不跑这一条。
+它会请求页面里的每一条外链：Google Fonts 样式表、联系页的金数据表单，以及方法论指向的公开仓库。连不上、超时、HTTP 4xx/5xx 都算失败，不因网站而放行。CI 只跑 `npm test`，不跑这一条。
 
 推送到 `main` 或打开 Pull Request 时，[`.github/workflows/ci.yml`](.github/workflows/ci.yml) 会在 Ubuntu 上执行 `npm ci` 和 `npm test`。

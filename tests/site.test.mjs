@@ -372,7 +372,6 @@ describe("企业出海服务", () => {
 
 describe("案例", () => {
   const pages = [
-    ["reserve-fund-audit.html", "备用金流水审计辅助方法"],
     ["state-owned-matrix.html", "央国企新媒体矩阵运营"],
     ["methodology-training.html", "方法论资产化教学"],
     ["local-life-operations.html", "运营商抖音本地生活年度运营"],
@@ -381,7 +380,7 @@ describe("案例", () => {
     ["hall-local-content.html", "运营商营业厅本地内容经营方法"],
   ];
   const sections = ["背景/挑战", "我们做了什么", "方法与交付", "成果"];
-  const anonymized = pages.slice(1).map(([href]) => href);
+  const anonymized = pages.map(([href]) => href);
   const banned = [
     "草原云擎",
     "Cloud-Steppe",
@@ -414,7 +413,7 @@ describe("案例", () => {
     "黑龙江",
   ];
 
-  it("目录列出七篇,每篇都有四段结构", () => {
+  it("目录保留六篇原案例和方法，每篇都有四段结构", () => {
     const index = loadPage("cases/index.html");
     assert.equal(index.querySelector("h1").text.trim(), "案例");
     const hrefs = index.querySelectorAll("a").map((anchor) => anchor.getAttribute("href"));
@@ -444,15 +443,14 @@ describe("案例", () => {
     }
   });
 
-  it("备用金一篇保持通用方法,并写明不是正式意见", () => {
-    const page = loadPage("cases/reserve-fund-audit.html");
-    const text = page.querySelector("article").text;
-    assert.match(text, /2026-09-24/);
-    assert.match(text, /不是正式审计意见/);
-    assert.match(text, /不构成正式鉴证结论/);
-    const hrefs = page.querySelectorAll("a").map((anchor) => anchor.getAttribute("href"));
-    assert.ok(hrefs.includes("https://fgk.chinatax.gov.cn/zcfgk/c100012/c5194804/content.html"));
-    assert.ok(hrefs.includes("https://kjs.mof.gov.cn/zhengcefabu/201904/P020190409588122375265.pdf"));
+  it("已撤下的方法不在发布文件、站内入口或站点地图中", () => {
+    const oldSlug = "reserve-fund-audit.html";
+    assert.equal(existsSync(path.join(ROOT, "cases", oldSlug)), false);
+    for (const name of [...listHtmlFiles(), "sitemap.xml"]) {
+      const file = readFileSync(path.join(ROOT, name), "utf8");
+      assert.equal(file.includes(oldSlug), false, `${name} 仍指向已撤页面`);
+      assert.doesNotMatch(file, /备用金流水审计辅助方法/);
+    }
   });
 
   it("匿名页去掉客户、代号、金额和精确数字", () => {
@@ -659,14 +657,10 @@ describe("链接", () => {
   it("外链清单与页面一致，且都是 https", () => {
     const external = walkReferences();
     const fonts = "https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;500;600&display=swap";
-    const tax = "https://fgk.chinatax.gov.cn/zcfgk/c100012/c5194804/content.html";
-    const mof = "https://kjs.mof.gov.cn/zhengcefabu/201904/P020190409588122375265.pdf";
     const form = "https://b6p2zqjy.jsjform.com/f/yt8gjZ";
     const repo = "https://github.com/xingpengyue1-pixel/qianshi-methodology";
     assert.deepEqual([...external.entries()], [
       [fonts, "about.html"],
-      [tax, "cases/reserve-fund-audit.html"],
-      [mof, "cases/reserve-fund-audit.html"],
       [form, "contact.html"],
       [repo, "insights/asset-loop.html"],
     ]);
@@ -680,7 +674,7 @@ describe("链接", () => {
   it("连接失败和 HTTP 错误都要报告，政府站点也不例外", () => {
     const tax = "https://fgk.chinatax.gov.cn/zcfgk/c100012/c5194804/content.html";
     const mof = "https://kjs.mof.gov.cn/zhengcefabu/201904/P020190409588122375265.pdf";
-    const page = "cases/reserve-fund-audit.html";
+    const page = "fixture.html";
     const timeout = new Error("The operation was aborted due to timeout");
     timeout.name = "TimeoutError";
     const expectFailure = (pageName, url, error) => {
