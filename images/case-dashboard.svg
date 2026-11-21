@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 760" width="900" height="760" role="img" aria-label="标杆订单运营看板示意">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 760" width="900" height="760" role="img" aria-label="内容运营示意">
   <defs>
     <linearGradient id="d-bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#EFEDE5"></stop>
@@ -18,18 +18,18 @@
   <g filter="url(#d-sh)">
     <rect x="64" y="70" width="772" height="170" rx="20" fill="#16150F"></rect>
   </g>
-  <text x="96" y="128" font-family="'Noto Sans SC',sans-serif" font-size="18" fill="#7FB7A6" letter-spacing="2">标杆订单 · 内蒙古移动</text>
-  <text x="94" y="200" font-family="'Noto Serif SC',serif" font-size="84" font-weight="600" fill="#FBFAF6">千万级<tspan font-size="44" fill="#7FB7A6"> · 推进中</tspan></text>
+  <text x="96" y="128" font-family="'Noto Sans SC',sans-serif" font-size="18" fill="#7FB7A6" letter-spacing="2">内容运营 · 示意</text>
+  <text x="94" y="200" font-family="'Noto Serif SC',serif" font-size="64" font-weight="600" fill="#FBFAF6">按项目</text>
   <g>
     <rect x="600" y="108" width="200" height="100" rx="14" fill="#22332E"></rect>
-    <text x="624" y="146" font-family="'Noto Sans SC',sans-serif" font-size="16" fill="#9FCBBD">账号矩阵</text>
-    <text x="622" y="188" font-family="'Noto Serif SC',serif" font-size="40" font-weight="600" fill="#FBFAF6">1210<tspan font-size="18" fill="#9FCBBD">+ 个 · 运营中</tspan></text>
+    <text x="624" y="146" font-family="'Noto Sans SC',sans-serif" font-size="16" fill="#9FCBBD">内容形式</text>
+    <text x="622" y="188" font-family="'Noto Serif SC',serif" font-size="28" font-weight="600" fill="#FBFAF6">短视频与直播</text>
   </g>
 
   <g filter="url(#d-sh)">
     <rect x="64" y="270" width="470" height="420" rx="20" fill="#FBFAF8"></rect>
   </g>
-  <text x="96" y="318" font-family="'Noto Sans SC',sans-serif" font-size="18" font-weight="600" fill="#16150F">月度成单 · 持续爬坡</text>
+  <text x="96" y="318" font-family="'Noto Sans SC',sans-serif" font-size="18" font-weight="600" fill="#16150F">一周内容节奏</text>
   <g>
     <rect x="100" y="600" width="48" height="58" rx="6" fill="url(#d-bar)" opacity="0.55"></rect>
     <rect x="168" y="560" width="48" height="98" rx="6" fill="url(#d-bar)" opacity="0.65"></rect>
@@ -43,7 +43,7 @@
   <g filter="url(#d-sh)">
     <rect x="558" y="270" width="278" height="200" rx="20" fill="#FBFAF8"></rect>
   </g>
-  <text x="588" y="316" font-family="'Noto Sans SC',sans-serif" font-size="17" font-weight="600" fill="#16150F">账号矩阵覆盖</text>
+  <text x="588" y="316" font-family="'Noto Sans SC',sans-serif" font-size="17" font-weight="600" fill="#16150F">按地区准备</text>
   <g fill="#1F3A5F">
     <g>
       <circle cx="592" cy="350" r="7"></circle><circle cx="626" cy="350" r="7"></circle><circle cx="660" cy="350" r="7"></circle><circle cx="694" cy="350" r="7"></circle><circle cx="728" cy="350" r="7"></circle><circle cx="762" cy="350" r="7"></circle><circle cx="796" cy="350" r="7" opacity="0.4"></circle>
@@ -55,8 +55,7 @@
   <g filter="url(#d-sh)">
     <rect x="558" y="490" width="278" height="200" rx="20" fill="#1F3A5F"></rect>
   </g>
-  <text x="588" y="538" font-family="'Noto Sans SC',sans-serif" font-size="17" font-weight="600" fill="#EAF3EF">单位经济模型</text>
-  <text x="588" y="592" font-family="'Noto Serif SC',serif" font-size="52" font-weight="600" fill="#FBFAF6">3 <tspan font-size="22" fill="#BFE0D5">张卡 / 天</tspan></text>
-  <text x="588" y="630" font-family="'Noto Sans SC',sans-serif" font-size="16" fill="#BFE0D5">即可保本 · 口径透明</text>
-  <text x="588" y="662" font-family="'Noto Sans SC',sans-serif" font-size="14" fill="#9FCBBD">成本与佣金逐单可对账</text>
+  <text x="588" y="538" font-family="'Noto Sans SC',sans-serif" font-size="17" font-weight="600" fill="#EAF3EF">交付核对</text>
+  <text x="588" y="600" font-family="'Noto Serif SC',serif" font-size="40" font-weight="600" fill="#FBFAF6">按约定</text>
+  <text x="588" y="648" font-family="'Noto Sans SC',sans-serif" font-size="16" fill="#BFE0D5">范围写进合同</text>
 </svg>

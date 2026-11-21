@@ -239,7 +239,7 @@ describe("PR #9 案例 SEO 与内链", () => {
   const pages = ["cases/index.html", ...articles];
   // PR #9 原始提交 8d5949b 的提交日期，日期不取测试运行时间。
   const commitDate = "2026-11-08";
-  const modifiedDate = (name) => name === "cases/index.html" ? "2026-11-20" : commitDate;
+  const modifiedDate = (name) => name === "cases/index.html" ? "2026-11-21" : commitDate;
 
   for (const name of pages) {
     it(`${name} 有唯一的摘要、canonical 和完整分享信息`, () => {
@@ -333,8 +333,8 @@ describe("方法论", () => {
   const articles = [
     ["asset-loop.html", "方法论资产化：7 圈循环与 5 段法"],
     ["reverse-pitfalls.html", "反向沉淀与 5 个坑"],
-    ["douyin-script.html", "案例：抖音短视频脚本生成器"],
-    ["topic-miner.html", "案例：短视频选题挖掘器"],
+    ["douyin-script.html", "方法示例：抖音短视频脚本生成器"],
+    ["topic-miner.html", "方法示例：短视频选题挖掘器"],
   ];
 
   it("目录列出四篇文章,文末链到方法论仓库", () => {
@@ -364,7 +364,7 @@ describe("企业出海服务", () => {
     const project = loadPage(href).querySelector("article");
     assert.match(project.text, /服务进行中/);
     assert.match(project.text, /内蒙古潜势科技有限公司/);
-    assert.doesNotMatch(project.text, /PXZB-|中标金额|已完成验收|订单金额/);
+    assert.doesNotMatch(project.text, /PXZB-|中标金额|已完成验收|订单金额|承接|首期培训已开展/);
     assert.ok(project.querySelector('a[href="../products.html#cross-border"]'));
     assert.ok(project.querySelector('a[href="../contact.html"]'));
   });
@@ -483,7 +483,7 @@ describe("关键页面元素", () => {
     const html = readPage("products.html");
     assert.match(loadPage("products.html").querySelector("h1").text, /五段价值链/);
     for (const snippet of [
-      "国央企新媒体官方账号矩阵化运营",
+      "央国企新媒体官方账号矩阵化运营",
       "权威与专业内容传播",
       "佣金争夺战",
       "本地生活、文旅及家庭业务协同",
@@ -500,31 +500,26 @@ describe("关键页面元素", () => {
     assert.ok(document.querySelector(".timeline"));
     assert.ok(document.querySelector(".founder-card"));
     assert.equal(document.querySelector("img[alt='邢鹏越']")?.getAttribute("src"), "images/founder.svg");
-    for (const snippet of ["潜势二字,源出乾卦", "2020", "2025", "2027"]) {
+    for (const snippet of ["潜势二字，源出乾卦", "2020", "2025", "2027"]) {
       assert.ok(html.includes(snippet), `关于页缺少「${snippet}」`);
     }
   });
 
-  it("联系页包含电话、地址和金数据咨询表单", () => {
+  it("联系页保留电话和拜访地点，并暂停在线收集", () => {
     const html = readPage("contact.html");
     const document = loadPage("contact.html");
-    assert.match(document.querySelector("h1").text, /运营商合作/);
+    assert.match(document.querySelector("h1").text, /先打电话/);
     assert.ok(html.includes("香格里拉"));
-    assert.ok(html.includes("邢鹏越"));
+    assert.equal(html.includes("赛罕"), false);
+    assert.equal(html.includes("登记住所"), false);
+    assert.ok(html.includes("邢鹏越，创始人、总经理"));
     const phone = document.querySelector("a.tel-link[href='tel:18611206321']");
     assert.equal(phone?.text.trim(), "186 1120 6321");
     assert.equal(document.querySelector("#formFields"), null);
     assert.equal(document.querySelector("#submitBtn"), null);
-    const frame = document.querySelector("iframe#goldendata_form_yt8gjZ");
-    assert.ok(frame, "联系页缺少金数据 iframe");
-    assert.equal(frame.getAttribute("title")?.trim().length > 0, true);
-    const src = new URL(frame.getAttribute("src"));
-    assert.equal(src.origin, "https://b6p2zqjy.jsjform.com");
-    assert.equal(src.pathname, "/f/yt8gjZ");
-    assert.equal(src.searchParams.get("embedded"), "true");
-    assert.equal(src.searchParams.get("inner_redirect"), "true");
-    assert.equal(src.searchParams.get("background"), "white");
-    assert.ok(["show", "hide"].includes(src.searchParams.get("banner")));
+    assert.equal(document.querySelector("iframe"), null);
+    assert.equal(document.querySelector("form"), null);
+    assert.equal(html.includes("jsjform.com"), false);
   });
 
   it("首页团队段落与关于页一样使用「全流程」", () => {
@@ -558,43 +553,22 @@ describe("关键页面元素", () => {
 });
 
 describe("联系表单", () => {
-  const FORM_PAGE = "https://b6p2zqjy.jsjform.com/f/yt8gjZ";
-
-  it("用官方 iframe 嵌入金数据,并提供新窗口备用链接", () => {
-    const html = readPage("contact.html");
-    const document = loadPage("contact.html");
-    const frame = document.querySelector("iframe#goldendata_form_yt8gjZ");
-    const backup = document.querySelector("#formExternal");
-    assert.equal(frame?.tagName, "IFRAME");
-    assert.match(frame.getAttribute("class") || "", /form-frame/);
-    assert.equal(backup?.text.trim(), "在新窗口打开表单");
-    assert.equal(backup.getAttribute("href"), FORM_PAGE);
-    assert.equal(backup.getAttribute("target"), "_blank");
-    assert.match(backup.getAttribute("rel") || "", /\bnoopener\b/);
-    assert.match(backup.getAttribute("rel") || "", /\bnoreferrer\b/);
-    assert.equal(document.querySelector("form"), null);
-    assert.doesNotMatch(html, /formFields|contactName|contactTel|contactTopic|contactNote|submitBtn|deliverContact|findContactEmail|buildContactMailto/);
-    const source = scriptText(document);
-    assert.match(source, /addEventListener\('message'/);
-    assert.match(source, /heightChanged/);
-    assert.match(source, /requestViewportInfo/);
-    assert.match(source, /lockScroll/);
-    assert.match(source, /https:\/\/b6p2zqjy\.jsjform\.com/);
-    assert.match(source, /event\.origin !== formOrigin/);
-    assert.match(source, /nextHeight > Number\(formFrame\.dataset\.appliedHeight\) \+ 2/);
-  });
-
-  it("文案说明会收到并尽快联系,不写具体时限,页脚注明金数据", () => {
+  it("审阅版不提供收集入口，也不编造处理规则", () => {
     const html = readPage("contact.html");
     const document = loadPage("contact.html");
     const intro = document.querySelector("#formIntro").text;
     const footer = document.querySelector("footer").text;
-    assert.match(intro, /提交后我们会收到并尽快联系/);
+    assert.match(intro, /不设在线表单/);
     assert.match(intro, /186 1120 6321/);
-    assert.match(intro, /备用/);
-    assert.match(footer, /咨询表单由金数据提供/);
-    assert.match(footer, /提交后我们会收到并尽快联系/);
-    assert.doesNotMatch(html, /已收到|尚未收到|还没有送出|不会自动送达|不会被本站接收|1\s*个工作日|24\s*小时|小时内|分钟内/);
+    assert.match(footer, /请用电话联系/);
+    assert.equal(footer.includes("访问统计"), false);
+    assert.equal(footer.includes("处理规则"), false);
+    assert.equal(document.querySelector("form"), null);
+    assert.equal(document.querySelector("iframe"), null);
+    assert.equal(document.querySelector("#formExternal"), null);
+    assert.doesNotMatch(html, /formFields|contactName|contactTel|contactTopic|contactNote|submitBtn|deliverContact|findContactEmail|buildContactMailto|jsjform|金数据|隐私政策|个人信息处理规则页/);
+    assert.doesNotMatch(html, /1\s*个工作日|24\s*小时|小时内|分钟内/);
+    assert.equal(existsSync(path.join(ROOT, "privacy.html")), false);
   });
 });
 
@@ -641,6 +615,49 @@ function walkReferences() {
   });
 }
 
+describe("谨慎口径", () => {
+  const banned = [
+    "1210",
+    "同步在播",
+    "零客诉",
+    "保本",
+    "千万",
+    "艺术学院",
+    "东方国信",
+    "中国移动",
+    "中国联通",
+    "内蒙古移动",
+    "高尔夫",
+    "jsjform",
+    "金数据",
+    "投资人",
+    "投资洽谈",
+    "三届",
+    "持牌",
+    "注册地",
+    "2万",
+    "2 万",
+    "客户案例",
+    "备用金",
+    "蒙ICP",
+    "ICP备",
+    "测试表单",
+  ];
+
+  it("公开页不再出现未核实的强主张、具名和收集入口", () => {
+    const files = [...listHtmlFiles(), "images/hero-matrix.svg", "images/case-dashboard.svg"];
+    for (const name of files) {
+      const html = readPage(name);
+      for (const word of banned) {
+        assert.equal(html.includes(word), false, `${name} 仍含「${word}」`);
+      }
+    }
+    assert.equal(existsSync(path.join(ROOT, "favicon.ico")), true);
+    assert.equal(existsSync(path.join(ROOT, "privacy.html")), false);
+    assert.equal(existsSync(path.join(ROOT, "cases/reserve-fund-audit.html")), false);
+  });
+});
+
 describe("链接", () => {
   it("站内链接指向存在的文件和锚点，图片都有替代文本", () => {
     walkReferences();
@@ -657,13 +674,12 @@ describe("链接", () => {
   it("外链清单与页面一致，且都是 https", () => {
     const external = walkReferences();
     const fonts = "https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;500;600&display=swap";
-    const form = "https://b6p2zqjy.jsjform.com/f/yt8gjZ";
     const repo = "https://github.com/xingpengyue1-pixel/qianshi-methodology";
     assert.deepEqual([...external.entries()], [
       [fonts, "about.html"],
-      [form, "contact.html"],
       [repo, "insights/asset-loop.html"],
     ]);
+    assert.equal([...external.keys()].some((url) => url.includes("jsjform.com")), false);
     for (const url of external.keys()) {
       const parsed = new URL(url);
       assert.equal(parsed.protocol, "https:");
