@@ -16,7 +16,7 @@ Codex / Agent 每次改动前请先完整阅读本文件。
 
 ## 改动规则（可执行）
 1. 改页面后必须跑 `npm ci && npm test`（或至少 `npm run validate`），确认全绿再提交。`npm test` 不访问网络。改了页面里的外链时另跑 `npm run test:links`；连不上、超时和 HTTP 4xx/5xx 都算失败，不要把这类失败写成 `npm test` 已通过。CI 只跑 `npm test`。
-2. 不得改动金数据 iframe 地址（`https://b6p2zqjy.jsjform.com/f/yt8gjZ`）与联系电话 186 1120 6321，除非明确要求。
+2. 不得改动联系电话 186 1120 6321，除非明确要求。在线表单在个人信息处理方式确认前保持关闭：不要恢复第三方表单，不要新增收集姓名或手机号的入口，也不要编造一份与实际处理不符的隐私政策。
 3. 保持每个页面有唯一 `h1`、canonical、Open Graph、twitter:card；`sitemap.xml` 要覆盖所有 HTML。
 4. 新增页面时同步更新 `sitemap.xml` 与导航。
 5. 不要引入新的构建工具或依赖；站点本身依赖为零。

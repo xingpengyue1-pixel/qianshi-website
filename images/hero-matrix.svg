@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000" role="img" aria-label="抖音直播矩阵示意">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000" role="img" aria-label="新媒体内容示意">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#F4F2EC"></stop>
@@ -46,9 +46,9 @@
   <g>
     <rect x="298" y="276" width="104" height="34" rx="17" fill="#E25A4A"></rect>
     <circle cx="318" cy="293" r="6" fill="#fff"></circle>
-    <text x="332" y="298" font-family="'Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#fff">直播中</text>
+    <text x="332" y="298" font-family="'Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#fff">内容</text>
     <rect x="416" y="276" width="92" height="34" rx="17" fill="#16150F" fill-opacity="0.45"></rect>
-    <text x="430" y="298" font-family="'Noto Sans SC',sans-serif" font-size="15" fill="#EDEBE4">1.2万在看</text>
+    <text x="400" y="298" font-family="'Noto Sans SC',sans-serif" font-size="15" fill="#EDEBE4">短视频与直播</text>
   </g>
 
   <g>
