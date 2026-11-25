@@ -4,7 +4,7 @@
   "description": "潜势科技静态官网的校验脚本。站点本身无需构建。",
   "type": "module",
   "scripts": {
-    "test": "node --test --test-reporter=spec tests/site.test.mjs",
+    "test": "node --test --test-reporter=spec tests/site.test.mjs tests/copy-redlines.test.mjs",
     "test:links": "node --test --test-reporter=spec tests/external-links.test.mjs",
     "validate": "html-validate index.html products.html about.html contact.html insights/*.html cases/*.html"
   },

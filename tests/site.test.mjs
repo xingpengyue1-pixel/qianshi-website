@@ -707,7 +707,8 @@ describe("链接", () => {
 
   it("默认检查不加载外链实请求", () => {
     const pkg = JSON.parse(readFileSync(path.join(ROOT, "package.json"), "utf8"));
-    assert.equal(pkg.scripts.test, "node --test --test-reporter=spec tests/site.test.mjs");
+    assert.equal(pkg.scripts.test, "node --test --test-reporter=spec tests/site.test.mjs tests/copy-redlines.test.mjs");
+    assert.match(pkg.scripts.test, /copy-redlines\.test\.mjs/);
     assert.equal(pkg.scripts["test:links"], "node --test --test-reporter=spec tests/external-links.test.mjs");
     assert.equal(pkg.scripts.test.includes("external-links"), false);
     const ci = readFileSync(path.join(ROOT, ".github/workflows/ci.yml"), "utf8");
